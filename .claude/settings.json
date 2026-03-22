@@ -1,0 +1,16 @@
+{
+  "outputStyle": "compact",
+  "permissions": {
+    "allow": [
+      "Bash(rg *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(pwd)",
+      "Read(./**)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+.env
+.env.local
+.git
+node_modules
+.archive
+_archive
+docs-global
+media

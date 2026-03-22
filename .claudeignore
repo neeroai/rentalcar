@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.vercel/
+.git/
+.archive/
+_archive/
+*.lock
+*.lockb
+bun.lock
+media/
+docs-global
