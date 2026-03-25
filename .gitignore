@@ -7,6 +7,8 @@ node_modules
 # Testing
 coverage
 *.lcov
+test-results
+playwright-report
 
 # Next.js
 .next
@@ -46,3 +48,8 @@ _archive/
 
 # Local documentation symlink
 docs-global
+
+# Media files (large binaries and sensitive documents)
+media/
+*.pdf
+*.mp4

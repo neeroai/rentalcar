@@ -1,57 +1,65 @@
-# miami-car
+# rentatelo.com prototype
 
-Setup inicial de un website para car rental en Miami, FL.
+Prototipo premium bilingüe ES/EN para `rentatelo.com`, un marketplace de renta de autos Orlando-first orientado a viajeros LATAM que llegan a Florida y quieren elegir el auto exacto, coordinar entregas a aeropuerto/hotel y reservar con mayor claridad operativa.
 
-Este repo queda preparado como base de configuracion para una futura implementacion con Next.js + React + TypeScript + Bun. En esta fase no se desarrolla producto, pantallas ni logica de negocio.
+## Stack
 
----
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- Lucide React
+- Playwright
 
-## Estado
+## Rutas
 
-| Campo | Valor |
-| ----- | ----- |
-| Tipo de repo | Website setup |
-| Fase | Configuracion inicial |
-| Stack objetivo | Next.js 15, React 19, TypeScript, Bun, Biome |
-| Implementacion | Pendiente |
+- `/`
+- `/search`
+- `/vehicle/[slug]`
+- `/checkout`
+- `/booking/confirmed`
+- `/how-it-works`
+- `/host`
+- `/host/list-your-car`
+- `/account/trips`
+- `/account/messages`
+- `/account/wishlist`
 
----
+## Scripts
 
-## Alcance de esta fase
+- `npm run dev`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
+- `npm run test:e2e`
 
-- Configuracion base del proyecto
-- Estructura de tooling y calidad
-- Preparacion para despliegue en Vercel
-- Contexto operativo para agentes
+## Estructura
 
-Fuera de alcance:
+- `app/`: rutas y layout App Router
+- `src/components/`: componentes del prototipo y motion UI
+- `src/data/`: mock data tipada
+- `src/i18n/`: diccionarios ES/EN
+- `src/lib/`: utilidades, filtros, i18n y formatos
+- `docs/`: spec, plan, decisiones y demo script
+- `e2e/`: smoke tests de Playwright
 
-- Desarrollo del website
-- UI, contenido o landing pages
-- Integraciones, formularios o reservas
+## Decisiones clave
 
----
+- Español por defecto con toggle real a inglés, sin prefijos de ruta.
+- Wordmark temporal `rentatelo.com`, sin logo final.
+- Estética “quiet luxury” con fotografía curada y motion sobria.
+- Reserva web como CTA principal y coordinación tipo WhatsApp como apoyo.
+- Todo el proyecto usa mocks locales; no hay backend, auth ni pagos reales.
 
-## Estructura actual
+## Correr el demo
 
-| Ruta | Tipo | Descripcion |
-| ---- | ---- | ----------- |
-| `media/` | Referencia | Material comercial y visual existente |
-| `media/proposals/` | Referencia | Propuesta comercial versionada |
-| `specs/` | Referencia | Research interno previo |
-| `.claude/` | Operacion | Archivos de contexto y seguimiento |
-| `package.json` | Config | Scripts y dependencias base |
-| `tsconfig.json` | Config | Configuracion TypeScript |
-| `biome.json` | Config | Lint y formatting |
-| `next.config.ts` | Config | Configuracion Next.js |
-| `tailwind.config.ts` | Config | Configuracion Tailwind |
-| `postcss.config.js` | Config | Plugin PostCSS |
-| `vercel.json` | Config | Build y deploy en Vercel |
+1. `npm install`
+2. `npm run dev`
+3. Abrir `http://127.0.0.1:3000`
 
----
+Para pruebas end-to-end, instalar navegadores si hace falta:
 
-## Notas
-
-- `media/` y `specs/` se conservan como insumo de contexto, no como source code.
-- No se ha corrido `bun install` todavia, por eso `bun.lock` no existe aun.
-- No se ha desarrollado ninguna pagina o ruta del sitio.
+```bash
+node ./node_modules/@playwright/test/cli.js install chromium
+```
