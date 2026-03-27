@@ -1,0 +1,97 @@
+{
+  "id": "rentatelo_search_zone_economy_sedan_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/search",
+  "slot": "zone_card",
+  "section": "search_zone_section",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a compact editorial vehicle card image showing an efficient economy sedan in an Orlando residential or suburban context — used as a zone illustration in the search results page.",
+  "creative_direction": {
+    "core_idea": "Un sedán limpio y eficiente que representa mobilidad asequible y confiable en Orlando",
+    "visual_thesis": "Esta es la opción economía: accesible, limpia, trustworthy — la elección eficiente para Orlando",
+    "emotion": [
+      "practical confidence",
+      "reliability",
+      "Orlando mobility",
+      "affordable freedom"
+    ]
+  },
+  "composition": {
+    "shot_type": "editorial vehicle card, close to eye level",
+    "layout": "vehicle centered, background softly recognizable as suburban Florida",
+    "camera": {
+      "framing": "4:3 card composition",
+      "angle": "3/4 side-front, near eye level",
+      "lens_style": "50mm editorial realism",
+      "depth_of_field": "vehicle sharp, background soft but recognizable"
+    },
+    "overlay_compatibility": {}
+  },
+  "subject": {
+    "type": "vehicle — no people",
+    "description": "Economy sedan: Toyota Corolla, Hyundai Elantra, or Nissan Sentra style — white or silver, immaculately clean",
+    "placement": "centered, 3/4 side-front angle"
+  },
+  "scene": {
+    "location": "Quiet residential street or suburban area in Orlando, Florida — Kissimmee or Lake Buena Vista area",
+    "time_of_day": "bright morning or midday Florida sun",
+    "environment": [
+      "Florida suburban residential street",
+      "palm trees or Florida oak trees lining the street",
+      "Florida blue sky",
+      "clean pavement"
+    ],
+    "background_view": "Quiet Orlando suburban street — residential neighborhood, no heavy traffic",
+    "critical_scene_rules": [
+      "No rental company logos",
+      "No convertibles",
+      "No people",
+      "No other prominent vehicles",
+      "No overcast sky",
+      "No beach or ocean context",
+      "No heavy traffic"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "clean commercial vehicle photography",
+      "editorial realism",
+      "trustworthy and practical"
+    ],
+    "lighting": {
+      "type": "Florida natural daylight — morning or midday",
+      "effects": "clean highlights on vehicle body, warm Florida sun quality"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "white or silver vehicle",
+      "Florida blue sky",
+      "green street vegetation"
+    ],
+    "accent": ["warm sunlight highlights on body panels"],
+    "rules": [
+      "Keep it clean and practical — no dramatic lighting",
+      "Florida suburban palette: blue sky, green palms, white vehicle"
+    ]
+  },
+  "negative_prompt": [
+    "no text or watermarks",
+    "no people",
+    "no rental logos",
+    "no convertibles",
+    "no overcast sky",
+    "no heavy traffic",
+    "no beach or ocean",
+    "no dirty vehicles",
+    "no generic stock photography"
+  ],
+  "master_prompt": "Create a clean editorial vehicle card image for a car rental search results page zone section. Show an economy sedan — Toyota Corolla, Hyundai Elantra, or Nissan Sentra style — in white or silver, immaculately clean, parked on a quiet residential street in suburban Orlando, Florida, such as Kissimmee or Lake Buena Vista area. Use a 3/4 side-front angle near eye level with the car sharp and the background softly recognizable. Background shows a clean Florida suburban street with palm trees or Florida oak trees, a Florida blue sky, and warm natural daylight. Use bright morning or midday Florida natural sunlight with clean highlights on the vehicle body. The image should feel practical, clean, and trustworthy — the efficient and affordable choice for Orlando airport-to-hotel-to-parks mobility. No people, no rental company logos, no convertibles, no overcast sky, no heavy traffic, no beach context, no watermarks, no generic stock photo energy."
+}

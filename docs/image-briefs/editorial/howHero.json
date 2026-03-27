@@ -1,0 +1,118 @@
+{
+  "id": "rentatelo_how_hero_family_roadtrip_start_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/how-it-works",
+  "slot": "hero_main",
+  "section": "how_hero",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Generate a full-bleed how-it-works page hero image capturing the exact moment a LATAM family begins their Florida road trip — loading a white minivan at Lake Buena Vista hotel parking lot, left third open for headline overlay.",
+  "creative_direction": {
+    "core_idea": "El momento cero del road trip — familia cargando la minivan en Lake Buena Vista, el trip comienza",
+    "visual_thesis": "La página how-it-works empieza aquí: recibes el carro, lo cargas, y Florida es tuyo",
+    "emotion": [
+      "story beginning",
+      "organized excitement",
+      "family road trip anticipation"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide editorial establishing shot with action foreground",
+    "layout": "family and minivan action placed on the right two-thirds of the frame; left third kept visually quiet — open blue Florida sky with soft hotel architecture for headline overlay",
+    "camera": {
+      "framing": "16:9 hero composition",
+      "angle": "slight low angle, eye-level with adults",
+      "lens_style": "35mm editorial realism",
+      "depth_of_field": "family and van sharp; hotel architecture background softly resolved"
+    },
+    "overlay_compatibility": {
+      "left_side": "open blue Florida sky or soft architectural wall — must be clean and readable under white headline typography"
+    }
+  },
+  "subject": {
+    "type": "LATAM family of four at vehicle loading",
+    "description": "Latino family of four — parents 30-42, two children 7-12 — at a white Chrysler Pacifica-style minivan with sliding rear door open. Dad loading last bag into trunk, mom looking at phone with map or itinerary open, kids excited and animated near open sliding door",
+    "expression": "genuine excitement and purposeful energy — this trip is starting NOW, not posed",
+    "wardrobe": [
+      "casual summer travel clothing",
+      "light colors — whites, light blues, soft yellows",
+      "sneakers and sandals",
+      "no branded logos"
+    ],
+    "body_language": "active loading scene — natural movement, children animated near van, parents focused on organized departure"
+  },
+  "scene": {
+    "location": "Lake Buena Vista hotel parking lot, Orlando, Florida — a clean resort-area parking structure or open-air lot with Florida hotel architecture visible",
+    "time_of_day": "morning, 8-9am — fresh Florida morning light, clear day, full of energy",
+    "environment": [
+      "Florida hotel architecture in soft background — modern resort aesthetic",
+      "open-air parking environment with clean pavement",
+      "Florida morning sky — bright blue, light clouds",
+      "tropical landscaping at hotel periphery — palms and ornamental plants",
+      "clean warm Florida morning light quality"
+    ],
+    "background_view": "soft-focus Florida resort hotel architecture behind the van and family, suggesting Lake Buena Vista district without specific hotel branding",
+    "critical_scene_rules": [
+      "No specific hotel logos or identifiable branded signage",
+      "Minivan must have sliding door visibly open — loading scene is active",
+      "No overcast sky or flat light",
+      "No night scene",
+      "Children must appear naturally excited, not stiff or posed",
+      "No Disney or theme park branded elements visible"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "premium family travel editorial photography",
+      "Florida vacation lifestyle brand imagery",
+      "road trip story beginning visual language"
+    ],
+    "lighting": {
+      "type": "bright fresh Florida morning sunlight",
+      "effects": [
+        "warm golden morning highlights on family and vehicle",
+        "clean open sky as backdrop",
+        "soft rim light on van roof from morning sun angle",
+        "natural shadows without harshness — early morning quality"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "Florida sky blue — bright morning",
+      "white minivan body",
+      "warm cream and sand tones from hotel architecture"
+    ],
+    "accent": [
+      "warm amber-gold from morning sunlight",
+      "tropical green from hotel landscaping palms"
+    ],
+    "rules": [
+      "harmonize with brand teal #168F8A and amber #F0B576",
+      "family wardrobe in light neutrals and soft colors — no saturated red or dark clothing",
+      "left-side sky zone must be clean and bright enough for white headline text",
+      "avoid cold blues or desaturated tones"
+    ]
+  },
+  "negative_prompt": [
+    "no text or branded signage in image",
+    "no watermark",
+    "no specific hotel logos",
+    "no Disney or theme park branding",
+    "no generic stock smile — natural expressions only",
+    "no night scene",
+    "no overcast sky",
+    "no snow or mountains",
+    "no beach or ocean",
+    "no dark-colored minivan",
+    "no heavy urban traffic in background",
+    "no cramped interior car shot"
+  ],
+  "master_prompt": "Create a premium full-bleed editorial hero image for the how-it-works page of a car rental marketplace. Capture the exact moment a LATAM family of four begins their Florida road trip at a Lake Buena Vista hotel parking lot in Orlando. Show Latino parents aged 30-42 and two children aged 7-12 actively loading a white Chrysler Pacifica-style minivan — sliding rear door open, dad placing the last bag in the cargo area, mom checking an itinerary or map on her phone, kids animated and excited near the open side door. Place the family and van action on the right two-thirds of the frame. The left third must remain visually quiet and clean — open Florida morning sky and soft hotel architectural wall — creating a readable zone for white headline text. Fresh Florida morning light at 8-9am casts warm golden highlights on the family and vehicle. Behind them, softly resolved: modern Florida resort architecture suggesting the Lake Buena Vista district, no specific hotel logos. Tropical palms at the hotel periphery. Color direction: Florida sky blue, white van body, warm cream hotel architecture, amber-gold morning sunlight, tropical green from landscaping — harmonizing with brand teal #168F8A and amber #F0B576. Family wardrobe in light neutrals and soft colors. Avoid branded signage, Disney elements, night scenes, overcast sky, beach imagery, dark vehicles, generic stock smiles, and snow. This image must feel like the best vacation of the family's life is starting right now."
+}

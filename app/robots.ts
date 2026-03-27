@@ -1,11 +1,14 @@
-import type { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
+
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://rentatelo-demo.vercel.app";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
-      userAgent: '*',
-      allow: '/',
+      userAgent: "*",
+      allow: "/",
     },
-    sitemap: 'https://rentatelo-demo.vercel.app/sitemap.xml',
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

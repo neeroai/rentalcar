@@ -1,0 +1,101 @@
+{
+  "id": "rentatelo_how_step_confirm_handoff_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/how-it-works",
+  "slot": "step_card_3",
+  "section": "how_step_confirm",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a step card image for the 'Confirm and receive your vehicle' how-it-works step — a LATAM family loading luggage into a minivan with help from the host in a hotel parking area near Lake Buena Vista.",
+  "creative_direction": {
+    "core_idea": "El momento de entrega — host ayudando a familia a cargar minivan en hotel parking cerca Lake Buena Vista",
+    "visual_thesis": "Este es el payoff del proceso: el vehículo está aquí, el host es helpful, la familia está lista para ir",
+    "emotion": [
+      "delivery relief",
+      "operational warmth",
+      "trip beginning",
+      "family readiness"
+    ]
+  },
+  "composition": {
+    "shot_type": "editorial lifestyle step card — family + host + vehicle interaction",
+    "layout": "family, host, and minivan all visible in frame, hotel parking area context",
+    "camera": {
+      "framing": "4:3 step card composition",
+      "angle": "natural eye level, slight 3/4 angle capturing the handoff scene",
+      "lens_style": "35mm editorial realism",
+      "depth_of_field": "family, host and vehicle all sharp, background softly recognizable"
+    },
+    "overlay_compatibility": {}
+  },
+  "subject": {
+    "type": "LATAM family + Hispanic host + minivan",
+    "description": "LATAM family — parents plus 1-2 children — loading suitcases into a minivan (Chrysler Pacifica or Toyota Sienna style) with help from a Hispanic host aged 28-42. Host assisting naturally — opening sliding door, handing keys, or lifting a bag.",
+    "expression": "warm, natural, collaborative — a real handoff, not staged",
+    "wardrobe": [
+      "family: casual summer travel clothes, light colors, no brand logos",
+      "host: casual professional attire, no rental company uniform"
+    ],
+    "body_language": "natural movement — loading, helping, engaged interaction"
+  },
+  "scene": {
+    "location": "Hotel or resort parking area near Lake Buena Vista, Orlando, Florida",
+    "time_of_day": "bright Florida natural daylight — warm highlights on all subjects",
+    "environment": [
+      "resort hotel vegetation and Florida sky visible in background",
+      "clean hotel parking area pavement",
+      "minivan sliding rear door open showing cargo space"
+    ],
+    "background_view": "Resort hotel parking area — Lake Buena Vista Orlando, no readable theme park logos",
+    "critical_scene_rules": [
+      "Minivan sliding door must be open showing interior cargo space",
+      "No theme park branding visible",
+      "No rental company logos on vehicle",
+      "Host must look natural and helpful, not staged",
+      "No overcast sky",
+      "No convertibles"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "warm lifestyle editorial photography",
+      "authentic service moment",
+      "real family interaction"
+    ],
+    "lighting": {
+      "type": "bright Florida natural daylight",
+      "effects": "warm highlights on all subjects, natural skin tones, clean vehicle highlights"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "warm Florida daylight",
+      "neutral vehicle white or silver",
+      "light summer clothing colors"
+    ],
+    "accent": ["green resort vegetation", "Florida blue sky"],
+    "rules": [
+      "Warm and human — not clinical or transactional",
+      "Florida daylight warmth on all subjects"
+    ]
+  },
+  "negative_prompt": [
+    "no text or watermarks",
+    "no theme park logos or branding",
+    "no rental company logos",
+    "no convertibles",
+    "no overcast sky",
+    "no staged or stiff poses",
+    "no generic stock photo smiles",
+    "no cold lighting",
+    "no beach context",
+    "no snow"
+  ],
+  "master_prompt": "Create a premium editorial step card image for a how-it-works page illustrating the 'Confirm and receive your vehicle' handoff step. Show a LATAM family — parents plus one or two children — loading suitcases into a minivan (Chrysler Pacifica or Toyota Sienna style) with help from a Hispanic host aged 28-42. The host is assisting naturally — opening the sliding door, handing keys, or lifting a bag — in a clean hotel or resort parking area near Lake Buena Vista in Orlando, Florida. The minivan sliding rear door should be open, showing the cargo space. The scene should feel warm, natural, and collaborative — a real handoff, not a staged stock photo. Resort hotel vegetation and Florida sky are visible in the background, with no readable theme park logos. Use bright Florida natural daylight with warm highlights on all subjects. Family in casual summer travel clothes, host in casual professional attire with no rental company uniform. Avoid text, watermarks, theme park branding, rental logos, convertibles, overcast sky, stiff poses, generic stock smiles, cold lighting, and beach context."
+}

@@ -1,0 +1,121 @@
+{
+  "id": "rentatelo_experience_clearwater_minivan_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "experience_card_parks",
+  "section": "home_experience_parks",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "1:1",
+    "resolution": "2048x2048"
+  },
+  "goal": "Generate a square 1:1 card image showing a white Chrysler Pacifica minivan parked at Clearwater Beach with sliding rear door fully open revealing beach gear, Gulf of Mexico turquoise water and white sand visible in background — no people, must read 'beach day family vehicle' instantly at card size.",
+  "creative_direction": {
+    "core_idea": "La minivan de Clearwater — puerta abierta, equipaje de playa, Golfo turquesa al fondo",
+    "visual_thesis": "En card 1:1 debe leer 'playa + familia + minivan' en un vistazo",
+    "emotion": [
+      "beach day readiness",
+      "family capacity",
+      "Clearwater vacation joy"
+    ]
+  },
+  "composition": {
+    "shot_type": "3/4 rear-side editorial — open sliding door as hero element",
+    "layout": "Minivan occupies left-to-center frame; open sliding door reveals beach gear; Gulf water visible in background right quadrant",
+    "camera": {
+      "framing": "1:1 square — open door must be fully visible and dominant",
+      "angle": "3/4 rear-side, eye level — parallel to the open door plane",
+      "lens_style": "35mm editorial — slight wide for context",
+      "depth_of_field": "vehicle and open door sharp, Gulf water background softly turquoise and identifiable"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper right — sky or blurred Gulf water",
+      "logo_safe_zone": "lower right corner — sand or pavement"
+    }
+  },
+  "subject": {
+    "type": "vehicle only — no people",
+    "model_reference": "Chrysler Pacifica 2022-2024 style — white, sliding rear passenger door fully open",
+    "cargo_contents": "beach cart visible in open door area — two boogie boards, colorful beach umbrella tip sticking up, small cooler, beach bag",
+    "critical_attributes": [
+      "sliding rear door must be fully open — this is the key visual signal",
+      "beach gear loaded and visible in the doorway",
+      "white exterior, clean and vacation-ready",
+      "no rental company logos or stickers",
+      "no convertibles"
+    ]
+  },
+  "scene": {
+    "location": "Clearwater Beach parking area — beachfront lot adjacent to white sand, Pinellas County, FL",
+    "time_of_day": "bright midday Florida sun — no shadows from clouds",
+    "environment": [
+      "Gulf of Mexico turquoise water visible in background — distinctly tropical teal-green",
+      "white sand beach at the edge of frame",
+      "Florida blue sky above",
+      "clean beachfront parking pavement",
+      "no commercial signage or resort branding readable"
+    ],
+    "background_view": "Gulf of Mexico turquoise water meeting white sand — Clearwater Beach signature palette",
+    "critical_scene_rules": [
+      "No people anywhere in frame",
+      "No readable beach resort or parking lot signage",
+      "No convertibles",
+      "Open sliding door must be the dominant visual element — fully open, not ajar",
+      "Gulf water must be visibly turquoise — this identifies Clearwater, not generic beach"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "family travel editorial",
+      "beach lifestyle photography",
+      "Florida Gulf Coast visual language"
+    ],
+    "lighting": {
+      "type": "Florida midday direct sun — bright, zero-shadow clouds",
+      "effects": [
+        "clean white paint highlights along minivan body",
+        "interior of open door lit by ambient outdoor light — gear clearly visible",
+        "Gulf water sparkles in background — sun glitter on turquoise surface",
+        "white sand reflects warm light upward"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "white minivan body",
+      "turquoise Gulf water — #38B2AC range",
+      "white sand beach"
+    ],
+    "accent": [
+      "colorful beach umbrella in door — coral or teal",
+      "Florida blue sky"
+    ],
+    "rules": [
+      "Turquoise water must read clearly against white sand and white vehicle",
+      "Open door area must contrast enough to see beach gear",
+      "Palette: white + turquoise + sky blue — clean Gulf Coast family aesthetic",
+      "No dark or moody tones — this is pure beach day energy"
+    ]
+  },
+  "negative_prompt": [
+    "no people",
+    "no passengers",
+    "no children",
+    "no text in image",
+    "no watermark",
+    "no rental company logos",
+    "no resort branding",
+    "no convertibles",
+    "no overcast sky",
+    "no gray sky",
+    "no mountains",
+    "no theme park context",
+    "no closed sliding door",
+    "no Atlantic Ocean — Gulf only",
+    "no dirty or sandy vehicle exterior"
+  ],
+  "master_prompt": "Create a square 1:1 editorial image at 2048x2048 pixels for a car rental marketplace showing a clean white Chrysler Pacifica minivan parked at a Clearwater Beach beachfront parking area with the sliding rear passenger door fully open. No people. Shot from a 3/4 rear-side angle at eye level with a 35mm lens. The open sliding door is the dominant visual element — visible inside the doorway is a beach cart with two boogie boards, a colorful coral or teal beach umbrella tip pointing up, a small cooler, and a beach bag. The Gulf of Mexico is clearly visible in the background right quadrant: turquoise-teal water meeting white sand under a vivid Florida blue sky. The minivan is white and spotless with clean midday sun highlights along the body. White sand beach edge visible at the bottom of frame. No readable signage, no resort branding, no rental logos. The image must instantly communicate 'family beach day at Clearwater — the minivan is loaded and ready' at card size. Avoid people, passengers, children, closed door, overcast sky, mountains, theme park context, Atlantic Ocean visuals, and any text or watermarks."
+}

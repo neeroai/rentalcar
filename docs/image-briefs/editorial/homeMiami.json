@@ -1,0 +1,125 @@
+{
+  "id": "rentatelo_home_miami_ocean_drive_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "destination_secondary",
+  "section": "home_destination_miami",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Tarjeta de destino secundario Miami en el homepage de rentatelo.com — evocar reconocimiento instantáneo de Ocean Drive en blue hour, sin personas, neon activado, icónico y aspiracional para cualquier familia LATAM.",
+  "creative_direction": {
+    "core_idea": "Ocean Drive en blue hour — el Miami que todos reconocen, sin personas",
+    "visual_thesis": "Esta tarjeta debe hacer que cualquier LATAM diga 'eso es Miami' en 1 segundo — reconocimiento cultural inmediato, no turismo genérico",
+    "emotion": [
+      "cosmopolitan glamour",
+      "iconic recognition",
+      "urban vacation dream",
+      "night magic"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide horizontal street editorial",
+    "layout": "Art Deco building facades filling left two-thirds, royal palms in center median, street receding into right distance, wet pavement reflections anchoring foreground",
+    "camera": {
+      "framing": "4:3 destination card — buildings fill upper 70%, wet pavement reflection in lower 30%",
+      "angle": "eye-level from street, slightly below sign height to capture neon vertical signage",
+      "lens_style": "35mm editorial realism, natural perspective",
+      "depth_of_field": "deep — full facade sharp from foreground to mid-block, atmospheric softness at far end of street"
+    },
+    "overlay_compatibility": {
+      "overlay_zone": "lower-left corner and potential label badge",
+      "zone_content": "wet dark pavement with neon reflections — dark enough for text",
+      "text_color_compatibility": "white or light amber",
+      "brightness_target": "pavement zone luminance 25–40%"
+    }
+  },
+  "subject": {
+    "type": "architectural street scene — no people",
+    "buildings": [
+      "Hotel Breakwater — iconic vertical neon sign activated",
+      "Colony Hotel — pastel yellow facade, neon script sign",
+      "Carlyle Hotel — Art Deco three-tower facade"
+    ],
+    "facade_colors": "Art Deco pastels — pink, turquoise, pale yellow, coral — muted by blue hour ambient but warmed by neon glow",
+    "palms": "tall royal palms in Ocean Drive center median, fronds catching neon color",
+    "vehicle": "classic American car silhouette parked at curb — 1950s or 1960s, no brand visible, dark color, wet roof reflecting neon",
+    "street": "wet pavement from recent rain, horizontal neon reflections creating color streaks"
+  },
+  "scene": {
+    "location": "Ocean Drive, South Beach, Miami Beach, FL — 5th to 10th Street block, looking north",
+    "time_of_day": "blue hour — 15 to 25 minutes after sunset, neon fully activated, sky deep indigo-purple",
+    "environment": [
+      "Art Deco building facades with pastel paint and activated neon vertical signs",
+      "tall royal palms in center median, 30–40 feet height",
+      "wet pavement from recent light rain — active neon reflections",
+      "deep indigo-purple post-sunset sky above rooflines",
+      "classic car silhouette parked at street curb"
+    ],
+    "background_view": "Ocean Drive receding into mid-distance, consistent Art Deco facades both sides, deep indigo sky as ceiling, no ocean or beach visible from this angle",
+    "critical_scene_rules": [
+      "zero people — street is completely empty of pedestrians and moving traffic",
+      "sky must be deep indigo-blue post-sunset — not black night, not warm golden hour",
+      "neon signs must be activated and contributing warm pink, red, and amber color to scene",
+      "wet pavement is mandatory — creates iconic neon reflections on street surface",
+      "classic car silhouette at curb is optional but preferred for Miami cultural cue",
+      "no beach, no ocean, no sand visible in this shot",
+      "buildings must be clearly Art Deco South Beach — not generic Miami high-rises"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "architectural travel editorial",
+      "blue hour photography",
+      "Miami South Beach nocturnal"
+    ],
+    "lighting": {
+      "primary": "blue hour ambient — deep indigo sky providing cool base light on facades",
+      "neon_contribution": "warm pink, red, amber neon glow from building signs — primary warm light source at street level",
+      "palm_lighting": "neon color spill tinting fronds warm pink or amber",
+      "pavement": "wet surface acting as mirror for neon signs — horizontal color streaks of pink and amber",
+      "quality": "high contrast between cool indigo sky and warm neon street level — defining blue hour tension"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "deep indigo sky #2B1D4E tonal range",
+      "neon pink and coral on facades",
+      "wet dark pavement base"
+    ],
+    "accent": [
+      "amber F0B576 neon warm light",
+      "teal 168F8A in shadowed facade areas and palm base",
+      "classic car dark metallic"
+    ],
+    "rules": [
+      "sky strictly deep indigo-blue — no warm tones above rooflines",
+      "neon glow must be warm pink-amber — no cold blue neon",
+      "pavement must show clear neon reflections — not dry or matte",
+      "Art Deco pastels visible under blue hour ambient but secondary to neon warmth",
+      "overall image: cool sky tension with warm neon street level — this contrast is the Miami signature"
+    ]
+  },
+  "negative_prompt": [
+    "any people or pedestrians visible",
+    "moving vehicles or headlights in motion",
+    "daytime or golden hour lighting",
+    "generic Miami skyline or Biscayne Bay",
+    "beach or ocean visible",
+    "modern glass high-rise buildings",
+    "cold blue neon or purple neon signs",
+    "dry pavement — wet surface is mandatory",
+    "black night sky — must be blue hour indigo",
+    "text or watermarks in scene",
+    "overcast flat lighting",
+    "aerial or drone perspective",
+    "party or nightclub crowd energy",
+    "HDR over-processing"
+  ],
+  "master_prompt": "Destination card image for rentatelo.com homepage — Miami as the iconic second-destination the LATAM family will drive to. Show Ocean Drive in South Beach, Miami Beach, Florida, at blue hour — 15 to 25 minutes after sunset. The Art Deco hotel facades from 5th to 10th Street fill the frame: Hotel Breakwater with activated vertical neon sign, Colony Hotel in pale yellow, Carlyle three-tower facade. Tall royal palms stand in the center median, their fronds catching warm neon color spill. The street is completely empty of people and moving traffic — one classic American car silhouette from the 1950s or 60s is parked at the curb, dark color, wet roof reflecting neon signs. The pavement is wet from recent rain, creating vivid horizontal neon reflections in pink, coral, and amber. Wide horizontal composition 4:3, buildings filling upper 70%, reflective pavement in lower 30%. Sky is deep indigo-purple post-sunset — fully blue hour, not black night. Neon signs activated: warm pink, red, amber tones at street level creating high contrast against the cool indigo sky above rooflines. 35mm editorial perspective, deep focus. Color: deep indigo sky, warm neon pink-amber from signs, teal 168F8A in facade shadows, amber F0B576 accent in neon warmth. Avoid: any people, moving vehicles, beach or ocean, generic skyline, dry pavement, cold blue neon, daytime light, aerial angle, text, watermarks."
+}

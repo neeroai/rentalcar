@@ -1,0 +1,123 @@
+{
+  "id": "rentatelo_roadtrip_seven_mile_bridge_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/destinations/florida-keys",
+  "slot": "roadtrip_hero",
+  "section": "destination_keys_hero",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Generate a cinematic 16:9 hero image of Seven Mile Bridge, Florida Keys — wide telephoto compression showing the bridge stretching to the vanishing point over turquoise water, single car as a tiny scale speck on bridge, no text, the definitive 'only a car gets you here' image.",
+  "creative_direction": {
+    "core_idea": "Seven Mile Bridge — el road trip más icónico de USA, solo accesible con un carro",
+    "visual_thesis": "Esta imagen vende el trip completo. No hay bus ni tren hasta los Keys — solo el carro",
+    "emotion": [
+      "ultimate road freedom",
+      "bucket list",
+      "once-in-a-lifetime drive",
+      "Florida epic"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide telephoto landscape — bridge compression from land vantage point",
+    "layout": "Bridge runs horizontally left-to-right across the middle third of frame, vanishing into horizon center-right; water fills upper and lower halves; sky occupies top 25%",
+    "camera": {
+      "framing": "16:9 cinematic landscape — maximum horizontal compression",
+      "angle": "low land vantage point, slightly elevated above water — telephoto compression required",
+      "lens_style": "200-400mm telephoto — dramatic bridge compression, water fills both sides",
+      "depth_of_field": "deep focus — bridge structure sharp foreground to vanishing horizon"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper left sky quadrant — pure blue with no bridge elements",
+      "logo_safe_zone": "lower left corner — dark water or bridge shadow area"
+    }
+  },
+  "subject": {
+    "type": "landscape — bridge as subject, car as scale reference",
+    "primary": "Seven Mile Bridge spanning turquoise-blue water — both Atlantic and Florida Bay visible, different blue-green tones on each side",
+    "secondary": "Old Seven Mile Bridge — abandoned parallel bridge running alongside, adds depth and history",
+    "scale_element": "single car — tiny speck on the bridge at mid-distance, establishes human scale",
+    "critical_attributes": [
+      "bridge must stretch to a vanishing point — telephoto compression required",
+      "single car speck for scale — not prominent, just present",
+      "old parallel bridge visible as secondary structural element",
+      "no people visible — only the car from a great distance"
+    ]
+  },
+  "scene": {
+    "location": "Seven Mile Bridge, Florida Keys, Mile Marker 40-47, Monroe County, FL — one of the most iconic drives in USA",
+    "time_of_day": "midday Florida sun — pure blue sky, maximum water color saturation",
+    "environment": [
+      "Atlantic Ocean to the right side of bridge — deeper blue",
+      "Florida Bay to the left side of bridge — lighter turquoise-green",
+      "pure Florida blue sky — few photogenic clouds allowed",
+      "old abandoned parallel bridge running alongside",
+      "no commercial development visible — pure bridge and water",
+      "water color distinctly different on each side of bridge — unique Keys characteristic"
+    ],
+    "background_view": "bridge vanishes into horizon over turquoise water — no land visible at horizon",
+    "critical_scene_rules": [
+      "No people — only a tiny car speck visible at distance",
+      "Bridge must stretch to a vanishing point — this is the core visual",
+      "Both water bodies visible on each side of bridge — essential Keys identity",
+      "Old parallel bridge must be visible as secondary element",
+      "No text, no signage, no commercial development",
+      "Sky must be vivid Florida blue — not overcast, not sunset"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "cinematic landscape photography",
+      "iconic American road trip imagery",
+      "Florida Keys travel editorial"
+    ],
+    "lighting": {
+      "type": "Florida midday direct sun — maximum color saturation on water",
+      "effects": [
+        "water is vivid turquoise-teal — postcard perfect, not realistic flat",
+        "bridge concrete appears warm white-gray in direct sun",
+        "no dramatic shadows — clarity and color saturation are the goal",
+        "sky is vivid blue — not HDR, just saturated Florida palette"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "turquoise-teal water — Florida Keys specific #20B2AA to #00CED1 range",
+      "vivid Florida blue sky",
+      "warm gray-white bridge concrete"
+    ],
+    "accent": [
+      "slightly different blue-green tones on Atlantic vs Bay side",
+      "old bridge warm gray structure"
+    ],
+    "rules": [
+      "Water is the visual star — must be distinctly turquoise, not generic blue ocean",
+      "Bridge must read as a strong horizontal line that creates visual pull to the horizon",
+      "Color palette: postcard Florida Keys — vivid, saturated, optimistic",
+      "No desaturation, no moody tones, no golden hour — pure daytime Keys clarity"
+    ]
+  },
+  "negative_prompt": [
+    "no people",
+    "no multiple cars — one tiny speck only",
+    "no text in image",
+    "no watermark",
+    "no signage",
+    "no commercial buildings",
+    "no boats in foreground — water clean",
+    "no overcast sky",
+    "no gray sky",
+    "no sunset or golden hour",
+    "no Miami skyline",
+    "no urban context",
+    "no flat or gray water — must be vivid turquoise",
+    "no aerial drone POV — land vantage point only"
+  ],
+  "master_prompt": "Create a cinematic 16:9 hero landscape image at 2400x1350 pixels for a car rental marketplace showing the Seven Mile Bridge in the Florida Keys stretching across turquoise water to a vanishing point on the horizon. Shot from a low land vantage point using a 200-400mm telephoto lens for dramatic bridge compression — the bridge appears to float on the water and converges toward the horizon. Atlantic Ocean on the right side of the bridge shows deeper blue; Florida Bay on the left shows lighter turquoise-green — both distinctly visible, creating the unique Two-Oceans Keys identity. The old abandoned parallel Seven Mile Bridge runs alongside the main bridge, adding historical depth. The sky is vivid Florida blue with one or two photogenic cumulus clouds in the upper portion of the frame. A single tiny car is visible as a small speck on the bridge at mid-distance — establishing scale but not dominating. No other cars, no people, no boats in the foreground, no commercial development. Bridge concrete appears warm white-gray in direct midday sun. Water is the visual star: vivid turquoise-teal in the Florida Keys palette, not generic blue ocean. The composition creates an irresistible visual pull toward the horizon — the feeling that you absolutely must drive this road. This image must communicate 'there is no bus to the Keys, no train — only a rental car gets you here' without any words. Avoid aerial/drone angles, people, multiple cars, text, watermarks, gray sky, overcast conditions, sunset tones, and any urban or commercial context."
+}

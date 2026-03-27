@@ -1,0 +1,102 @@
+{
+  "id": "rentatelo_how_step_arrival_mco_pickup_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/how-it-works",
+  "slot": "step_card_1",
+  "section": "how_step_arrival",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a step card image for the 'Arrive at MCO' how-it-works step — a compact SUV parked at the MCO pickup zone with a host waiting nearby, phone in hand, ready to hand over the vehicle.",
+  "creative_direction": {
+    "core_idea": "Paso uno del viaje: el host ya está en MCO con el vehículo, phone en mano, esperando a la familia",
+    "visual_thesis": "Confianza operacional — esta imagen muestra que el auto y el host ya están ahí antes de que el viajero salga del aeropuerto",
+    "emotion": [
+      "operational confidence",
+      "readiness",
+      "trust in the system",
+      "welcoming reliability"
+    ]
+  },
+  "composition": {
+    "shot_type": "editorial step card — vehicle and host both visible",
+    "layout": "host and vehicle sharing the frame, airport context recognizable in background",
+    "camera": {
+      "framing": "4:3 step card composition",
+      "angle": "natural eye level, slight 3/4 angle",
+      "lens_style": "50mm editorial realism",
+      "depth_of_field": "host and vehicle both in sharp focus, airport background softly recognizable"
+    },
+    "overlay_compatibility": {}
+  },
+  "subject": {
+    "type": "host + vehicle",
+    "description": "Hispanic male host, 28-42, standing naturally near the vehicle — looking at phone as if tracking the arriving family. Casual but professional attire, no rental company uniform.",
+    "expression": "relaxed, ready, welcoming — not stiff or posed",
+    "wardrobe": [
+      "casual polo or button shirt",
+      "clean pants",
+      "no branded uniform or logos"
+    ],
+    "body_language": "standing near vehicle, phone in hand, relaxed readiness"
+  },
+  "scene": {
+    "location": "Orlando International Airport (MCO) exterior pickup zone, Orange County, Florida",
+    "time_of_day": "daytime — bright Florida sun",
+    "environment": [
+      "MCO airport exterior architectural canopy or pickup zone structure",
+      "Florida blue sky",
+      "clean pavement",
+      "warm natural daylight"
+    ],
+    "background_view": "MCO airport exterior pickup zone architecture — no readable airline logos or signage",
+    "critical_scene_rules": [
+      "No readable airport signage or airline logos",
+      "No rental company branding on vehicle",
+      "No convertibles",
+      "Vehicle must be neutral color — silver or white",
+      "Host should look natural, not posed"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "premium editorial photography",
+      "authentic operational realism",
+      "trustworthy service"
+    ],
+    "lighting": {
+      "type": "Florida natural daylight — bright and warm",
+      "effects": "clean vehicle highlights, natural skin tones on host, warm Florida sun quality"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "Florida blue sky",
+      "neutral vehicle paint",
+      "warm natural skin tones"
+    ],
+    "accent": ["warm golden sunlight highlights"],
+    "rules": [
+      "Warm and inviting — not cold or clinical",
+      "Florida daylight warmth throughout"
+    ]
+  },
+  "negative_prompt": [
+    "no text or watermarks",
+    "no readable airport signage",
+    "no airline logos",
+    "no rental company logos or uniforms",
+    "no convertibles",
+    "no overcast sky",
+    "no stiff or posed expressions",
+    "no generic stock photo smiles",
+    "no cold lighting",
+    "no beach context"
+  ],
+  "master_prompt": "Create a premium editorial step card image for a how-it-works page illustrating the 'Arrive at MCO' step. Show a clean compact SUV — Nissan Rogue or Toyota RAV4 style — in silver or white, parked at Orlando International Airport exterior pickup zone. A Hispanic male host aged 28-42 stands naturally near the vehicle, holding a phone as if tracking the arriving family, with a relaxed welcoming expression. He wears casual professional attire with no branded rental company uniform. The MCO exterior architecture — canopy or pickup zone structure — is visible in the background with Florida blue sky and clean pavement. Use bright Florida natural daylight with warm highlights on vehicle and natural skin tones on the host. Both host and vehicle should be sharp, airport background softly recognizable. No readable airport signage or airline logos visible. The image should feel like a coordinated private car pickup — trusted, warm, professional. Avoid text, watermarks, readable signage, rental logos, convertibles, overcast sky, stiff poses, generic stock smiles, and cold lighting."
+}

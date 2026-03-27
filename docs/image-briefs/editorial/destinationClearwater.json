@@ -1,0 +1,124 @@
+{
+  "id": "rentatelo_destination_clearwater_pier60_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/destinations/clearwater",
+  "slot": "destination_card_beach",
+  "section": "destination_clearwater",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a 4:3 destination card image showing a family of four silhouettes on Clearwater Beach Pier 60 at golden hour sunset — sky on fire with orange-amber-pink, Gulf of Mexico turquoise-gold below, no faces, universal LATAM family silhouette, the #1 most photogenic Florida beach moment.",
+  "creative_direction": {
+    "core_idea": "Pier 60 sunset — la familia mirando el mejor atardecer de Florida, solo posible en carro desde Orlando",
+    "visual_thesis": "Clearwater es 1h45 desde MCO. Este sunset es el reward del road trip",
+    "emotion": [
+      "sunset magic",
+      "family togetherness",
+      "beach achievement",
+      "Florida perfection"
+    ]
+  },
+  "composition": {
+    "shot_type": "silhouette portrait — family backs to camera, facing sunset",
+    "layout": "Family of 4 silhouettes centered on Pier 60 — two adults flanking two children; sky fills the upper 55%; Gulf water with sunset reflections fills the lower 30%; pier structure frames top",
+    "camera": {
+      "framing": "4:3 — horizontal card with sky dominance",
+      "angle": "eye level or slightly low — camera behind the family, looking at sunset with them",
+      "lens_style": "85mm portrait — natural perspective, no distortion, sky and water both in frame",
+      "depth_of_field": "silhouettes sharp and black, sunset sky and Gulf water richly detailed"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper right sky — deep orange or pink gradient, no silhouette overlap",
+      "logo_safe_zone": "lower left — white sand or dark pier base"
+    }
+  },
+  "subject": {
+    "type": "family silhouettes — no faces, backs to camera",
+    "description": "Family of four: two adults (parents) standing, two children between them — one smaller child possibly held up or pointing at the horizon. All silhouetted, no facial features visible.",
+    "critical_attributes": [
+      "backs to camera — no faces at all",
+      "family of four — two adults, two children",
+      "silhouetted against the sunset — pure black outlines only",
+      "no beach towels or objects distracting from the silhouette",
+      "universal silhouette — no identifiable ethnicity markers",
+      "positioned on Pier 60 structure"
+    ]
+  },
+  "scene": {
+    "location": "Clearwater Beach, Pier 60, Pinellas County, FL — Gulf of Mexico facing west",
+    "time_of_day": "golden hour sunset — sun at or just below horizon, sky at maximum color intensity",
+    "environment": [
+      "Pier 60 wooden structure visible — planks, railing silhouette framing top of image",
+      "Gulf of Mexico ahead and below — turquoise water now reflecting orange-gold sunset",
+      "white sand beach at the base of the pier in the foreground",
+      "sky is on fire: deep orange at horizon, amber mid-sky, pink-magenta upper sky",
+      "no commercial structures, no parasail boats — pure sky and water"
+    ],
+    "background_view": "Gulf of Mexico sunset — horizon glowing orange, water reflecting amber-gold, pink sky above",
+    "critical_scene_rules": [
+      "No faces visible — pure silhouettes only",
+      "Sky must be dramatic — orange-amber-pink gradient, not subtle or pastel",
+      "Gulf water must reflect the sunset — gold-orange glitter on turquoise base",
+      "Pier 60 structure must frame or be identifiable — it is the location anchor",
+      "No identifiable branded commercial elements",
+      "White sand beach must be visible in the foreground"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "golden hour travel photography",
+      "family silhouette editorial",
+      "Florida Gulf Coast sunset iconic"
+    ],
+    "lighting": {
+      "type": "golden hour sunset — sun at or just below Gulf horizon",
+      "effects": [
+        "sky is maximum color saturation: orange at horizon, amber above, pink-magenta at zenith",
+        "Gulf water surface breaks into orange-gold light reflection — dancing light on water",
+        "family silhouettes are pure black — no rim lighting, no fill — pure contre-jour",
+        "white sand in foreground picks up warm orange-pink glow",
+        "Pier 60 structure is a dark silhouette framing the top"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "deep orange at horizon — #FF6B35 range",
+      "amber mid-sky — #F0B576 range (brand amber)",
+      "turquoise-gold Gulf water — sunset reflection"
+    ],
+    "accent": [
+      "pink-magenta upper sky",
+      "pure black family silhouettes",
+      "warm orange-pink sand"
+    ],
+    "rules": [
+      "Brand amber #F0B576 appears naturally in the sky — no forced placement",
+      "Silhouettes must be pure black — no color bleeding into them",
+      "Sky color gradient must be dramatic and cinematic — not soft or pastel",
+      "Gulf water must show both turquoise base color and orange-gold sunset reflection"
+    ]
+  },
+  "negative_prompt": [
+    "no faces",
+    "no front-facing people",
+    "no text in image",
+    "no watermark",
+    "no commercial signage",
+    "no parasail or water sports equipment",
+    "no boats",
+    "no overcast sky",
+    "no flat or gray sunset",
+    "no Atlantic coast — Gulf of Mexico only",
+    "no mountains",
+    "no urban skyline",
+    "no identifiable rental cars in frame",
+    "no crowded beach — pier only, minimal context"
+  ],
+  "master_prompt": "Create a 4:3 destination card image at 2000x1500 pixels for a car rental marketplace destination page showing the iconic Clearwater Beach Pier 60 golden hour sunset. Family of four silhouettes — two adults flanking two children, one child possibly pointing at the horizon — stands centered on Pier 60, all backs to camera, no faces visible, pure black silhouettes in contre-jour. Shot from behind the family at eye level with an 85mm lens, looking west toward the Gulf of Mexico sunset. The sky is dramatic and on fire: deep orange at the horizon, amber in the mid-sky, fading to pink-magenta above — maximum color saturation, not pastel. The Gulf of Mexico surface reflects the orange-gold sunset with dancing light on the turquoise-gold water. Pier 60's wooden structure and railing form a dark silhouette that frames the upper portion of the image. White sand beach is visible in the foreground, glowing warm orange-pink from the sunset. No commercial signage, no boats, no parasails, no faces, no text. The composition places the viewer behind the family, experiencing the sunset with them — the feeling of arrival, reward, and Florida perfection after a road trip from Orlando. The brand amber tone #F0B576 appears naturally in the mid-sky. Avoid faces, front-facing people, overcast sky, gray sunset, boats, commercial branding, Atlantic coast context, urban skyline, and any text or watermarks."
+}

@@ -1,0 +1,130 @@
+{
+  "id": "rentatelo_home_hero_vacation_florida_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "hero_main",
+  "section": "home_hero",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Hero principal del homepage de rentatelo.com — generar FOMO de viaje familiar en Florida. El carro es el habilitador invisible; el payoff emocional es la familia parada en Pier 60 mirando el Golfo de México al sunset.",
+  "creative_direction": {
+    "core_idea": "El carro los trajo aquí — Clearwater Beach Pier 60 al sunset, familia mirando al Golfo",
+    "visual_thesis": "La primera imagen que ven debe generar FOMO de viaje — el carro no es el producto, es el portal a este momento",
+    "emotion": [
+      "vacation payoff",
+      "freedom",
+      "family togetherness",
+      "Florida dream fulfilled"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide establishing shot",
+    "layout": "family cluster center-right, SUV parked background left-center, left third entirely open sky and ocean for headline overlay",
+    "camera": {
+      "framing": "left third fully reserved — open sky transitioning to dark ocean edge, zero subjects in that zone",
+      "angle": "eye-level, slight low angle to amplify horizon scale and sky presence",
+      "lens_style": "24–35mm equivalent, natural perspective, zero barrel distortion",
+      "depth_of_field": "deep focus — family sharp, SUV slightly soft but clearly identifiable, horizon crisp"
+    },
+    "overlay_compatibility": {
+      "overlay_zone": "left third",
+      "zone_content": "open sky transitioning to dark ocean edge",
+      "text_color_compatibility": "white or light cream",
+      "brightness_target": "zone luminance below 40% to guarantee white text legibility"
+    }
+  },
+  "subject": {
+    "type": "LATAM family of four",
+    "count": 4,
+    "members": ["adult couple 35–45", "child 8–12", "child 5–8"],
+    "ethnicity": "Latin American — Colombian, Venezuelan, or Mexican appearance",
+    "pose": "backs fully to camera, standing at Pier 60 railing, looking toward Gulf of Mexico horizon",
+    "clothing": "casual summer vacation — shorts, t-shirts, sundress, sandals — no brand logos visible",
+    "position_in_frame": "center-right cluster at pier railing, lower third anchor",
+    "secondary_subject": {
+      "type": "white Nissan Rogue or Toyota RAV4 SUV",
+      "position": "background left-center, parked in Pier 60 parking area approximately 20 meters behind family",
+      "visibility": "clearly identifiable silhouette — not dominant, supporting visual evidence the family drove here",
+      "color": "white or silver"
+    }
+  },
+  "scene": {
+    "location": "Clearwater Beach, Pier 60, Pinellas County, Florida — Gulf of Mexico waterfront",
+    "time_of_day": "golden hour / sunset — sun at or just below Gulf horizon",
+    "environment": [
+      "wooden pier structure and observation deck extending over Gulf of Mexico",
+      "Pier 60 railing at foreground lower third",
+      "open beach parking area behind pier entrance",
+      "Gulf of Mexico turquoise water with horizontal golden reflections",
+      "wide Florida sky with rich orange and amber cloud formations"
+    ],
+    "background_view": "Gulf of Mexico open horizon — turquoise water catching golden-orange sunset light, rich amber sky with soft layered clouds, no urban structures or buildings visible",
+    "critical_scene_rules": [
+      "family must have backs completely to camera — faces NEVER visible",
+      "SUV must be parked and clearly visible in background, not cropped out of frame",
+      "left third must contain only open sky and ocean — no people, no car in that zone",
+      "golden hour light must feel warm and cinematic — no flat, cold, or overcast quality",
+      "no rental company signage, logos, or text anywhere in scene",
+      "pier must be recognizable as Clearwater Beach Pier 60 — not a generic dock",
+      "water color must read as Gulf turquoise — not Atlantic blue-green"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "travel editorial",
+      "cinematic lifestyle",
+      "Florida vacation photography"
+    ],
+    "lighting": {
+      "primary": "golden hour natural backlight — sun at or below Gulf horizon",
+      "quality": "warm, cinematic, rich amber-orange cast over full scene",
+      "family_lighting": "rim-lit silhouettes with warm glow — faces not needed, silhouettes are intentional",
+      "suv_lighting": "soft golden ambient, metallic sheen visible",
+      "sky_treatment": "rich orange-amber gradient with soft layered clouds catching last light",
+      "water_treatment": "turquoise base with horizontal golden reflections on surface"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "amber-orange sky in the F0B576 tonal range",
+      "Gulf turquoise water",
+      "warm golden pier wood"
+    ],
+    "accent": [
+      "white SUV metallic sheen",
+      "deep teal 168F8A in water shadows at horizon"
+    ],
+    "rules": [
+      "sky must be warm orange-amber — zero cool or grey tones",
+      "water must read as turquoise Gulf — not dark, grey, or Atlantic blue-green",
+      "family silhouettes trending dark against backlight is correct and intentional",
+      "overall image warmth: high — this is the dream payoff moment",
+      "left overlay zone must be dark or medium-dark — avoid blown-out highlights in that area"
+    ]
+  },
+  "negative_prompt": [
+    "faces visible on any family member",
+    "posed or stiff family posture",
+    "tourist crowds or other people visible on pier",
+    "rental car logos or commercial signage",
+    "text or watermarks anywhere in scene",
+    "overcast, flat, or cold lighting",
+    "Atlantic coast water — must be Gulf of Mexico",
+    "dark moody or threatening atmosphere",
+    "car in foreground or visually dominant over family",
+    "stock photo aesthetic or artificial smiles",
+    "drone aerial perspective",
+    "family facing camera",
+    "busy or visually cluttered background",
+    "SUV absent — car must be present and identifiable",
+    "cool blue or grey sky tones",
+    "urban buildings or city skyline visible"
+  ],
+  "master_prompt": "Hero image for rentatelo.com homepage — the emotional payoff of renting a car for a Florida family vacation. A LATAM family of four — parents mid-30s to mid-40s, two children ages 5 to 12 — stand at the edge of Pier 60 in Clearwater Beach, Pinellas County, Florida, backs completely to the camera, looking out at the Gulf of Mexico horizon. They are relaxed and close together, wearing casual summer clothes — shorts, t-shirts, light sundress, sandals — no brand logos. A white Nissan Rogue or Toyota RAV4 SUV is parked clearly visible in the pier parking area 20 meters behind the family, slightly left of center in the frame — the silent proof that the car brought them here. Wide establishing shot, eye-level with slight low angle, 24–35mm natural perspective, deep focus. The left third of the frame contains only open sky transitioning to dark ocean edge — this zone must remain dark enough for white headline text overlay, no subjects in this zone. Golden hour lighting with the sun at or just below the Gulf horizon — rich amber and orange sky with soft cloud layers, turquoise Gulf water catching horizontal golden reflections. Family appears rim-lit in warm backlight, silhouettes are welcome and intentional. Color palette: amber-orange sky in the F0B576 tonal range, Gulf turquoise water with teal 168F8A shadows at depth, white SUV with warm metallic sheen. Overall warmth high — cinematic travel editorial quality. Avoid: visible family faces, stock photo stiffness, rental signage, Atlantic blue-green water, cold or grey tones, aerial perspective, urban skyline, crowds, car in foreground."
+}

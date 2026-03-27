@@ -1,0 +1,129 @@
+{
+  "id": "rentatelo_nature_wekiwa_springs_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/destinations/springs",
+  "slot": "experience_nature",
+  "section": "day_trip_nature",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a 4:3 nature experience image of Wekiwa Springs State Park — crystal-clear 68°F spring pool with turquoise-blue water, ancient live oaks with Spanish moss creating a cathedral canopy, two orange kayaks on the bank, family sedan barely visible in background parking — no people, must communicate 'hidden Florida natural wonder only accessible by car'.",
+  "creative_direction": {
+    "core_idea": "Wekiwa Springs — 35 minutos desde MCO en carro, el secreto de Florida que los turistas LATAM no saben",
+    "visual_thesis": "Esta imagen crea deseo: agua cristalina + naturaleza antigua + solo accesible en carro",
+    "emotion": [
+      "natural wonder discovery",
+      "hidden Florida",
+      "family nature day",
+      "off-the-beaten-path reward"
+    ]
+  },
+  "composition": {
+    "shot_type": "environmental landscape — spring pool as hero, canopy as frame",
+    "layout": "Spring pool fills the lower 50% of frame with crystal-clear turquoise water; ancient oak canopy with Spanish moss forms a natural cathedral ceiling in the upper 50%; two orange kayaks anchored on the left bank; family sedan barely discernible in background trees",
+    "camera": {
+      "framing": "4:3 horizontal — wide to capture canopy cathedral + spring pool in one frame",
+      "angle": "slightly elevated, looking toward the spring head — shows both water clarity and canopy depth",
+      "lens_style": "24mm wide — captures the cathedral canopy scale and spring pool together",
+      "depth_of_field": "wide — spring water clarity and canopy both sharp; sedan in background softly visible"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper right — dark canopy area with filtered light rays",
+      "logo_safe_zone": "lower right corner — water surface or sand bank"
+    }
+  },
+  "subject": {
+    "type": "landscape — spring pool as primary subject",
+    "primary": "Wekiwa Springs crystal-clear spring pool — turquoise-blue water so transparent the white sandy bottom is visible at depth",
+    "secondary": "Ancient live oak trees — massive trunks, centuries old, Spanish moss hanging in long curtains creating a natural cathedral",
+    "props": "two orange kayaks pulled up on the sandy bank — the only human-made objects in the foreground",
+    "scale_element": "family sedan — barely visible through the trees in the background parking lot, soft focus, just recognizable as a car",
+    "critical_attributes": [
+      "water must be impossibly clear — white sandy bottom visible through the turquoise",
+      "Spanish moss on oak trees is essential — it identifies Florida spring specifically",
+      "two orange kayaks on bank — warm accent color against blue water and green",
+      "no people anywhere in frame",
+      "sedan in background barely visible — suggests 'they drove here'"
+    ]
+  },
+  "scene": {
+    "location": "Wekiwa Springs State Park, Apopka, Orange County, FL — 35 minutes from MCO airport",
+    "time_of_day": "mid-morning — dappled light through canopy, some light rays visible, not harsh midday",
+    "environment": [
+      "crystal-clear freshwater spring pool — constant 68°F, turquoise-blue, white sandy bottom",
+      "ancient live oak trees — massive gnarled trunks, wide canopy spread",
+      "Spanish moss hanging from branches — long gray-green curtains",
+      "subtropical understory vegetation — ferns, palmettos",
+      "sandy spring bank — white sand at water's edge",
+      "no commercial facilities visible — state park natural context",
+      "filtered sunlight through canopy creates dappled light on water surface"
+    ],
+    "background_view": "Deep canopy of live oaks and subtropical trees — dark green with filtered light; sedan barely visible as soft suggestion",
+    "critical_scene_rules": [
+      "No people — no swimmers, no kayakers, no visitors",
+      "Water clarity is mandatory — white sandy bottom must be visible through turquoise water",
+      "Spanish moss must be present — it is the Florida spring identity marker",
+      "Two orange kayaks must be present on bank",
+      "No commercial facilities, no signage visible",
+      "Natural state park context only — no manicured resort aesthetic"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "nature travel photography",
+      "Florida state parks editorial",
+      "hidden gem destination imagery"
+    ],
+    "lighting": {
+      "type": "mid-morning dappled forest light — sunbeams through oak canopy",
+      "effects": [
+        "dappled light on water surface — creates moving light patterns on turquoise water",
+        "some light rays visible through Spanish moss — cathedral light effect",
+        "water appears lit from within — crystal clarity makes it glow turquoise",
+        "oak trunks in shadow create depth and mystery in the canopy",
+        "orange kayaks pop as warm accent against cool blue-green environment"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "turquoise-blue spring water — #20B2AA to #48D1CC range",
+      "deep forest green canopy",
+      "warm gray live oak bark and Spanish moss"
+    ],
+    "accent": [
+      "orange kayaks — #FF6B35 range, warm pop against cool environment",
+      "white sandy bottom visible through water",
+      "soft warm light rays through canopy"
+    ],
+    "rules": [
+      "Orange kayaks are the only warm accent — they must pop against the cool blue-green environment",
+      "Water must be distinctly turquoise — not gray, not muddy, not dark — crystal clear is non-negotiable",
+      "Canopy creates deep green shade — the contrast with the lit spring pool is the visual engine",
+      "Spanish moss adds gray-green texture that identifies this as Florida, not generic forest"
+    ]
+  },
+  "negative_prompt": [
+    "no people",
+    "no swimmers",
+    "no children",
+    "no text in image",
+    "no watermark",
+    "no commercial signage",
+    "no resort facilities",
+    "no manicured lawn",
+    "no theme park context",
+    "no dark or murky water — must be crystal clear",
+    "no flat green water — must be distinctly turquoise",
+    "no overcast flat lighting",
+    "no ocean or saltwater context",
+    "no mountains",
+    "no pine trees — live oaks with Spanish moss only"
+  ],
+  "master_prompt": "Create a 4:3 nature experience image at 2000x1500 pixels for a car rental marketplace showing Wekiwa Springs State Park in Apopka, Florida — 35 minutes from MCO airport. The crystal-clear freshwater spring pool dominates the lower half of the frame: turquoise-blue water so transparent the white sandy bottom is fully visible at depth, as if lit from within. The upper half shows a natural cathedral of ancient live oak trees — massive gnarled trunks with centuries of growth, long curtains of Spanish moss hanging from the branches, filtering mid-morning sunlight into dappled rays that dance on the water surface. Two orange kayaks are pulled up on the white sandy bank to the left — the only human-made objects in the foreground. A family sedan is barely discernible through the trees in the background — soft focus, just visible enough to suggest 'someone drove here.' Shot with a 24mm wide lens at slightly elevated angle to capture both the spring pool clarity and the full canopy cathedral in one frame. No people, no swimmers, no commercial facilities. The color palette is cool and natural: turquoise-blue water, deep forest green canopy, gray-green Spanish moss, warm orange kayaks as the only accent. Dappled light creates movement on the water surface. This image must communicate an irresistible hidden Florida secret — natural wonder that only road-trippers with a rental car can discover. Avoid people, murky water, dark water, pine trees, commercial signage, resort context, theme park context, ocean, mountains, and any text or watermarks."
+}

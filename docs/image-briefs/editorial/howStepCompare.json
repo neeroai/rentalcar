@@ -1,0 +1,89 @@
+{
+  "id": "rentatelo_how_step_compare_browse_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/how-it-works",
+  "slot": "step_card_2",
+  "section": "how_step_compare",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Generate a step card image for the 'Browse and select your vehicle' how-it-works step — family hands holding a smartphone showing car options, in a warm hotel or lounge context in Orlando.",
+  "creative_direction": {
+    "core_idea": "El momento de decisión — una familia hojeando opciones de autos en el teléfono en la comodidad de su hotel",
+    "visual_thesis": "Simple, humano, cálido. La experiencia de browsing es fácil y funciona desde cualquier dispositivo",
+    "emotion": [
+      "informed choice",
+      "ease of use",
+      "warm comfort",
+      "traveler control"
+    ]
+  },
+  "composition": {
+    "shot_type": "editorial hands + phone detail, warm interior context",
+    "layout": "hands and phone sharp in foreground, warm hotel interior softly blurred in background",
+    "camera": {
+      "framing": "4:3 step card composition",
+      "angle": "slight overhead or natural eye level looking at hands holding phone",
+      "lens_style": "50mm portrait with shallow depth of field",
+      "depth_of_field": "hands and phone sharp, background warmly blurred"
+    },
+    "overlay_compatibility": {}
+  },
+  "subject": {
+    "type": "hands + smartphone",
+    "description": "LATAM adult hands — possibly a couple — holding a modern smartphone with abstract vehicle selection interface visible on screen. Generic car card layouts or silhouettes, not branded as any specific app.",
+    "expression": "relaxed, engaged, comfortable decision-making",
+    "body_language": "natural hand position holding phone, relaxed hotel context"
+  },
+  "scene": {
+    "location": "Hotel room, resort lobby, or comfortable lounge in Orlando hotel area — Lake Buena Vista or I-Drive",
+    "time_of_day": "warm afternoon or evening interior light",
+    "environment": [
+      "warm amber and cream interior hotel tones",
+      "resort hotel furniture visible and softly blurred",
+      "one or two additional family members warmly blurred in background"
+    ],
+    "background_view": "Warm hotel interior — resort lounge or room at Lake Buena Vista Orlando area",
+    "critical_scene_rules": [
+      "Phone screen must not show any recognizable competitor app or brand",
+      "No cold studio lighting",
+      "No office context",
+      "No harsh flash photography"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "warm lifestyle photography",
+      "authentic travel moment",
+      "editorial realism"
+    ],
+    "lighting": {
+      "type": "warm ambient hotel interior light",
+      "effects": "amber and cream tones, soft fill, no harsh shadows"
+    }
+  },
+  "color_direction": {
+    "dominant": ["warm amber and cream hotel interior", "neutral skin tones"],
+    "accent": ["phone screen soft glow", "warm resort ambient light"],
+    "rules": [
+      "Warm and comfortable — amber and cream palette",
+      "No cold or clinical tones"
+    ]
+  },
+  "negative_prompt": [
+    "no text or watermarks",
+    "no competitor app logos on screen",
+    "no cold studio lighting",
+    "no office context",
+    "no harsh flash",
+    "no outdoor settings",
+    "no generic stock photo hands",
+    "no stiff poses"
+  ],
+  "master_prompt": "Create a premium editorial step card image for a how-it-works page illustrating the 'Browse and select your vehicle' step. Show LATAM adult hands — possibly a couple — holding a modern smartphone in a warm hotel or resort lounge in Orlando, Florida, in the Lake Buena Vista or International Drive area. The phone screen shows an abstract vehicle selection interface — generic car card layouts or silhouettes, not branded as any specific app or competitor. One or two family members may be warmly and softly blurred in the background. Use 4:3 card format with hands and phone sharp in focus, warm hotel interior background softly blurred. Lighting is warm ambient hotel interior light — amber and cream tones, no harsh flash or cold studio light. The mood is relaxed, comfortable, and confident — a family making an easy decision from their hotel room. Avoid text, watermarks, competitor app logos, cold lighting, office context, outdoor settings, and generic stock photo hand poses."
+}

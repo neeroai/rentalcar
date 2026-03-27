@@ -14,16 +14,16 @@ import {
   MessageSquareMore,
   Search,
   Star,
-} from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import type { ReactNode } from 'react';
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
-import { LocaleToggle } from '@/components/locale-toggle';
-import { pickupOptions } from '@/data/mock';
-import type { getDictionary } from '@/lib/i18n';
-import type { Locale } from '@/lib/types';
-import { formatShortDate, getLocalizedText } from '@/lib/utils';
+import { LocaleToggle } from "@/components/locale-toggle";
+import { pickupOptions } from "@/data/mock";
+import type { getDictionary } from "@/lib/i18n";
+import type { Locale } from "@/lib/types";
+import { formatShortDate, getLocalizedText } from "@/lib/utils";
 
 type Dictionary = ReturnType<typeof getDictionary>;
 
@@ -59,9 +59,12 @@ export function SiteHeader({ locale, dictionary }: SiteHeaderProps) {
         </nav>
 
         <div className="flex items-center gap-2">
-          <LocaleToggle label={dictionary.actions.switchLocale} locale={locale} />
+          <LocaleToggle
+            label={dictionary.actions.switchLocale}
+            locale={locale}
+          />
           <Link
-            aria-label={locale === 'es' ? 'Abrir cuenta' : 'Open account'}
+            aria-label={locale === "es" ? "Abrir cuenta" : "Open account"}
             className="flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(198,184,163,0.55)] bg-white/80 text-[var(--text-soft)] shadow-[var(--shadow-sm)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
             href="/account/trips"
           >
@@ -83,25 +86,25 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
 
   const columns = [
     {
-      heading: locale === 'es' ? 'Plataforma' : 'Platform',
+      heading: locale === "es" ? "Plataforma" : "Platform",
       links: [
-        { href: '/search', label: dictionary.nav.search },
-        { href: '/how-it-works', label: dictionary.nav.howItWorks },
+        { href: "/search", label: dictionary.nav.search },
+        { href: "/how-it-works", label: dictionary.nav.howItWorks },
       ],
     },
     {
-      heading: locale === 'es' ? 'Cuenta' : 'Account',
+      heading: locale === "es" ? "Cuenta" : "Account",
       links: [
-        { href: '/account/trips', label: dictionary.nav.trips },
-        { href: '/account/messages', label: dictionary.nav.messages },
-        { href: '/account/wishlist', label: dictionary.nav.wishlist },
+        { href: "/account/trips", label: dictionary.nav.trips },
+        { href: "/account/messages", label: dictionary.nav.messages },
+        { href: "/account/wishlist", label: dictionary.nav.wishlist },
       ],
     },
     {
-      heading: locale === 'es' ? 'Ciudades' : 'Cities',
+      heading: locale === "es" ? "Ciudades" : "Cities",
       links: [
-        { href: '/search?pickup=mco', label: 'Orlando' },
-        { href: '/search?pickup=mia', label: 'Miami' },
+        { href: "/search?pickup=mco", label: "Orlando" },
+        { href: "/search?pickup=mia", label: "Miami" },
       ],
     },
   ];
@@ -113,8 +116,12 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
           <p className="text-lg font-black tracking-[-0.06em]">
             rentatelo<span className="text-[var(--secondary)]">.</span>
           </p>
-          <p className="mt-4 text-sm leading-7 text-white/72">{dictionary.footer.tagline}</p>
-          <p className="mt-4 text-xs leading-6 text-white/45">{dictionary.footer.note}</p>
+          <p className="mt-4 text-sm leading-7 text-white/72">
+            {dictionary.footer.tagline}
+          </p>
+          <p className="mt-4 text-xs leading-6 text-white/45">
+            {dictionary.footer.note}
+          </p>
         </div>
 
         {columns.map((column) => (
@@ -140,17 +147,20 @@ export function SiteFooter({ locale, dictionary }: SiteFooterProps) {
 
       <div className="page-grid flex flex-wrap items-center justify-between gap-4 pt-6 text-xs text-white/38">
         <p>
-          &copy; {year} rentatelo.{' '}
-          {locale === 'es'
-            ? 'Demo Orlando-first para validación comercial.'
-            : 'Orlando-first demo for commercial validation.'}
+          &copy; {year} rentatelo.{" "}
+          {locale === "es"
+            ? "Demo Orlando-first para validación comercial."
+            : "Orlando-first demo for commercial validation."}
         </p>
         <div className="flex gap-4">
           <Link className="transition-colors hover:text-white/72" href="/terms">
-            {locale === 'es' ? 'Términos' : 'Terms'}
+            {locale === "es" ? "Términos" : "Terms"}
           </Link>
-          <Link className="transition-colors hover:text-white/72" href="/privacy">
-            {locale === 'es' ? 'Privacidad' : 'Privacy'}
+          <Link
+            className="transition-colors hover:text-white/72"
+            href="/privacy"
+          >
+            {locale === "es" ? "Privacidad" : "Privacy"}
           </Link>
         </div>
       </div>
@@ -175,12 +185,12 @@ export function SearchHeroForm({
   locale,
   dictionary,
   defaults,
-  action = '/search',
+  action = "/search",
 }: SearchHeroFormProps) {
-  const pickupDefault = defaults?.pickup ?? 'mco';
-  const startDefault = defaults?.start ?? '2026-04-18';
-  const endDefault = defaults?.end ?? '2026-04-22';
-  const categoryDefault = defaults?.category ?? '';
+  const pickupDefault = defaults?.pickup ?? "mco";
+  const startDefault = defaults?.start ?? "2026-04-18";
+  const endDefault = defaults?.end ?? "2026-04-22";
+  const categoryDefault = defaults?.category ?? "";
 
   return (
     <form
@@ -191,10 +201,14 @@ export function SearchHeroForm({
       <FieldGroup
         icon={<MapPin className="h-4 w-4 text-[var(--primary)]" />}
         isLast={false}
-        label={locale === 'es' ? 'Llegada' : 'Arrival'}
+        label={locale === "es" ? "Llegada" : "Arrival"}
       >
         <select
-          aria-label={locale === 'es' ? 'Selecciona punto de llegada' : 'Select pickup point'}
+          aria-label={
+            locale === "es"
+              ? "Selecciona punto de llegada"
+              : "Select pickup point"
+          }
           className="w-full bg-transparent text-sm font-semibold text-[var(--foreground)] outline-none"
           defaultValue={pickupDefault}
           name="pickup"
@@ -210,10 +224,10 @@ export function SearchHeroForm({
       <FieldGroup
         icon={<Calendar className="h-4 w-4 text-[var(--primary)]" />}
         isLast={false}
-        label={locale === 'es' ? 'Desde' : 'From'}
+        label={locale === "es" ? "Desde" : "From"}
       >
         <input
-          aria-label={locale === 'es' ? 'Fecha inicial' : 'Start date'}
+          aria-label={locale === "es" ? "Fecha inicial" : "Start date"}
           className="w-full bg-transparent text-sm font-semibold text-[var(--foreground)] outline-none"
           defaultValue={startDefault}
           name="start"
@@ -224,10 +238,10 @@ export function SearchHeroForm({
       <FieldGroup
         icon={<Calendar className="h-4 w-4 text-[var(--primary)]" />}
         isLast
-        label={locale === 'es' ? 'Hasta' : 'Until'}
+        label={locale === "es" ? "Hasta" : "Until"}
       >
         <input
-          aria-label={locale === 'es' ? 'Fecha final' : 'End date'}
+          aria-label={locale === "es" ? "Fecha final" : "End date"}
           className="w-full bg-transparent text-sm font-semibold text-[var(--foreground)] outline-none"
           defaultValue={endDefault}
           name="end"
@@ -265,7 +279,9 @@ export function SectionHeading({
         {title}
       </h2>
       {subtitle ? (
-        <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-[var(--muted)]">{subtitle}</p>
+        <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-[var(--muted)]">
+          {subtitle}
+        </p>
       ) : null}
     </div>
   );
@@ -314,15 +330,25 @@ export function ReviewHighlight({
         <div className="p-7 md:p-10">
           <div className="flex items-center gap-1 text-[var(--cta-success)]">
             {[1, 2, 3, 4, 5].map((star) => (
-              <Star key={star} className="h-4 w-4 fill-current" />
+              <Star
+                key={star}
+                aria-hidden="true"
+                className="h-4 w-4 fill-current"
+              />
             ))}
-            <span className="ml-2 text-sm font-semibold text-[var(--foreground)]">4.9</span>
+            <span className="ml-2 text-sm font-semibold text-[var(--foreground)]">
+              4.9
+            </span>
           </div>
           <p className="heading-balance mt-5 text-fluid-h3 font-black text-[var(--foreground)]">
             {quote}
           </p>
-          <p className="mt-4 text-base leading-7 text-[var(--muted)]">{detail}</p>
-          <p className="mt-6 text-sm font-semibold text-[var(--foreground)]">{name}</p>
+          <p className="mt-4 text-base leading-7 text-[var(--muted)]">
+            {detail}
+          </p>
+          <p className="mt-6 text-sm font-semibold text-[var(--foreground)]">
+            {name}
+          </p>
         </div>
       </div>
     </article>
@@ -355,7 +381,7 @@ export function BookingSummaryStrip({
         href="/account/messages"
       >
         <MessageSquareMore className="h-4 w-4" />
-        {locale === 'es' ? 'Contactar host' : 'Contact host'}
+        {locale === "es" ? "Contactar host" : "Contact host"}
       </Link>
     </div>
   );
@@ -369,26 +395,26 @@ export function AccountShell({
 }: {
   locale: Locale;
   dictionary: Dictionary;
-  current: 'trips' | 'messages' | 'wishlist';
+  current: "trips" | "messages" | "wishlist";
   children: ReactNode;
 }) {
   const items = [
     {
-      href: '/account/trips',
+      href: "/account/trips",
       label: dictionary.nav.trips,
-      key: 'trips',
+      key: "trips",
       icon: Calendar,
     },
     {
-      href: '/account/messages',
+      href: "/account/messages",
       label: dictionary.nav.messages,
-      key: 'messages',
+      key: "messages",
       icon: Mail,
     },
     {
-      href: '/account/wishlist',
+      href: "/account/wishlist",
       label: dictionary.nav.wishlist,
-      key: 'wishlist',
+      key: "wishlist",
       icon: Star,
     },
   ] as const;
@@ -408,8 +434,8 @@ export function AccountShell({
                     <Link
                       className={`flex items-center justify-between rounded-[1.1rem] px-4 py-3 text-sm font-medium transition-colors ${
                         isActive
-                          ? 'bg-[var(--primary-soft)] text-[var(--primary)]'
-                          : 'text-[var(--text-soft)] hover:bg-[var(--surface-alt)] hover:text-[var(--foreground)]'
+                          ? "bg-[var(--primary-soft)] text-[var(--primary)]"
+                          : "text-[var(--text-soft)] hover:bg-[var(--surface-alt)] hover:text-[var(--foreground)]"
                       }`}
                       href={item.href}
                       key={item.href}
@@ -426,9 +452,9 @@ export function AccountShell({
             </div>
 
             <div className="rounded-[1.4rem] border border-[rgba(240,181,118,0.55)] bg-[rgba(240,181,118,0.16)] p-4 text-sm leading-6 text-[#6a563e]">
-              {locale === 'es'
-                ? 'Cuenta simulada para demostrar coordinación con host, seguimiento del viaje y guardados.'
-                : 'Simulated account to demonstrate host coordination, trip tracking and saved cars.'}
+              {locale === "es"
+                ? "Cuenta simulada para demostrar coordinación con host, seguimiento del viaje y guardados."
+                : "Simulated account to demonstrate host coordination, trip tracking and saved cars."}
             </div>
           </aside>
 
@@ -454,8 +480,8 @@ function FieldGroup({
     <div
       className={`flex min-w-0 flex-1 items-center gap-3 rounded-[1.35rem] px-4 py-3 transition-colors hover:bg-[rgba(244,238,227,0.52)] ${
         isLast
-          ? 'border-transparent'
-          : 'border border-transparent md:border-r md:border-r-[rgba(198,184,163,0.46)]'
+          ? "border-transparent"
+          : "border border-transparent md:border-r md:border-r-[rgba(198,184,163,0.46)]"
       }`}
     >
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--primary-soft)]">

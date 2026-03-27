@@ -1,0 +1,130 @@
+{
+  "id": "rentatelo_roadtrip_a1a_coastal_drive_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/destinations/scenic-drives",
+  "slot": "scenic_drive",
+  "section": "roadtrip_a1a",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Generate a cinematic 16:9 image from a car dashboard POV looking forward on Florida A1A coastal highway — Atlantic Ocean visible to the right through palm trees, driver's arm (LATAM skin tone) on steering wheel, road curves gently left, vivid blue sky, windshield frame creates immersive 'you are driving this' perspective.",
+  "creative_direction": {
+    "core_idea": "Dashboard POV en la A1A — el Atlántico a tu derecha, palmas a los lados, solo tú y la ruta",
+    "visual_thesis": "Esta imagen pone al viajero DENTRO del carro. La A1A no es un destino, es una experiencia",
+    "emotion": [
+      "driving freedom",
+      "coastal discovery",
+      "in-the-moment road trip",
+      "Atlantic Florida magic"
+    ]
+  },
+  "composition": {
+    "shot_type": "first-person dashboard POV — windshield as frame",
+    "layout": "Dashboard edge occupies the very bottom of frame; windshield frame creates a natural border on sides and top; A1A road stretches forward occupying center; Atlantic Ocean visible right through a palm gap; driver's arm visible lower-left on steering wheel",
+    "camera": {
+      "framing": "16:9 — immersive POV, positioned from back seat or dashboard level looking forward",
+      "angle": "from dashboard level looking forward through windshield — slight upward angle toward road horizon",
+      "lens_style": "35mm wide — captures road, palm fringe, ocean gap, and sky simultaneously",
+      "depth_of_field": "road and palm trees sharp in foreground, Atlantic Ocean soft beyond palms, sky vivid and clear"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper center — vivid blue sky above the road horizon, clear area",
+      "logo_safe_zone": "lower right — dashboard area or road surface"
+    }
+  },
+  "subject": {
+    "type": "POV scene — driver's arm as human anchor",
+    "driver_element": "Driver's left arm — LATAM warm medium-brown skin tone — resting on steering wheel lower section. No face, no torso, no head visible. Casual relaxed grip.",
+    "road": "A1A coastal highway — two lanes, asphalt with faded center line, curves gently to the left",
+    "critical_attributes": [
+      "windshield frame visible — creates the immersive POV border effect",
+      "dashboard edge visible at very bottom — dark, minimal, modern",
+      "driver's arm LATAM skin tone visible on wheel — no face",
+      "Atlantic Ocean visible to the right through a natural gap in palm trees",
+      "road curves gently to the left — implying discovery ahead",
+      "no GPS, no phone mount, no clutter on dashboard"
+    ]
+  },
+  "scene": {
+    "location": "Florida A1A coastal highway, Atlantic coast — between Fort Lauderdale and Pompano Beach, or Daytona Beach Shores area",
+    "time_of_day": "midday or early afternoon — vivid blue sky, direct sun, no harsh shadows",
+    "environment": [
+      "A1A road ahead — gently curving left, well-maintained asphalt",
+      "Palm trees lining both sides of the road — coconut palms, 20-30 feet tall",
+      "Gap in palm trees on the right — Atlantic Ocean turquoise-blue clearly visible through the gap",
+      "Low coastal vegetation between road and beach",
+      "Vivid Florida blue sky above — clean, minimal clouds",
+      "No commercial buildings — pure coastal highway context"
+    ],
+    "background_view": "A1A road curving left into palm-lined horizon; Atlantic Ocean turquoise glimpse to the right",
+    "critical_scene_rules": [
+      "Windshield frame must be visible — it is the compositional device",
+      "Driver's arm visible but no face — LATAM skin tone",
+      "Atlantic Ocean must be clearly identifiable to the right through palm gap",
+      "Road curves gently left — suggests continuous discovery, not straight monotony",
+      "No commercial buildings or signage readable",
+      "No passengers visible — solo driver POV or just the arm",
+      "Dashboard must be clean and minimal — no clutter"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "cinematic road trip POV photography",
+      "coastal Florida editorial",
+      "immersive travel imagery"
+    ],
+    "lighting": {
+      "type": "Florida midday direct sun — vivid colors, clear visibility",
+      "effects": [
+        "slight windshield glare at edges — authentic POV effect, not distracting",
+        "road surface lit bright — heat shimmer optional for atmosphere",
+        "palm fronds backlit by sun — rim lighting on palms creates warmth",
+        "Atlantic Ocean through gap appears vivid turquoise-blue against dark palm shadows",
+        "dashboard stays in cool shadow — contrasts with the bright exterior"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "vivid Florida blue sky — #4A90D9 range",
+      "dark asphalt road — warm gray-black",
+      "green palm fronds — tropical saturated green"
+    ],
+    "accent": [
+      "Atlantic Ocean turquoise-blue through palm gap — #48CAE4 range",
+      "LATAM warm brown skin tone on driver's arm",
+      "warm cream pavement road markings"
+    ],
+    "rules": [
+      "Windshield frame must feel like a real car interior — dark, not silver or chrome",
+      "Ocean visible to the right must be distinctly turquoise — not flat blue",
+      "Palm trees must have depth — foreground palms sharp, creating the natural frame",
+      "Driver's arm skin tone is intentional LATAM representation — warm medium brown, not pale"
+    ]
+  },
+  "negative_prompt": [
+    "no face",
+    "no passengers",
+    "no second person in car",
+    "no text in image",
+    "no watermark",
+    "no GPS device on dashboard",
+    "no phone mount",
+    "no cluttered dashboard",
+    "no traffic — road mostly clear ahead",
+    "no trucks or large vehicles ahead",
+    "no commercial buildings",
+    "no overcast sky",
+    "no gray sky",
+    "no mountains",
+    "no interior dome view — windshield POV only",
+    "no night or sunset — midday only",
+    "no white or pale skin on driver's arm"
+  ],
+  "master_prompt": "Create a cinematic 16:9 immersive POV image at 2400x1350 pixels for a car rental marketplace showing the view from inside a car driving on Florida's A1A coastal highway. The windshield frame forms the natural border of the composition — visible as a dark car interior frame on all sides. The dashboard edge is barely visible at the very bottom of the frame, clean and minimal. A driver's left arm — LATAM warm medium-brown skin tone — rests casually on the lower section of the steering wheel on the left side; no face, no torso, no head visible. Through the windshield: the A1A road stretches ahead and curves gently to the left, flanked by tall coconut palms on both sides. Through a natural gap in the palm trees on the right, the Atlantic Ocean is clearly visible — vivid turquoise-blue, bright and inviting. The sky above is pure Florida blue with minimal clouds, lit by direct midday sun. Road is clean dark asphalt. No commercial buildings, no readable signage, no GPS devices or phone mounts on the dashboard. A slight authentic windshield glare at the edges adds to the POV realism. Palm fronds are backlit with warm rim light. The Atlantic through the palm gap is distinctly turquoise against the darker palm shadows. Shot with a 35mm wide lens from dashboard level looking forward. The image must place the viewer inside the car, driving the A1A in real time — the ultimate 'you are doing this drive right now' feeling. Avoid faces, passengers, cluttered dashboard, gray sky, commercial context, mountains, trucks, full night, GPS devices, and any text or watermarks."
+}

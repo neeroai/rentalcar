@@ -1,0 +1,118 @@
+{
+  "id": "rentatelo_experience_mco_trip_start_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "experience_card_mco",
+  "section": "home_experience_mco",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "1:1",
+    "resolution": "2048x2048"
+  },
+  "goal": "Generate a square 1:1 card image showing a clean white Nissan Rogue at an MCO-style pickup zone with vivid Florida blue sky dominating the upper half — no people, the image must read as 'trip starts here' at thumbnail size.",
+  "creative_direction": {
+    "core_idea": "Tu SUV en MCO — el comienzo del mejor viaje",
+    "visual_thesis": "En 1:1 card size, debe leer como 'carro listo + cielo Florida = trip empieza'",
+    "emotion": ["trip ignition", "clean start", "Florida sky optimism"]
+  },
+  "composition": {
+    "shot_type": "3/4 front vehicle editorial — low ground-level angle",
+    "layout": "Vehicle occupies the lower 55% of the square frame; vivid Florida blue sky with photogenic clouds fills the upper 45%",
+    "camera": {
+      "framing": "1:1 square — sky-heavy composition for maximum trip-start energy",
+      "angle": "3/4 front, ground level — hood line intersects the sky at center frame",
+      "lens_style": "28mm wide editorial — sky and car in same dramatic plane",
+      "depth_of_field": "vehicle tack sharp, airport pickup canopy softly visible in background"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper right sky quadrant — clean blue with minimal cloud",
+      "logo_safe_zone": "lower left below vehicle hood line"
+    }
+  },
+  "subject": {
+    "type": "vehicle only — no people",
+    "model_reference": "Nissan Rogue 2023-2024 style — white, spotless, ready",
+    "critical_attributes": [
+      "white exterior — pure, unscratched",
+      "no rental company logos or stickers",
+      "no roof rack accessories",
+      "front end facing 3/4 toward camera — headlights visible and clean",
+      "no convertibles, no sports cars"
+    ]
+  },
+  "scene": {
+    "location": "Orlando International Airport exterior — ground transportation pickup zone, open-air lane",
+    "time_of_day": "Florida midday — sun directly overhead, vivid colors, no haze",
+    "environment": [
+      "open pickup lane with low canopy structure — partially visible in background",
+      "clean concrete pavement with lane markings barely visible",
+      "Florida blue sky with 2-3 photogenic cumulus clouds — postcard quality",
+      "no readable airline or airport brand signage"
+    ],
+    "background_view": "MCO pickup zone canopy edge fading into vivid blue sky",
+    "critical_scene_rules": [
+      "No people anywhere in frame",
+      "No readable airline logos, terminal signage, or rental company branding",
+      "No convertibles or sports cars",
+      "Sky must feel distinctly Florida — vivid, not overcast, not flat",
+      "Car must look spotless — this is pickup moment, not return"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "premium automotive editorial",
+      "travel launch photography",
+      "Florida tourism visual language"
+    ],
+    "lighting": {
+      "type": "Florida midday direct sun",
+      "effects": [
+        "sharp specular highlights along the SUV hood and roofline",
+        "clean white paint with subtle warm reflection",
+        "sky feels alive — saturated without being neon",
+        "pavement reflection adds depth without distraction"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "pure white vehicle body",
+      "vivid Florida blue sky — #4A90D9 range",
+      "warm cream-gray pavement"
+    ],
+    "accent": [
+      "soft white cumulus clouds",
+      "teal-blue sky gradient toward horizon"
+    ],
+    "rules": [
+      "Sky must occupy at least 40% of frame — this is the hero element",
+      "White car on blue sky must create maximum contrast at thumbnail size",
+      "No warm orange tones — this is a daytime clean-start image, not sunset",
+      "No desaturation — colors should feel vivid and optimistic"
+    ]
+  },
+  "negative_prompt": [
+    "no people",
+    "no passengers",
+    "no driver",
+    "no text in image",
+    "no watermark",
+    "no airline logos",
+    "no rental company branding",
+    "no convertibles",
+    "no sports cars",
+    "no overcast sky",
+    "no gray sky",
+    "no beach",
+    "no mountains",
+    "no night scene",
+    "no dramatic sunset",
+    "no dirty vehicle",
+    "no scratches or dents",
+    "no parking garage — open air only"
+  ],
+  "master_prompt": "Create a square 1:1 editorial image at 2048x2048 pixels for a car rental marketplace showing a pristine white Nissan Rogue-style compact SUV at the Orlando International Airport open-air ground transportation pickup zone. Shot from a 3/4 front angle at low ground level with a 28mm wide lens. The vivid Florida blue sky with two or three postcard-perfect cumulus clouds dominates the upper 45% of the frame — sky is the hero. The white SUV fills the lower 55%, hood and front grille sharp and gleaming in direct midday Florida sun with clean specular highlights along the hood and roofline. Background shows the soft blur of MCO pickup canopy structure — no readable airline logos, no terminal signage, no rental branding. Pavement is clean concrete with faint lane markings. Colors are saturated and optimistic: pure white vehicle, deep Florida blue sky, warm cream pavement. No people, no passengers, no driver. The composition must read instantly as 'spotless SUV ready at MCO — trip starts now' even at small card sizes. Avoid overcast sky, gray tones, beach, mountains, convertibles, sports cars, dirty vehicles, parking garages, and any text or watermarks."
+}

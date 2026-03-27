@@ -21,16 +21,18 @@ export default function GlobalError({
         }}
       >
         <div style={{ textAlign: "center", padding: "2rem" }}>
-          <h1 style={{ fontSize: "2rem", color: "#231F20" }}>Algo salió mal</h1>
+          <h1 style={{ fontSize: "2rem", color: "#231F20" }}>
+            Algo salió mal · Something went wrong
+          </h1>
           <p style={{ color: "#6B7280", marginTop: "0.5rem" }}>
-            Por favor intenta de nuevo.
+            Por favor intenta de nuevo · Please try again
           </p>
           <button
             onClick={reset}
             style={{
               marginTop: "1.5rem",
               padding: "0.75rem 1.5rem",
-              background: "#7C3AED",
+              background: "#168f8a",
               color: "#fff",
               border: "none",
               borderRadius: "8px",
@@ -40,7 +42,7 @@ export default function GlobalError({
             }}
             type="button"
           >
-            Intentar de nuevo
+            Intentar de nuevo · Try again
           </button>
         </div>
       </body>

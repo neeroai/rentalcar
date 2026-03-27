@@ -1,0 +1,95 @@
+{
+  "id": "rentatelo_search_hero_suv_orlando_v1",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/search",
+  "slot": "hero_main",
+  "section": "search_hero",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Generate a premium search page hero image — a clean compact SUV ready for pickup at a hotel parking area in Orlando, no people, right-frame placement, left side open for headline overlay.",
+  "creative_direction": {
+    "core_idea": "El vehículo perfecto esperándote — limpio, listo, posicionado en área hotel Orlando",
+    "visual_thesis": "Esta imagen ancla la página search con confianza: vehículo real en contexto real de Orlando",
+    "emotion": ["readiness", "confidence", "operational trust", "clarity"]
+  },
+  "composition": {
+    "shot_type": "wide editorial vehicle hero",
+    "layout": "vehicle in right two-thirds, left third open for headline overlay",
+    "camera": {
+      "framing": "16:9 hero composition",
+      "angle": "low 3/4 front angle, slightly below eye level",
+      "lens_style": "35mm editorial realism",
+      "depth_of_field": "vehicle sharp, background softly recognizable"
+    },
+    "overlay_compatibility": {
+      "left_third": "open Florida blue sky or soft architectural shadow — clean for dark headline text"
+    }
+  },
+  "subject": {
+    "type": "vehicle — no people",
+    "description": "Compact SUV: Nissan Rogue, Toyota RAV4, or Honda CR-V style — neutral color (silver, white, or charcoal), spotless, hotel pickup ready",
+    "placement": "right two-thirds of frame, 3/4 front angle"
+  },
+  "scene": {
+    "location": "Hotel or resort parking area, Lake Buena Vista or International Drive, Orlando, Florida",
+    "time_of_day": "Florida midday sun — bright, clean highlights on vehicle paint",
+    "environment": [
+      "Florida blue sky with soft clouds",
+      "tropical palm trees or vegetation",
+      "clean hotel architecture softly visible in background"
+    ],
+    "background_view": "Resort hotel entrance or parking area — Lake Buena Vista or I-Drive zone",
+    "critical_scene_rules": [
+      "No rental company logos or dealership decals on vehicle",
+      "No convertibles or sports cars",
+      "No people visible",
+      "No overcast sky",
+      "No dirty vehicles",
+      "No airport tarmac context"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "premium editorial photography",
+      "commercial vehicle photography",
+      "trustworthy operational realism"
+    ],
+    "lighting": {
+      "type": "Florida midday natural sunlight",
+      "effects": "clean highlights on vehicle body, clear paint reflections, sharp shadows"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "Florida blue sky",
+      "neutral vehicle paint (silver or white)",
+      "green tropical vegetation"
+    ],
+    "accent": ["warm golden highlights on vehicle body"],
+    "rules": [
+      "Sky must feel specifically Floridian — vivid blue",
+      "Vehicle paint clean and reflective",
+      "No cold or overcast tones"
+    ]
+  },
+  "negative_prompt": [
+    "no text or watermarks",
+    "no people",
+    "no rental company logos",
+    "no convertibles",
+    "no sports cars",
+    "no dirty vehicles",
+    "no overcast sky",
+    "no cold lighting",
+    "no airport tarmac",
+    "no beach or ocean background",
+    "no generic stock photo energy"
+  ],
+  "master_prompt": "Create a premium editorial search page hero image for a car rental marketplace. Show a clean compact SUV — Nissan Rogue, Toyota RAV4, or Honda CR-V style — in silver or white, spotless and ready for guest pickup, parked at a hotel or resort parking area in Orlando, Florida, specifically Lake Buena Vista or International Drive zone. Position the vehicle in the right two-thirds of the 16:9 frame at a low 3/4 front angle, leaving the left third visually open with Florida blue sky or soft architectural shadow for white headline text overlay. Background shows Florida blue sky with soft clouds, palm trees or tropical vegetation, and soft resort hotel architecture. Use bright Florida midday natural sunlight with clean highlights on the vehicle body and clear paint reflections. The vehicle must look spotless and professionally maintained — no rental logos, no dealership decals, no convertibles. The image should feel like a reliable, trustworthy car rental operation at a premium Orlando resort. Avoid text, watermarks, people, rental company logos, convertibles, dirty vehicles, overcast sky, cold tones, beach context, and generic stock photo energy."
+}

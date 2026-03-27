@@ -5,33 +5,50 @@
  * @exports CheckoutPage
  */
 
-import { MapPin, Shield, Sparkles, User } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import { MapPin, Shield, Sparkles, User } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { checkoutAddons, vehicles } from '@/data/mock';
-import { getDictionary, getLocale } from '@/lib/i18n';
-import { createQueryString, formatCurrency, getLocalizedText, getVehicleBySlug } from '@/lib/utils';
+import { checkoutAddons, vehicles } from "@/data/mock";
+import { getDictionary, getLocale } from "@/lib/i18n";
+import {
+  createQueryString,
+  formatCurrency,
+  getLocalizedText,
+  getVehicleBySlug,
+} from "@/lib/utils";
 
 interface CheckoutPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default async function CheckoutPage({ searchParams }: CheckoutPageProps) {
+export default async function CheckoutPage({
+  searchParams,
+}: CheckoutPageProps) {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
   const params = await searchParams;
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-  const vehicle = getVehicleBySlug(vehicles, slug ?? vehicles[0].slug) ?? vehicles[0];
-  const start = Array.isArray(params.start) ? params.start[0] : (params.start ?? '2026-04-18');
-  const end = Array.isArray(params.end) ? params.end[0] : (params.end ?? '2026-04-22');
-  const pickup = Array.isArray(params.pickup) ? params.pickup[0] : (params.pickup ?? 'mco');
+  const vehicle =
+    getVehicleBySlug(vehicles, slug ?? vehicles[0].slug) ?? vehicles[0];
+  const start = Array.isArray(params.start)
+    ? params.start[0]
+    : (params.start ?? "2026-04-18");
+  const end = Array.isArray(params.end)
+    ? params.end[0]
+    : (params.end ?? "2026-04-22");
+  const pickup = Array.isArray(params.pickup)
+    ? params.pickup[0]
+    : (params.pickup ?? "mco");
 
   const tripDays = 4;
   const tripSubtotal = vehicle.pricePerDay * tripDays;
   const fees = 42;
   const defaultAddons = checkoutAddons.slice(0, 2);
-  const total = tripSubtotal + fees + defaultAddons.reduce((sum, item) => sum + item.price, 0);
+  const total =
+    tripSubtotal +
+    fees +
+    defaultAddons.reduce((sum, item) => sum + item.price, 0);
   const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
 
   return (
@@ -39,9 +56,9 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
       <section className="surface-panel rounded-[2rem] p-6 md:p-8">
         <p className="eyebrow">{dictionary.checkout.title}</p>
         <h1 className="heading-balance mt-4 text-fluid-h2 font-black text-[var(--foreground)]">
-          {locale === 'es'
-            ? 'Un checkout pensado para mantener el contexto del viaje.'
-            : 'A checkout designed to keep your trip context intact.'}
+          {locale === "es"
+            ? "Un checkout pensado para mantener el contexto del viaje."
+            : "A checkout designed to keep your trip context intact."}
         </h1>
         <p className="mt-4 max-w-3xl text-base leading-7 text-[var(--muted)]">
           {dictionary.checkout.subtitle}
@@ -53,18 +70,21 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
           <div className="surface-panel rounded-[2rem] p-6">
             <div className="flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
               <MapPin className="h-4 w-4" />
-              {locale === 'es' ? 'Resumen del viaje' : 'Trip summary'}
+              {locale === "es" ? "Resumen del viaje" : "Trip summary"}
             </div>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               <SummaryBlock
-                label={locale === 'es' ? 'Pickup' : 'Pickup'}
+                label={locale === "es" ? "Pickup" : "Pickup"}
                 value={pickup.toUpperCase()}
               />
               <SummaryBlock
-                label={locale === 'es' ? 'Fechas' : 'Dates'}
+                label={locale === "es" ? "Fechas" : "Dates"}
                 value={`${start} → ${end}`}
               />
-              <SummaryBlock label={locale === 'es' ? 'Host' : 'Host'} value={vehicle.host.name} />
+              <SummaryBlock
+                label={locale === "es" ? "Host" : "Host"}
+                value={vehicle.host.name}
+              />
             </div>
           </div>
 
@@ -77,18 +97,30 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
             </div>
             <div className="grid gap-4 md:grid-cols-2">
               <CheckoutField
-                label={locale === 'es' ? 'Nombre completo' : 'Full name'}
+                autoComplete="name"
+                label={locale === "es" ? "Nombre completo" : "Full name"}
                 placeholder="Valentina Gómez"
                 type="text"
               />
-              <CheckoutField label="WhatsApp" placeholder="+57 300 555 0123" type="tel" />
               <CheckoutField
-                label={locale === 'es' ? 'Aerolínea / vuelo' : 'Airline / flight'}
+                autoComplete="tel"
+                label="WhatsApp"
+                placeholder="+57 300 555 0123"
+                type="tel"
+              />
+              <CheckoutField
+                autoComplete="off"
+                label={
+                  locale === "es" ? "Aerolínea / vuelo" : "Airline / flight"
+                }
                 placeholder="Avianca AV 044"
                 type="text"
               />
               <CheckoutField
-                label={locale === 'es' ? 'Hotel o dirección' : 'Hotel or address'}
+                autoComplete="street-address"
+                label={
+                  locale === "es" ? "Hotel o dirección" : "Hotel or address"
+                }
                 placeholder="Grand Floridian Resort"
                 type="text"
               />
@@ -99,7 +131,7 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
             <div className="mb-5 flex items-center gap-2">
               <MapPin className="h-5 w-5 text-[var(--primary)]" />
               <h2 className="text-xl font-black text-[var(--foreground)]">
-                {locale === 'es' ? 'Entrega y handoff' : 'Delivery and handoff'}
+                {locale === "es" ? "Entrega y handoff" : "Delivery and handoff"}
               </h2>
             </div>
             <div className="space-y-3">
@@ -134,7 +166,7 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
             <div className="mb-5 flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-[var(--primary)]" />
               <h2 className="text-xl font-black text-[var(--foreground)]">
-                {locale === 'es' ? 'Extras para el viaje' : 'Trip extras'}
+                {locale === "es" ? "Extras para el viaje" : "Trip extras"}
               </h2>
             </div>
             <div className="space-y-3">
@@ -174,27 +206,37 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
               </h2>
             </div>
             <div className="rounded-[1.2rem] border border-[rgba(240,181,118,0.56)] bg-[rgba(240,181,118,0.14)] p-4 text-sm leading-6 text-[#6a563e]">
-              {locale === 'es'
-                ? 'Prototipo: no se procesa ningún pago real. Esta pantalla está diseñada para validar claridad, confianza y secuencia operativa.'
-                : 'Prototype: no real payment is processed. This screen is designed to validate clarity, trust and operational sequence.'}
+              {locale === "es"
+                ? "Prototipo: no se procesa ningún pago real. Esta pantalla está diseñada para validar claridad, confianza y secuencia operativa."
+                : "Prototype: no real payment is processed. This screen is designed to validate clarity, trust and operational sequence."}
             </div>
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               <CheckoutField
-                label={locale === 'es' ? 'Número de tarjeta' : 'Card number'}
+                autoComplete="cc-number"
+                label={locale === "es" ? "Número de tarjeta" : "Card number"}
                 placeholder="4242 4242 4242 4242"
                 type="text"
               />
               <CheckoutField
-                label={locale === 'es' ? 'Nombre en la tarjeta' : 'Name on card'}
+                autoComplete="cc-name"
+                label={
+                  locale === "es" ? "Nombre en la tarjeta" : "Name on card"
+                }
                 placeholder="Valentina Gómez"
                 type="text"
               />
               <CheckoutField
-                label={locale === 'es' ? 'Vencimiento' : 'Expiry'}
+                autoComplete="cc-exp"
+                label={locale === "es" ? "Vencimiento" : "Expiry"}
                 placeholder="12/29"
                 type="text"
               />
-              <CheckoutField label="CVC" placeholder="123" type="text" />
+              <CheckoutField
+                autoComplete="cc-csc"
+                label="CVC"
+                placeholder="123"
+                type="text"
+              />
             </div>
           </div>
 
@@ -203,7 +245,9 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
             data-testid="confirm-booking"
             href={`/booking/confirmed?${createQueryString({ slug: vehicle.slug, start, end, pickup })}`}
           >
-            {locale === 'es' ? 'Confirmar reserva demo' : 'Confirm demo booking'}
+            {locale === "es"
+              ? "Confirmar reserva demo"
+              : "Confirm demo booking"}
           </Link>
         </div>
 
@@ -218,9 +262,11 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
                 src={vehicle.images[0].src}
               />
             </div>
-            <h2 className="text-xl font-black text-[var(--foreground)]">{title}</h2>
+            <h2 className="text-xl font-black text-[var(--foreground)]">
+              {title}
+            </h2>
             <p className="mt-2 text-sm text-[var(--muted)]">
-              {locale === 'es'
+              {locale === "es"
                 ? `${tripDays} días con entrega orientada a ${pickup.toUpperCase()}.`
                 : `${tripDays} days with handoff focused on ${pickup.toUpperCase()}.`}
             </p>
@@ -230,26 +276,31 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
                 {start} → {end}
               </p>
               <p className="mt-1">
-                {locale === 'es' ? 'Host' : 'Host'}: {vehicle.host.name}
+                {locale === "es" ? "Host" : "Host"}: {vehicle.host.name}
               </p>
             </div>
 
             <div className="mt-5 space-y-3 border-t border-[rgba(198,184,163,0.46)] pt-5 text-sm">
               <div className="flex justify-between text-[var(--text-soft)]">
                 <span>
-                  {formatCurrency(vehicle.pricePerDay, locale)} × {tripDays}{' '}
-                  {locale === 'es' ? 'días' : 'days'}
+                  {formatCurrency(vehicle.pricePerDay, locale)} × {tripDays}{" "}
+                  {locale === "es" ? "días" : "days"}
                 </span>
                 <span>{formatCurrency(tripSubtotal, locale)}</span>
               </div>
               <div className="flex justify-between text-[var(--text-soft)]">
                 <span>
-                  {locale === 'es' ? 'Plataforma + coordinación' : 'Platform + coordination'}
+                  {locale === "es"
+                    ? "Plataforma + coordinación"
+                    : "Platform + coordination"}
                 </span>
                 <span>{formatCurrency(fees, locale)}</span>
               </div>
               {defaultAddons.map((addon) => (
-                <div className="flex justify-between text-[var(--text-soft)]" key={addon.id}>
+                <div
+                  className="flex justify-between text-[var(--text-soft)]"
+                  key={addon.id}
+                >
                   <span>{addon.title[locale]}</span>
                   <span>{formatCurrency(addon.price, locale)}</span>
                 </div>
@@ -270,17 +321,22 @@ function CheckoutField({
   label,
   placeholder,
   type,
+  autoComplete,
 }: {
   label: string;
   placeholder: string;
   type: string;
+  autoComplete?: string;
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-semibold text-[var(--text-soft)]">{label}</span>
+      <span className="mb-2 block text-sm font-semibold text-[var(--text-soft)]">
+        {label}
+      </span>
       <input
-        className="w-full rounded-[1rem] border border-[rgba(198,184,163,0.58)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none transition-colors focus:border-[var(--primary)]"
-        defaultValue={placeholder}
+        autoComplete={autoComplete}
+        className="w-full rounded-[1rem] border border-[rgba(198,184,163,0.58)] bg-white px-4 py-3 text-sm text-[var(--foreground)] outline-none transition-colors focus-visible:border-[var(--primary)]"
+        placeholder={placeholder}
         type={type}
       />
     </label>
@@ -293,7 +349,9 @@ function SummaryBlock({ label, value }: { label: string; value: string }) {
       <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
         {label}
       </p>
-      <p className="mt-2 text-sm font-semibold text-[var(--foreground)]">{value}</p>
+      <p className="mt-2 text-sm font-semibold text-[var(--foreground)]">
+        {value}
+      </p>
     </div>
   );
 }

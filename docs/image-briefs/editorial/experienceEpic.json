@@ -1,0 +1,122 @@
+{
+  "id": "rentatelo_experience_idrive_dusk_suv_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "experience_card_epic",
+  "section": "home_experience_epic",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "1:1",
+    "resolution": "2048x2048"
+  },
+  "goal": "Generate a square 1:1 card image showing a dark charcoal compact SUV on International Drive Orlando at blue hour dusk — I-Drive entertainment strip illuminated in warm amber-orange behind, no people, must read 'urban Orlando evening energy' at card size.",
+  "creative_direction": {
+    "core_idea": "SUV en I-Drive al dusk — la semana Epic Universe / entretenimiento nocturno Orlando",
+    "visual_thesis": "Blue hour I-Drive con el SUV: urban Florida vacation energy, no suburban",
+    "emotion": [
+      "urban evening energy",
+      "I-Drive entertainment",
+      "modern Florida mobility"
+    ]
+  },
+  "composition": {
+    "shot_type": "3/4 front editorial — slightly dynamic, as if vehicle just pulled up",
+    "layout": "Dark SUV dominates the lower 60% of frame; I-Drive illuminated commercial strip fills the upper background; blue-purple dusk sky caps the top",
+    "camera": {
+      "framing": "1:1 square — vehicle sharp against illuminated I-Drive background",
+      "angle": "3/4 front, slightly low — dynamic forward lean implied",
+      "lens_style": "50mm editorial — natural perspective, no distortion",
+      "depth_of_field": "vehicle tack sharp, I-Drive lights in background pleasantly blurred into warm bokeh"
+    },
+    "overlay_compatibility": {
+      "text_safe_zone": "upper left — dark blue-purple dusk sky, minimum light pollution",
+      "logo_safe_zone": "lower right — dark pavement area below vehicle"
+    }
+  },
+  "subject": {
+    "type": "vehicle only — no people",
+    "model_reference": "Honda CR-V 2023 or Kia Sportage 2023 style — dark charcoal or slate gray exterior",
+    "critical_attributes": [
+      "dark charcoal or slate gray — not black, not white",
+      "headlights on — ambient DRL glow gives life to the vehicle at dusk",
+      "no rental company logos or stickers",
+      "no convertibles or sports cars",
+      "modern compact SUV silhouette — not a sedan, not a truck"
+    ]
+  },
+  "scene": {
+    "location": "International Drive, Orlando, FL — commercial entertainment boulevard, I-Drive district",
+    "time_of_day": "blue hour — 20-30 minutes after sunset, sky is deep blue-purple, artificial lights dominate",
+    "environment": [
+      "I-Drive commercial strip illuminated in warm amber and orange artificial lights",
+      "Palm trees along boulevard — lit from below by orange uplighting",
+      "Commercial architecture visible — entertainment zone, restaurant signs as soft bokeh",
+      "Deep blue-purple dusk sky above",
+      "Wet pavement optional — adds warm orange light reflections"
+    ],
+    "background_view": "I-Drive entertainment strip — warm amber bokeh lights, lit palms, blue-purple sky",
+    "critical_scene_rules": [
+      "No people anywhere in frame",
+      "No readable Universal, Epic Universe, or specific venue logos",
+      "No convertibles or sports cars",
+      "Sky must be distinctly blue hour — not full night, not golden hour",
+      "I-Drive warm amber lights must contrast with dark vehicle and blue sky — this is the visual tension"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "urban automotive editorial",
+      "dusk travel photography",
+      "Florida entertainment district visual language"
+    ],
+    "lighting": {
+      "type": "blue hour mixed lighting — cool sky vs warm artificial I-Drive lights",
+      "effects": [
+        "vehicle lit by warm I-Drive ambient — charcoal paint picks up amber-orange tones",
+        "headlights on — adds depth and presence to vehicle at dusk",
+        "background bokeh: warm amber orbs from commercial strip lights",
+        "sky: blue-indigo gradient, no stars yet",
+        "optional wet pavement reflection of warm I-Drive lights"
+      ]
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "dark charcoal vehicle — absorbs and reflects warm ambient",
+      "deep blue-purple sky",
+      "warm amber-orange I-Drive artificial lights"
+    ],
+    "accent": [
+      "palm tree silhouettes lit orange from below",
+      "vehicle DRL headlight glow — cool white"
+    ],
+    "rules": [
+      "Warm vs cool contrast is the visual heart: amber I-Drive lights vs blue dusk sky",
+      "Dark vehicle acts as the neutral bridge between warm and cool",
+      "No bright white or pure black — charcoal vehicle in mixed light is the target",
+      "Background bokeh must feel like entertainment district, not suburban highway"
+    ]
+  },
+  "negative_prompt": [
+    "no people",
+    "no passengers",
+    "no text in image",
+    "no watermark",
+    "no readable venue logos",
+    "no Universal Studios branding",
+    "no Epic Universe branding",
+    "no rental company logos",
+    "no convertibles",
+    "no sports cars",
+    "no full night darkness — blue hour only",
+    "no daytime",
+    "no bright midday sun",
+    "no beach or ocean",
+    "no mountains",
+    "no suburban context — I-Drive commercial only"
+  ],
+  "master_prompt": "Create a square 1:1 editorial image at 2048x2048 pixels for a car rental marketplace showing a dark charcoal compact SUV — Honda CR-V or Kia Sportage 2023 style — positioned on International Drive in Orlando, Florida, at blue hour dusk. The vehicle is shot from a 3/4 front angle slightly low with a 50mm lens, giving a natural dynamic forward energy. Headlights are on with a cool DRL glow. The I-Drive commercial entertainment strip fills the background with warm amber and orange bokeh lights from restaurants and entertainment venues — no readable specific logos. Palm trees are visible along the boulevard, lit from below with orange uplighting. The sky above is a deep blue-indigo dusk gradient — 20 minutes after sunset, no stars, not fully dark. The dark charcoal vehicle catches warm amber reflections from the I-Drive ambient on its body panels, creating a compelling warm-cool tension: cool blue sky overhead, warm orange I-Drive behind, dark vehicle in between. No people, no passengers. Optional: light wet pavement reflection of the warm commercial lights. The image must read as 'urban Orlando entertainment district evening — this is the vehicle for a week of Epic Universe and I-Drive dining' at card size. Avoid daytime, full night, beach, mountains, convertibles, sports cars, readable venue branding, rental logos, and any text or watermarks."
+}

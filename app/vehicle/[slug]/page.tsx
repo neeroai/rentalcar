@@ -17,28 +17,35 @@ import {
   ShieldCheck,
   Star,
   Users,
-} from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-import { VehicleCard } from '@/components/motion-ui';
-import { vehicles } from '@/data/mock';
-import { getDictionary, getLocale } from '@/lib/i18n';
+import { VehicleCard } from "@/components/motion-ui";
+import { vehicles } from "@/data/mock";
+import { getDictionary, getLocale } from "@/lib/i18n";
 import {
   createQueryString,
   formatCurrency,
   getLocalizedText,
   getRelatedVehicles,
   getVehicleBySlug,
-} from '@/lib/utils';
+} from "@/lib/utils";
+
+export function generateStaticParams() {
+  return vehicles.map((vehicle) => ({ slug: vehicle.slug }));
+}
 
 interface VehicleDetailPageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default async function VehicleDetailPage({ params, searchParams }: VehicleDetailPageProps) {
+export default async function VehicleDetailPage({
+  params,
+  searchParams,
+}: VehicleDetailPageProps) {
   const { slug } = await params;
   const query = await searchParams;
   const locale = await getLocale();
@@ -50,10 +57,14 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
   }
 
   const searchState = {
-    pickup: Array.isArray(query.pickup) ? query.pickup[0] : (query.pickup ?? 'mco'),
-    start: Array.isArray(query.start) ? query.start[0] : (query.start ?? '2026-04-18'),
-    end: Array.isArray(query.end) ? query.end[0] : (query.end ?? '2026-04-22'),
-    time: Array.isArray(query.time) ? query.time[0] : (query.time ?? '10:00'),
+    pickup: Array.isArray(query.pickup)
+      ? query.pickup[0]
+      : (query.pickup ?? "mco"),
+    start: Array.isArray(query.start)
+      ? query.start[0]
+      : (query.start ?? "2026-04-18"),
+    end: Array.isArray(query.end) ? query.end[0] : (query.end ?? "2026-04-22"),
+    time: Array.isArray(query.time) ? query.time[0] : (query.time ?? "10:00"),
     category: Array.isArray(query.category)
       ? query.category[0]
       : (query.category ?? vehicle.category),
@@ -94,13 +105,21 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,25,23,0.08)_0%,rgba(20,25,23,0.72)_100%)]" />
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:p-8">
                 <p className="text-xs uppercase tracking-[0.18em] text-white/62">
-                  {vehicle.city === 'orlando' ? 'Orlando trip ready' : 'Miami extension'}
+                  {vehicle.city === "orlando"
+                    ? "Orlando trip ready"
+                    : "Miami extension"}
                 </p>
-                <h1 className="heading-balance mt-3 text-fluid-h2 font-black">{title}</h1>
+                <h1 className="heading-balance mt-3 text-fluid-h2 font-black">
+                  {title}
+                </h1>
                 <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-white/78">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
-                    <Star className="h-4 w-4 fill-[var(--secondary)] text-[var(--secondary)]" />
-                    {vehicle.rating} · {vehicle.tripsCount} {dictionary.vehicle.trips}
+                    <Star
+                      aria-hidden="true"
+                      className="h-4 w-4 fill-[var(--secondary)] text-[var(--secondary)]"
+                    />
+                    {vehicle.rating} · {vehicle.tripsCount}{" "}
+                    {dictionary.vehicle.trips}
                   </span>
                   {vehicle.host.isSuperhost ? (
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
@@ -110,7 +129,7 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                   ) : null}
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
                     <MapPin className="h-4 w-4 text-[var(--secondary)]" />
-                    {vehicle.city === 'orlando' ? 'Orlando, FL' : 'Miami, FL'}
+                    {vehicle.city === "orlando" ? "Orlando, FL" : "Miami, FL"}
                   </span>
                 </div>
               </div>
@@ -132,11 +151,12 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                   {index === 3 ? (
                     <div className="absolute inset-0 flex items-end justify-end bg-black/30 p-4">
                       <button
+                        aria-disabled="true"
                         className="inline-flex items-center gap-2 rounded-full bg-white/92 px-4 py-2 text-sm font-semibold text-[var(--foreground)]"
                         type="button"
                       >
                         <Grid2x2 className="h-4 w-4" />
-                        {locale === 'es' ? 'Ver galería' : 'View gallery'}
+                        {locale === "es" ? "Ver galería" : "View gallery"}
                       </button>
                     </div>
                   ) : null}
@@ -154,11 +174,14 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
               {[
                 {
                   icon: Users,
-                  label: `${vehicle.seats} ${locale === 'es' ? 'personas' : 'guests'}`,
+                  label: `${vehicle.seats} ${locale === "es" ? "personas" : "guests"}`,
                 },
                 { icon: Settings2, label: vehicle.transmission },
                 { icon: Fuel, label: vehicle.fuelType },
-                { icon: Route, label: locale === 'es' ? '250 mi / día' : '250 mi / day' },
+                {
+                  icon: Route,
+                  label: locale === "es" ? "250 mi / día" : "250 mi / day",
+                },
               ].map((item) => {
                 const Icon = item.icon;
 
@@ -170,7 +193,9 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--primary-soft)] text-[var(--primary)]">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <p className="text-sm font-semibold text-[var(--foreground)]">{item.label}</p>
+                    <p className="text-sm font-semibold text-[var(--foreground)]">
+                      {item.label}
+                    </p>
                   </div>
                 );
               })}
@@ -203,9 +228,9 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                       {getLocalizedText(locale, vehicle.host.responseTime)}
                     </span>
                     <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1">
-                      {locale === 'es'
-                        ? 'Entrega orientada a hoteles y MCO'
-                        : 'Hotel and MCO-focused handoff'}
+                      {locale === "es"
+                        ? "Entrega orientada a hoteles y MCO"
+                        : "Hotel and MCO-focused handoff"}
                     </span>
                   </div>
                 </div>
@@ -300,12 +325,16 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5 fill-[var(--secondary)] text-[var(--secondary)]" />
                 <h2 className="text-xl font-black text-[var(--foreground)]">
-                  {vehicle.rating} · {vehicle.reviews.length} {dictionary.vehicle.reviews}
+                  {vehicle.rating} · {vehicle.reviews.length}{" "}
+                  {dictionary.vehicle.reviews}
                 </h2>
               </div>
               <div className="mt-6 grid gap-4 md:grid-cols-2">
                 {vehicle.reviews.map((review) => (
-                  <article className="rounded-[1.4rem] bg-[var(--surface-alt)] p-5" key={review.id}>
+                  <article
+                    className="rounded-[1.4rem] bg-[var(--surface-alt)] p-5"
+                    key={review.id}
+                  >
                     <div className="flex items-start gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary)] text-sm font-semibold text-white">
                         {review.author[0]}
@@ -314,7 +343,9 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                         <p className="text-sm font-semibold text-[var(--foreground)]">
                           {review.author}
                         </p>
-                        <p className="text-xs text-[var(--muted)]">{review.date}</p>
+                        <p className="text-xs text-[var(--muted)]">
+                          {review.date}
+                        </p>
                       </div>
                     </div>
                     <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
@@ -336,7 +367,9 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                   <p className="mt-2 text-4xl font-black tracking-[-0.06em] text-[var(--foreground)]">
                     {formatCurrency(vehicle.pricePerDay, locale)}
                   </p>
-                  <p className="text-sm text-[var(--muted)]">{dictionary.vehicle.perDay}</p>
+                  <p className="text-sm text-[var(--muted)]">
+                    {dictionary.vehicle.perDay}
+                  </p>
                 </div>
                 <div className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
                   {vehicle.rating} ★
@@ -347,7 +380,7 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                 <div className="grid divide-x divide-[rgba(198,184,163,0.55)] md:grid-cols-2">
                   <label className="p-4">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-                      {locale === 'es' ? 'Desde' : 'From'}
+                      {locale === "es" ? "Desde" : "From"}
                     </span>
                     <input
                       className="mt-2 w-full cursor-pointer bg-transparent text-sm font-semibold outline-none"
@@ -357,7 +390,7 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                   </label>
                   <label className="p-4">
                     <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
-                      {locale === 'es' ? 'Hasta' : 'Until'}
+                      {locale === "es" ? "Hasta" : "Until"}
                     </span>
                     <input
                       className="mt-2 w-full cursor-pointer bg-transparent text-sm font-semibold outline-none"
@@ -373,28 +406,39 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
                 data-testid="booking-cta"
                 href={`/checkout?${checkoutQuery}`}
               >
-                {locale === 'es' ? 'Reservar este auto' : 'Reserve this car'}
+                {locale === "es" ? "Reservar este auto" : "Reserve this car"}
               </Link>
               <p className="mt-3 text-center text-xs leading-6 text-[var(--muted)]">
-                {locale === 'es'
-                  ? 'No se cobra nada todavía. Primero confirmas contexto, entrega y host.'
-                  : 'Nothing is charged yet. You confirm context, handoff and host first.'}
+                {locale === "es"
+                  ? "No se cobra nada todavía. Primero confirmas contexto, entrega y host."
+                  : "Nothing is charged yet. You confirm context, handoff and host first."}
               </p>
 
               <div className="mt-6 space-y-3 border-t border-[rgba(198,184,163,0.46)] pt-5 text-sm">
                 <div className="flex justify-between text-[var(--text-soft)]">
                   <span>
-                    {formatCurrency(vehicle.pricePerDay, locale)} × {estimatedDays}{' '}
-                    {locale === 'es' ? 'días' : 'days'}
+                    {formatCurrency(vehicle.pricePerDay, locale)} ×{" "}
+                    {estimatedDays} {locale === "es" ? "días" : "days"}
                   </span>
-                  <span>{formatCurrency(vehicle.pricePerDay * estimatedDays, locale)}</span>
+                  <span>
+                    {formatCurrency(
+                      vehicle.pricePerDay * estimatedDays,
+                      locale,
+                    )}
+                  </span>
                 </div>
                 <div className="flex justify-between text-[var(--text-soft)]">
-                  <span>{locale === 'es' ? 'Entrega estimada' : 'Estimated handoff fee'}</span>
+                  <span>
+                    {locale === "es"
+                      ? "Entrega estimada"
+                      : "Estimated handoff fee"}
+                  </span>
                   <span>+{formatCurrency(deliveryFee, locale)}</span>
                 </div>
                 <div className="flex justify-between border-t border-[rgba(198,184,163,0.46)] pt-3 font-semibold text-[var(--foreground)]">
-                  <span>{locale === 'es' ? 'Total estimado' : 'Estimated total'}</span>
+                  <span>
+                    {locale === "es" ? "Total estimado" : "Estimated total"}
+                  </span>
                   <span>{formatCurrency(totalEstimate, locale)}</span>
                 </div>
               </div>
@@ -455,7 +499,7 @@ export default async function VehicleDetailPage({ params, searchParams }: Vehicl
             </p>
           </div>
           <Link className="btn-primary" href={`/checkout?${checkoutQuery}`}>
-            {locale === 'es' ? 'Reservar' : 'Book now'}
+            {locale === "es" ? "Reservar" : "Book now"}
           </Link>
         </div>
       </div>

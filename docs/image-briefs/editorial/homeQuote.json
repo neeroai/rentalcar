@@ -1,0 +1,130 @@
+{
+  "id": "rentatelo_home_quote_latam_wynwood_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "review_highlight",
+  "section": "home_review_highlight",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:5",
+    "resolution": "1640x2050"
+  },
+  "goal": "Imagen editorial para la sección de review highlight del homepage de rentatelo.com — una viajera LATAM auténtica en Wynwood Miami, riendo genuinamente frente a un mural hiperrealista de 5 pisos, transmitiendo la experiencia cultural única que un carro permite descubrir.",
+  "creative_direction": {
+    "core_idea": "Una viajera LATAM real en Wynwood Miami — la experiencia cultural única que un carro permite descubrir",
+    "visual_thesis": "La mujer es pequeña frente al mural — escala y autenticidad. Este es el Miami que vale la pena llegar en carro, no en Uber",
+    "emotion": [
+      "authentic joy",
+      "cultural discovery",
+      "Miami adventure",
+      "genuine vacation happiness"
+    ]
+  },
+  "composition": {
+    "shot_type": "editorial environmental portrait — medium-wide",
+    "layout": "subject lower-center or slightly left-of-center, mural filling entire background as 5-story scale backdrop — subject appears small relative to mural to emphasize scale",
+    "camera": {
+      "framing": "4:5 portrait card — subject occupying lower 40% of frame, mural filling upper 60% and all sides behind subject",
+      "angle": "eye-level, slight distance to include full subject body and significant mural height above her",
+      "lens_style": "35mm editorial — slightly wider than portrait to include environmental scale",
+      "depth_of_field": "subject sharp, mural in same focal plane (she is against the wall) — both sharp simultaneously"
+    },
+    "overlay_compatibility": {
+      "overlay_zone": "bottom strip below subject feet — dark pavement or shadow base",
+      "zone_content": "Wynwood street pavement, dark concrete",
+      "text_color_compatibility": "white",
+      "brightness_target": "bottom strip luminance below 35%"
+    }
+  },
+  "subject": {
+    "type": "single LATAM woman",
+    "age": "33–44 years old",
+    "ethnicity": "Latin American — Colombian, Venezuelan, or Mexican appearance",
+    "expression": "laughing genuinely — spontaneous, not posed, looking slightly off-camera with real vacation joy — the kind of laugh from a surprising or delightful moment",
+    "wardrobe": [
+      "simple neutral or pastel casual summer outfit — white, cream, or pale blue",
+      "minimal jewelry — small earrings or none",
+      "comfortable sandals or sneakers",
+      "no brand logos on clothing",
+      "no sunglasses obscuring face expression"
+    ],
+    "body_language": "natural and unposed — perhaps turning slightly, weight shifted, mid-laugh, hand gesture optional but not forced",
+    "position_in_frame": "lower center of frame, feet visible, full standing height, small relative to 5-story mural behind her"
+  },
+  "scene": {
+    "location": "Wynwood Arts District, NW 2nd Avenue corridor, Miami, Florida",
+    "time_of_day": "mid-morning or midday — bright diffused natural light, no harsh direct shadows on face",
+    "environment": [
+      "large-scale hyperrealist mural on warehouse wall — 5-story height, filling entire background",
+      "Wynwood street pavement — dark concrete, slightly worn",
+      "urban warehouse wall texture around mural edges",
+      "natural Florida daylight diffused — no harsh noon shadows"
+    ],
+    "background_view": "hyperrealist mural with vibrant multicolor content filling entire frame behind subject — large human or animal figures rendered in photorealistic detail, highly saturated colors, monumental scale making subject appear small",
+    "critical_scene_rules": [
+      "mural must be clearly hyperrealist style — not abstract, not graffiti lettering",
+      "mural must fill 100% of background — no sky, no building edge, no street visible above mural",
+      "no text or words visible on mural surface",
+      "no competitor brand logos visible anywhere",
+      "subject must be clearly smaller than mural — scale contrast is the visual thesis",
+      "expression must be genuinely laughing — not a posed smile or neutral expression",
+      "no other people visible in frame",
+      "lighting must be bright and natural — no moody shadows on subject face"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "authentic travel editorial portrait",
+      "cultural destination photography",
+      "street art backdrop lifestyle"
+    ],
+    "lighting": {
+      "primary": "bright diffused Florida natural light — overcast-bright or open shade from building",
+      "quality": "even and flattering on subject face — soft shadows, no harsh noon sun strips",
+      "mural_lighting": "flat even light revealing full mural color saturation — no spotlight or dramatic shadows on wall",
+      "skin_treatment": "warm natural skin tones — no cool cast, no heavy retouching",
+      "overall": "bright, vibrant, energetic — matches the Wynwood cultural energy"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "vibrant hyperrealist mural colors — multicolor, highly saturated background",
+      "warm LATAM skin tones on subject",
+      "dark concrete pavement base"
+    ],
+    "accent": [
+      "subject outfit neutral — white or cream to contrast vivid mural",
+      "amber F0B576 tonal warmth in skin highlights",
+      "teal 168F8A possible in mural palette"
+    ],
+    "rules": [
+      "mural background must be vivid and saturated — the color drama lives in the mural, not the subject",
+      "subject outfit must be neutral or pastel to avoid competing with mural",
+      "warm skin tones on subject — no cool or grey cast",
+      "overall image: vibrant and joyful — maximum cultural energy",
+      "no desaturation, no moody color grading"
+    ]
+  },
+  "negative_prompt": [
+    "posed or stiff smile — must be genuine spontaneous laugh",
+    "subject facing camera directly in formal portrait pose",
+    "abstract or graffiti-lettering mural — must be hyperrealist figurative",
+    "text or words visible on mural wall",
+    "competitor brand logos in scene",
+    "other people visible in frame",
+    "harsh direct sunlight creating shadow stripes on face",
+    "sunglasses hiding subject expression",
+    "branded clothing on subject",
+    "sky visible above mural — mural must fill entire background",
+    "dark or moody lighting",
+    "stock photo aesthetic",
+    "uncanny AI face quality",
+    "corporate advertising pose",
+    "beach or ocean context",
+    "text or watermarks in image"
+  ],
+  "master_prompt": "Editorial portrait for rentatelo.com homepage review highlight section — the authentic cultural experience a LATAM family discovers by having their own car in Miami. A Latin American woman aged 33 to 44 stands in Wynwood Arts District on NW 2nd Avenue, Miami, Florida. She is laughing genuinely — spontaneous, not posed — looking slightly off-camera with real vacation joy, mid-laugh, natural body language with possible hand gesture. Simple neutral or pastel outfit: white or cream top, no brand logos, minimal jewelry, no sunglasses. She stands against an enormous hyperrealist mural on a warehouse wall — 5-story scale, vibrant multicolor content with photorealistic human or animal figures filling the entire background behind her. The subject is clearly small relative to the mural — scale contrast is intentional and central. The mural fills 100% of the background; no sky, no street visible above. Composition 4:5 portrait, subject in lower center of frame, full standing height visible, mural dominating upper portion. 35mm natural perspective, subject and mural in same sharp focal plane. Lighting: bright diffused Florida natural light — mid-morning open shade, even and flattering, no harsh shadows on face. Color: vivid saturated mural background, warm natural skin tones, neutral subject outfit as contrast anchor. No text on mural, no competitor logos. Avoid: posed smile, formal portrait pose, abstract or lettering mural, text on mural, other people, harsh shadow on face, sunglasses, branded clothing, sky visible above mural, dark or moody tone, stock photo aesthetic, text, watermarks."
+}

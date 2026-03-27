@@ -1,0 +1,128 @@
+{
+  "id": "rentatelo_home_orlando_lake_eola_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/",
+  "slot": "destination_primary",
+  "section": "home_destination_orlando",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "4:3",
+    "resolution": "2000x1500"
+  },
+  "goal": "Tarjeta de destino primario Orlando en el homepage de rentatelo.com — Lake Eola al golden hour, sin personas, evocando el Orlando real más allá de los parques: lush, cálido, aspiracional.",
+  "creative_direction": {
+    "core_idea": "Lake Eola al golden hour — el Orlando real, más allá de los parques temáticos",
+    "visual_thesis": "Esta imagen dice: Orlando es hermoso, lush, cálido — vale la pena el viaje aunque no vayas a Disney",
+    "emotion": [
+      "warm aspiration",
+      "destination confidence",
+      "calm excitement",
+      "Florida lush beauty"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide landscape editorial",
+    "layout": "Lake Eola fountain centered, swans on water mid-ground, subtropical oaks and royal palms framing shore left and right, Orlando skyline soft in upper background",
+    "camera": {
+      "framing": "4:3 destination card — sky upper 35%, fountain and lake center 40%, shore vegetation lower 25%",
+      "angle": "eye-level from lakeside shore, slight elevation to capture fountain and skyline together",
+      "lens_style": "24mm wide editorial, natural perspective",
+      "depth_of_field": "deep — fountain and swans sharp, skyline buildings slightly soft atmospheric, vegetation sharp in foreground"
+    },
+    "overlay_compatibility": {
+      "overlay_zone": "lower-left corner label area",
+      "zone_content": "darker water surface and shadowed shore",
+      "text_color_compatibility": "white or amber",
+      "brightness_target": "lower-left water zone luminance 30–45%"
+    }
+  },
+  "subject": {
+    "type": "landscape scene — no people",
+    "primary_feature": "Lake Eola iconic tiered fountain — center frame, lit golden-amber by setting sun",
+    "wildlife": "2 to 4 white swans on lake surface near fountain, natural positions",
+    "vegetation": [
+      "large subtropical live oaks with Spanish moss on left shore",
+      "tall royal palms flanking right shore",
+      "tropical understory shrubs at water edge"
+    ],
+    "skyline": "Orlando downtown skyline — Amway Center area visible but soft and receding, not dominant",
+    "water": "Lake Eola surface — calm mirror reflection of golden sky and fountain lit amber"
+  },
+  "scene": {
+    "location": "Lake Eola Park, Downtown Orlando, Orange County, Florida",
+    "time_of_day": "golden hour — sun 10 to 20 minutes before setting, maximum warm amber light",
+    "environment": [
+      "Lake Eola circular lake with central fountain as landmark",
+      "white swans on calm water surface",
+      "subtropical live oaks with Spanish moss on western shore",
+      "royal palms and tropical vegetation framing eastern shore",
+      "Orlando modest downtown skyline in soft background",
+      "warm amber-orange sky with horizontal sunset cloud layers"
+    ],
+    "background_view": "Orlando skyline soft and atmospheric beyond far shore — visible but not competing with fountain and vegetation; sky is warm amber-orange gradient transitioning to pale gold above",
+    "critical_scene_rules": [
+      "zero people — park is completely empty",
+      "Lake Eola fountain must be center frame and recognizable — not a generic fountain",
+      "white swans on water are mandatory for character",
+      "golden hour light must feel genuinely warm and lush — no flat or cool ambient",
+      "no theme park structures, no Disney visual cues, no generic Florida beach",
+      "Orlando skyline visible but soft — not dominant over natural scene",
+      "water must be calm and mirror-like — no wind ripples destroying reflection",
+      "subtropical vegetation must feel Central Florida specific — not generic tropical"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "destination travel editorial",
+      "nature-urban landscape photography",
+      "Florida golden hour"
+    ],
+    "lighting": {
+      "primary": "golden hour warm natural light — sun low on horizon, maximum amber saturation",
+      "quality": "rich warm amber cast over entire scene — lush and cinematic",
+      "fountain_lighting": "warm amber-gold highlight on fountain tiers and water spray",
+      "water_lighting": "mirror reflection of golden sky — horizontal amber and deep teal in depths",
+      "vegetation_lighting": "warm side-lighting on oak canopy and palm fronds — rich green with amber edge highlight",
+      "skyline_lighting": "soft warm ambient on distant buildings — atmospheric haze adds depth"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "warm amber-orange F0B576 in sky and water reflection",
+      "rich subtropical green in oak canopy",
+      "deep teal 168F8A in lake depth shadows"
+    ],
+    "accent": [
+      "soft pink-coral in highest cloud layers",
+      "white swan forms as contrast anchor",
+      "pale gold on fountain water spray"
+    ],
+    "rules": [
+      "sky must be warm amber-orange — no cool blue or grey tones",
+      "water reflection must mirror sky warmth — amber dominant with teal deep shadows",
+      "vegetation green must be rich and saturated — not yellowed or dried",
+      "overall image warmth high but not oversaturated — editorial quality not Instagram filter",
+      "skyline buildings should trend warm grey-amber — not cool blue glass"
+    ]
+  },
+  "negative_prompt": [
+    "any people visible in park",
+    "theme park structures or Disney visual language",
+    "beach or ocean or coastal elements",
+    "Miami skyline or South Florida architecture",
+    "overcast or grey sky",
+    "cold or blue ambient light",
+    "dry or yellowed vegetation",
+    "wind-rippled water destroying mirror reflection",
+    "fountain absent or not recognizable as Lake Eola",
+    "swans absent",
+    "HDR over-processing",
+    "text or watermarks in scene",
+    "aerial or drone perspective",
+    "generic tropical resort aesthetic"
+  ],
+  "master_prompt": "Destination card image for rentatelo.com homepage — Orlando as the primary family destination. Show Lake Eola Park in Downtown Orlando, Orange County, Florida at golden hour — sun 10 to 20 minutes before setting. The iconic tiered Lake Eola fountain stands center-frame, lit warm amber-gold by the setting sun. Two to four white swans rest naturally on the calm lake surface near the fountain. Large subtropical live oaks with Spanish moss frame the left shore; tall royal palms flank the right. The lake surface is a near-perfect mirror of the golden sky above. The Orlando downtown skyline — Amway Center area — appears soft and atmospheric in the upper background, present but not dominant. Sky is warm amber-orange with horizontal sunset cloud layers. Wide horizontal composition 4:3, sky in upper 35%, fountain and lake center 40%, shore vegetation lower 25%. Eye-level from lakeside, 24mm natural perspective, deep focus with slight atmospheric softness on distant skyline. Color: warm amber F0B576 in sky and water reflections, deep teal 168F8A in lake depth shadows, rich subtropical green canopy, white swan forms as contrast anchors. The image must feel lush, warm, and aspirational — the Orlando beyond theme parks. Avoid: any people, theme park visual cues, beach or ocean, cold tones, Miami architecture, wind-rippled water, absent fountain, absent swans, HDR, text, watermarks, aerial perspective."
+}

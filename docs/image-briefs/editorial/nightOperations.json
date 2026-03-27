@@ -1,0 +1,124 @@
+{
+  "id": "rentatelo_night_cta_overseas_highway_v2",
+  "provider": "google",
+  "model": "gemini-3.1-flash-image-preview",
+  "model_alias": "google-nano-banana-2",
+  "route": "/*",
+  "slot": "cta_fullbleed",
+  "section": "site_cta_section",
+  "output": {
+    "format": "png",
+    "background": "opaque",
+    "aspect_ratio": "16:9",
+    "resolution": "2400x1350"
+  },
+  "goal": "Imagen de fondo full-bleed para la sección CTA de rentatelo.com — Overseas Highway en dusk/blue hour, la carretera sobre el océano que solo es posible experimentar con un carro propio, vendiendo el road trip como necesidad emocional.",
+  "creative_direction": {
+    "core_idea": "La Overseas Highway al dusk — el road trip más icónico de USA, solo posible con un carro",
+    "visual_thesis": "Este CTA no vende un carro — vende el hecho de que SIN el carro, nunca llegas aquí",
+    "emotion": [
+      "freedom",
+      "road trip dream",
+      "open horizon",
+      "FOMO of not renting"
+    ]
+  },
+  "composition": {
+    "shot_type": "wide road leading-lines shot",
+    "layout": "highway road as central leading lines vanishing to horizon center, turquoise water both sides, sky dominant upper half, left third open sky and water for CTA text overlay",
+    "camera": {
+      "framing": "left third reserved — open sky and water, no road surface in that zone — clear for white headline and CTA button overlay",
+      "angle": "low road-level or slight car-interior POV — pavement visible in foreground, horizon at upper center",
+      "lens_style": "24–28mm wide — maximizes leading lines and horizon drama",
+      "depth_of_field": "deep focus — road sharp from foreground through vanishing point, water and sky sharp throughout"
+    },
+    "overlay_compatibility": {
+      "overlay_zone": "left third",
+      "zone_content": "open dusk sky transitioning to dark water surface",
+      "text_color_compatibility": "white or light cream",
+      "brightness_target": "left zone luminance 20–40% — sky darkening toward indigo ensures legibility"
+    }
+  },
+  "subject": {
+    "type": "road and landscape scene — no people",
+    "primary_feature": "Overseas Highway asphalt road as strong perspective leading lines disappearing to ocean horizon vanishing point",
+    "water": "turquoise Atlantic and Gulf water visible both sides of highway — water stretching to horizon",
+    "sky": "dusk gradient — amber-orange at horizon transitioning through rose to deep indigo above",
+    "traffic": "1 to 2 oncoming car headlight streaks as long exposure effect — subtle, not dominant",
+    "guardrails": "low concrete or metal highway guardrails both sides — low profile, not blocking water view"
+  },
+  "scene": {
+    "location": "Overseas Highway, US-1, Florida Keys — between Islamorada and Marathon, Monroe County, Florida",
+    "time_of_day": "dusk / blue hour — 10 to 25 minutes after sunset, amber horizon, indigo sky above",
+    "environment": [
+      "two-lane Overseas Highway with double yellow center line as leading perspective guide",
+      "turquoise Atlantic Ocean on left side of highway",
+      "Gulf of Mexico on right side of highway",
+      "low concrete or metal highway guardrails both sides",
+      "amber-to-indigo dusk sky with soft cloud layers at horizon",
+      "1–2 oncoming car headlight streaks — long exposure suggestion, subtle"
+    ],
+    "background_view": "highway vanishing to ocean horizon at center — ocean and sky merge at horizon line, no land visible at vanishing point — infinite open water ahead",
+    "critical_scene_rules": [
+      "no people visible anywhere in scene",
+      "no rental car logos or commercial signage on road or vehicles",
+      "left third must be open sky and water — road not present in that zone",
+      "sky must clearly be dusk blue hour — amber at horizon, indigo above — not black night",
+      "turquoise water must be visible both sides of highway simultaneously",
+      "highway must read as Overseas Highway US-1 Florida Keys — not a generic causeway",
+      "headlight streaks optional but preferred — long exposure feel adds motion energy",
+      "no palm trees, no urban structures — pure highway over water landscape"
+    ]
+  },
+  "style": {
+    "aesthetic_family": [
+      "cinematic road trip photography",
+      "travel editorial landscape",
+      "Florida Keys dramatic"
+    ],
+    "lighting": {
+      "primary": "natural dusk — last amber light at ocean horizon, indigo sky taking over above",
+      "quality": "dramatic and cinematic — the tension between warm horizon and cool indigo sky",
+      "water_lighting": "turquoise water catching last amber horizon light on surface, deeper shadows toward edges",
+      "road_lighting": "dark asphalt with faint amber reflection from horizon, white road markings as leading lines",
+      "headlight_treatment": "1–2 oncoming headlight streaks as warm white-amber light trails — long exposure effect",
+      "horizon_treatment": "thin amber-rose line where water meets sky — maximum dramatic contrast with indigo above"
+    }
+  },
+  "color_direction": {
+    "dominant": [
+      "deep indigo sky above transitioning to amber at horizon",
+      "turquoise-teal water both sides in 168F8A range",
+      "dark asphalt road as neutral path"
+    ],
+    "accent": [
+      "amber F0B576 at dusk horizon line",
+      "white headlight streak trails",
+      "soft rose-pink in cloud layers above horizon"
+    ],
+    "rules": [
+      "sky must have strong amber-to-indigo gradient — this is the visual engine of the image",
+      "water must be turquoise-teal 168F8A — not grey or dark blue",
+      "road must be dark and receding — leading lines not competing with sky drama",
+      "left zone trends to medium-dark indigo sky — essential for white CTA overlay legibility",
+      "no warm orange dominant over full image — warmth confined to horizon band"
+    ]
+  },
+  "negative_prompt": [
+    "any people visible in scene",
+    "rental car logos or commercial signage",
+    "palm trees or tropical vegetation",
+    "urban buildings or structures",
+    "daytime or golden hour lighting",
+    "black night sky without blue hour gradient",
+    "grey or dark water — must be turquoise",
+    "road absent or not prominent as leading lines",
+    "aerial or drone perspective from high altitude",
+    "text or watermarks in scene",
+    "heavy traffic — maximum 2 subtle headlight streaks",
+    "generic causeway not identifiable as Florida Keys",
+    "overcast flat sky without gradient",
+    "warm tones dominating full image"
+  ],
+  "master_prompt": "Full-bleed CTA background image for rentatelo.com — the emotional argument for renting a car: without it, you never reach this place. Show the Overseas Highway, US-1, in the Florida Keys between Islamorada and Marathon, Monroe County, Florida at dusk and blue hour — 10 to 25 minutes after sunset. The two-lane asphalt highway stretches from foreground directly to the ocean horizon at center frame, double yellow center line and white edge lines acting as strong perspective leading lines vanishing to a point where ocean and sky meet. Turquoise water from both the Atlantic and the Gulf of Mexico is visible on either side of the highway simultaneously, low guardrails keeping the water view unobstructed. The sky above is a dramatic dusk gradient: thin amber-orange at the horizon line, transitioning through rose-pink cloud layers to deep indigo above. One or two oncoming car headlights appear as subtle warm white streaks in the distance — long exposure feel, not dominant. No people visible anywhere. Low road-level angle or slight car-interior POV, 24–28mm wide lens, deep focus throughout. The left third of the frame contains only open dusk sky and water — reserved for white headline and CTA button overlay, luminance 20–40%. Color: deep indigo sky, amber F0B576 at horizon band, turquoise-teal 168F8A water, dark asphalt road. Avoid: people, rental logos, palm trees, urban structures, daytime light, black sky, grey water, heavy traffic, aerial perspective, text, watermarks."
+}
