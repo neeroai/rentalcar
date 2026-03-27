@@ -1,6 +1,6 @@
 /**
  * @file app/vehicle/[slug]/page.tsx
- * @description Vehicle detail page with Turo-inspired layout: image gallery, sticky booking card, reviews.
+ * @description Orlando-first vehicle detail page with immersive gallery and operational booking clarity.
  * @module app/vehicle
  * @exports VehicleDetailPage
  */
@@ -17,31 +17,28 @@ import {
   ShieldCheck,
   Star,
   Users,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
-import { VehicleCard } from "@/components/motion-ui";
-import { vehicles } from "@/data/mock";
-import { getDictionary, getLocale } from "@/lib/i18n";
+import { VehicleCard } from '@/components/motion-ui';
+import { vehicles } from '@/data/mock';
+import { getDictionary, getLocale } from '@/lib/i18n';
 import {
   createQueryString,
   formatCurrency,
   getLocalizedText,
   getRelatedVehicles,
   getVehicleBySlug,
-} from "@/lib/utils";
+} from '@/lib/utils';
 
 interface VehicleDetailPageProps {
   params: Promise<{ slug: string }>;
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-export default async function VehicleDetailPage({
-  params,
-  searchParams,
-}: VehicleDetailPageProps) {
+export default async function VehicleDetailPage({ params, searchParams }: VehicleDetailPageProps) {
   const { slug } = await params;
   const query = await searchParams;
   const locale = await getLocale();
@@ -53,14 +50,10 @@ export default async function VehicleDetailPage({
   }
 
   const searchState = {
-    pickup: Array.isArray(query.pickup)
-      ? query.pickup[0]
-      : (query.pickup ?? "mco"),
-    start: Array.isArray(query.start)
-      ? query.start[0]
-      : (query.start ?? "2026-04-18"),
-    end: Array.isArray(query.end) ? query.end[0] : (query.end ?? "2026-04-22"),
-    time: Array.isArray(query.time) ? query.time[0] : (query.time ?? "10:00"),
+    pickup: Array.isArray(query.pickup) ? query.pickup[0] : (query.pickup ?? 'mco'),
+    start: Array.isArray(query.start) ? query.start[0] : (query.start ?? '2026-04-18'),
+    end: Array.isArray(query.end) ? query.end[0] : (query.end ?? '2026-04-22'),
+    time: Array.isArray(query.time) ? query.time[0] : (query.time ?? '10:00'),
     category: Array.isArray(query.category)
       ? query.category[0]
       : (query.category ?? vehicle.category),
@@ -73,413 +66,377 @@ export default async function VehicleDetailPage({
 
   const related = getRelatedVehicles(vehicles, vehicle);
   const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
-  const pricePerDay = vehicle.pricePerDay;
   const estimatedDays = 3;
   const deliveryFee = vehicle.deliveryOptions[0]?.fee ?? 28;
+  const totalEstimate = vehicle.pricePerDay * estimatedDays + deliveryFee;
 
   return (
     <>
-      {/* Image Gallery */}
-      <div className="bg-[#F5F5F5]">
-        <div className="page-grid py-4">
-          <Link
-            className="mb-3 inline-flex text-sm font-semibold text-[#7C3AED]"
-            href={`/search?${createQueryString(searchState)}`}
-          >
-            ← {dictionary.common.backToSearch}
-          </Link>
+      <section className="page-grid pt-6 md:pt-8">
+        <Link
+          className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)] transition-colors hover:text-[var(--primary-hover)]"
+          href={`/search?${createQueryString(searchState)}`}
+        >
+          ← {dictionary.common.backToSearch}
+        </Link>
 
-          <div className="relative">
-            <div className="grid grid-cols-1 gap-2 overflow-hidden rounded-2xl md:grid-cols-[2fr_1fr_1fr]">
-              {/* Main large image */}
-              <div className="relative aspect-[4/3] md:aspect-[3/2]">
-                <Image
-                  alt={title}
-                  className="object-cover"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 60vw"
-                  src={vehicle.images[0]}
-                />
-              </div>
-
-              {/* 2 smaller images on right (desktop only) */}
-              <div className="hidden grid-rows-2 gap-2 md:grid">
-                <div className="relative overflow-hidden rounded-tr-none">
-                  <Image
-                    alt={title}
-                    className="object-cover"
-                    fill
-                    sizes="20vw"
-                    src={vehicle.images[1] ?? vehicle.images[0]}
-                  />
-                </div>
-                <div className="relative overflow-hidden">
-                  <Image
-                    alt={title}
-                    className="object-cover"
-                    fill
-                    sizes="20vw"
-                    src={vehicle.images[2] ?? vehicle.images[0]}
-                  />
-                </div>
-              </div>
-
-              {/* Placeholder third column for grid alignment */}
-              <div className="hidden grid-rows-2 gap-2 md:grid">
-                <div className="relative overflow-hidden">
-                  <Image
-                    alt={title}
-                    className="object-cover"
-                    fill
-                    sizes="20vw"
-                    src={vehicle.images[3] ?? vehicle.images[0]}
-                  />
-                </div>
-                <div className="relative overflow-hidden">
-                  <Image
-                    alt={title}
-                    className="object-cover"
-                    fill
-                    sizes="20vw"
-                    src={vehicle.images[4] ?? vehicle.images[0]}
-                  />
+        <div className="mt-4 overflow-hidden rounded-[2rem]">
+          <div className="grid gap-2 md:grid-cols-[1.55fr_0.9fr]">
+            <div className="relative min-h-[26rem] overflow-hidden rounded-[2rem]">
+              <Image
+                alt={getLocalizedText(locale, vehicle.images[0].alt)}
+                className="object-cover"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 60vw"
+                src={vehicle.images[0].src}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,25,23,0.08)_0%,rgba(20,25,23,0.72)_100%)]" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white md:p-8">
+                <p className="text-xs uppercase tracking-[0.18em] text-white/62">
+                  {vehicle.city === 'orlando' ? 'Orlando trip ready' : 'Miami extension'}
+                </p>
+                <h1 className="heading-balance mt-3 text-fluid-h2 font-black">{title}</h1>
+                <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-white/78">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
+                    <Star className="h-4 w-4 fill-[var(--secondary)] text-[var(--secondary)]" />
+                    {vehicle.rating} · {vehicle.tripsCount} {dictionary.vehicle.trips}
+                  </span>
+                  {vehicle.host.isSuperhost ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
+                      <Award className="h-4 w-4 text-[var(--secondary)]" />
+                      {dictionary.vehicle.allStarHost}
+                    </span>
+                  ) : null}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-white/12 px-3 py-1">
+                    <MapPin className="h-4 w-4 text-[var(--secondary)]" />
+                    {vehicle.city === 'orlando' ? 'Orlando, FL' : 'Miami, FL'}
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* "Ver todas las fotos" button overlay */}
-            <button
-              className="absolute bottom-3 right-3 flex cursor-pointer items-center gap-1.5 rounded-lg border border-[#D4D4D4] bg-white px-3 py-2 text-sm font-medium transition-colors hover:bg-[#F5F5F5]"
-              type="button"
-            >
-              <Grid2x2 className="h-4 w-4" /> Ver todas
-            </button>
+            <div className="grid gap-2">
+              {vehicle.images.slice(1, 5).map((image, index) => (
+                <div
+                  className="relative min-h-[12rem] overflow-hidden rounded-[1.5rem]"
+                  key={image.src}
+                >
+                  <Image
+                    alt={getLocalizedText(locale, image.alt)}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 24vw"
+                    src={image.src}
+                  />
+                  {index === 3 ? (
+                    <div className="absolute inset-0 flex items-end justify-end bg-black/30 p-4">
+                      <button
+                        className="inline-flex items-center gap-2 rounded-full bg-white/92 px-4 py-2 text-sm font-semibold text-[var(--foreground)]"
+                        type="button"
+                      >
+                        <Grid2x2 className="h-4 w-4" />
+                        {locale === 'es' ? 'Ver galería' : 'View gallery'}
+                      </button>
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Two-column content layout */}
-      <div className="page-grid py-8 pb-24 lg:pb-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_380px]">
-          {/* LEFT COLUMN */}
+      <div className="page-grid page-section">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_24rem]">
           <div className="space-y-8">
-            {/* Vehicle Title */}
-            <div>
-              <h1 className="text-2xl font-bold text-[#231F20] md:text-3xl">
-                {title}
-              </h1>
-              <div className="mt-2 flex flex-wrap items-center gap-3">
-                {/* Rating */}
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-[#22C55E] text-[#22C55E]" />
-                  <span className="font-semibold">{vehicle.rating}</span>
-                  <span className="text-[#6B7280]">
-                    ({vehicle.tripsCount} viajes)
-                  </span>
-                </div>
+            <section className="grid gap-4 md:grid-cols-4">
+              {[
+                {
+                  icon: Users,
+                  label: `${vehicle.seats} ${locale === 'es' ? 'personas' : 'guests'}`,
+                },
+                { icon: Settings2, label: vehicle.transmission },
+                { icon: Fuel, label: vehicle.fuelType },
+                { icon: Route, label: locale === 'es' ? '250 mi / día' : '250 mi / day' },
+              ].map((item) => {
+                const Icon = item.icon;
 
-                {/* All-Star badge */}
-                {vehicle.host.isSuperhost && (
-                  <span className="flex items-center gap-1 rounded-full bg-[#EDE9FE] px-2 py-1 text-xs font-semibold text-[#4C1D95]">
-                    <Award className="h-3.5 w-3.5" /> All-Star Host
-                  </span>
-                )}
+                return (
+                  <div
+                    className="surface-panel flex items-center gap-3 rounded-[1.5rem] p-4"
+                    key={item.label}
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--primary-soft)] text-[var(--primary)]">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <p className="text-sm font-semibold text-[var(--foreground)]">{item.label}</p>
+                  </div>
+                );
+              })}
+            </section>
 
-                {/* City */}
-                <span className="flex items-center gap-1 text-sm text-[#6B7280]">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {vehicle.city === "orlando" ? "Orlando, FL" : "Miami, FL"}
-                </span>
-              </div>
-            </div>
-
-            {/* Host Card */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <div className="flex items-center gap-4">
-                <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
+            <section className="surface-panel rounded-[2rem] p-6 md:p-8">
+              <p className="eyebrow">{dictionary.vehicle.host}</p>
+              <div className="mt-5 grid gap-6 md:grid-cols-[auto_1fr] md:items-center">
+                <div className="relative h-20 w-20 overflow-hidden rounded-full">
                   <Image
                     alt={vehicle.host.name}
                     className="object-cover"
                     fill
+                    sizes="80px"
                     src={vehicle.host.avatar}
                   />
                 </div>
                 <div>
-                  <p className="font-semibold text-[#231F20]">
+                  <h2 className="text-2xl font-black text-[var(--foreground)]">
                     {vehicle.host.name}
-                  </p>
-                  <p className="text-sm text-[#6B7280]">
+                  </h2>
+                  <p className="mt-2 text-base text-[var(--muted)]">
                     {getLocalizedText(locale, vehicle.host.badge)}
                   </p>
-                  <p className="text-sm text-[#6B7280]">
-                    Responde en{" "}
-                    {getLocalizedText(locale, vehicle.host.responseTime)}
-                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3 text-sm text-[var(--text-soft)]">
+                    <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1">
+                      {vehicle.host.responseRate}
+                    </span>
+                    <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1">
+                      {getLocalizedText(locale, vehicle.host.responseTime)}
+                    </span>
+                    <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1">
+                      {locale === 'es'
+                        ? 'Entrega orientada a hoteles y MCO'
+                        : 'Hotel and MCO-focused handoff'}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-3 gap-4 border-t border-[#E5E5E5] pt-6 md:grid-cols-4">
-              <div className="flex flex-col items-center text-center">
-                <Users className="mb-1 h-5 w-5 text-[#7C3AED]" />
-                <span className="text-sm font-medium">
-                  {vehicle.seats} personas
-                </span>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <Settings2 className="mb-1 h-5 w-5 text-[#7C3AED]" />
-                <span className="text-sm font-medium">
-                  {vehicle.transmission}
-                </span>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <Fuel className="mb-1 h-5 w-5 text-[#7C3AED]" />
-                <span className="text-sm font-medium">{vehicle.fuelType}</span>
-              </div>
-              <div className="flex flex-col items-center text-center">
-                <Route className="mb-1 h-5 w-5 text-[#7C3AED]" />
-                <span className="text-sm font-medium">250 mi/día</span>
-              </div>
-            </div>
-
-            {/* Description / Highlights */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <h2 className="mb-3 text-lg font-semibold">Sobre este auto</h2>
-              <p className="leading-relaxed text-[#6B7280]">
-                {getLocalizedText(locale, vehicle.intro)}
+              <p className="mt-5 text-sm leading-7 text-[var(--muted)]">
+                {getLocalizedText(locale, vehicle.host.bio)}
               </p>
-              <ul className="mt-3 space-y-2">
+            </section>
+
+            <section className="surface-panel rounded-[2rem] p-6 md:p-8">
+              <p className="eyebrow">{dictionary.vehicle.overview}</p>
+              <h2 className="mt-4 text-fluid-h3 font-black text-[var(--foreground)]">
+                {getLocalizedText(locale, vehicle.intro)}
+              </h2>
+              <ul className="mt-5 space-y-3">
                 {vehicle.highlights.map((highlight) => (
                   <li
-                    className="flex items-start gap-2 text-sm text-[#6B7280]"
+                    className="flex items-start gap-3 text-sm leading-7 text-[var(--muted)]"
                     key={highlight.es}
                   >
-                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#22C55E]" />
+                    <Check className="mt-1 h-4 w-4 shrink-0 text-[var(--cta-success)]" />
                     {getLocalizedText(locale, highlight)}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
 
-            {/* Features */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <h2 className="mb-4 text-lg font-semibold">Equipamiento</h2>
-              <div className="grid grid-cols-2 gap-3">
-                {vehicle.features.map((feature) => (
-                  <div
-                    className="flex items-center gap-2 text-sm"
-                    key={feature}
-                  >
-                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-[#7C3AED]" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Delivery Options */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <h2 className="mb-4 text-lg font-semibold">
-                Opciones de entrega
-              </h2>
-              <div className="space-y-3">
-                {vehicle.deliveryOptions.map((opt) => (
-                  <div
-                    className="flex items-start gap-3 rounded-xl bg-[#FAF5FF] p-3"
-                    key={opt.label.es}
-                  >
-                    <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#7C3AED]" />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">
-                        {getLocalizedText(locale, opt.label)}
-                      </p>
-                      <p className="mt-0.5 text-xs text-[#6B7280]">
-                        {getLocalizedText(locale, opt.detail)}
-                      </p>
+            <section className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+              <div className="surface-panel rounded-[2rem] p-6 md:p-8">
+                <p className="eyebrow">{dictionary.vehicle.includes}</p>
+                <div className="mt-5 grid gap-3">
+                  {vehicle.features.map((feature) => (
+                    <div
+                      className="flex items-center gap-3 rounded-[1rem] bg-[var(--surface-alt)] px-4 py-3 text-sm text-[var(--text-soft)]"
+                      key={feature}
+                    >
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-[var(--primary)]" />
+                      <span>{feature}</span>
                     </div>
-                    <span className="text-sm font-semibold text-[#231F20]">
-                      +{formatCurrency(opt.fee, locale)}
-                    </span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Policies */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <h2 className="mb-4 text-lg font-semibold">Políticas</h2>
-              <div className="space-y-4">
+              <div className="surface-panel rounded-[2rem] p-6 md:p-8">
+                <p className="eyebrow">{dictionary.vehicle.pickupOptions}</p>
+                <div className="mt-5 space-y-3">
+                  {vehicle.deliveryOptions.map((option) => (
+                    <div
+                      className="rounded-[1rem] bg-[var(--surface-alt)] p-4"
+                      key={option.label.es}
+                    >
+                      <div className="flex items-start gap-3">
+                        <MapPin className="mt-1 h-4 w-4 shrink-0 text-[var(--primary)]" />
+                        <div className="flex-1">
+                          <p className="text-sm font-semibold text-[var(--foreground)]">
+                            {getLocalizedText(locale, option.label)}
+                          </p>
+                          <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
+                            {getLocalizedText(locale, option.detail)}
+                          </p>
+                        </div>
+                        <span className="text-sm font-semibold text-[var(--accent-deep)]">
+                          +{formatCurrency(option.fee, locale)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="surface-panel rounded-[2rem] p-6 md:p-8">
+              <p className="eyebrow">{dictionary.vehicle.policies}</p>
+              <div className="mt-5 space-y-4">
                 {vehicle.policies.map((policy) => (
                   <div className="flex items-start gap-3" key={policy.title.es}>
-                    <ShieldCheck className="h-5 w-5 flex-shrink-0 text-[#22C55E]" />
+                    <ShieldCheck className="mt-1 h-5 w-5 shrink-0 text-[var(--cta-success)]" />
                     <div>
-                      <p className="text-sm font-medium">
+                      <p className="text-sm font-semibold text-[var(--foreground)]">
                         {getLocalizedText(locale, policy.title)}
                       </p>
-                      <p className="text-sm text-[#6B7280]">
+                      <p className="mt-1 text-sm leading-7 text-[var(--muted)]">
                         {getLocalizedText(locale, policy.detail)}
                       </p>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
 
-            {/* Reviews */}
-            <div className="border-t border-[#E5E5E5] pt-6">
-              <h2 className="mb-4 text-lg font-semibold">
-                <Star className="mr-1 inline h-5 w-5 fill-[#22C55E] text-[#22C55E]" />
-                {vehicle.rating} · {vehicle.reviews.length} reseñas
-              </h2>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <section className="surface-panel rounded-[2rem] p-6 md:p-8">
+              <div className="flex items-center gap-2">
+                <Star className="h-5 w-5 fill-[var(--secondary)] text-[var(--secondary)]" />
+                <h2 className="text-xl font-black text-[var(--foreground)]">
+                  {vehicle.rating} · {vehicle.reviews.length} {dictionary.vehicle.reviews}
+                </h2>
+              </div>
+              <div className="mt-6 grid gap-4 md:grid-cols-2">
                 {vehicle.reviews.map((review) => (
-                  <div className="rounded-xl bg-[#F5F5F5] p-4" key={review.id}>
-                    <div className="mb-2 flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#7C3AED] text-sm font-semibold text-white">
+                  <article className="rounded-[1.4rem] bg-[var(--surface-alt)] p-5" key={review.id}>
+                    <div className="flex items-start gap-3">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--primary)] text-sm font-semibold text-white">
                         {review.author[0]}
                       </div>
                       <div>
-                        <p className="text-sm font-medium">{review.author}</p>
-                        <p className="text-xs text-[#6B7280]">{review.date}</p>
-                      </div>
-                      <div className="ml-auto flex">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
-                            className={`h-3.5 w-3.5 ${i < Math.floor(review.rating) ? "fill-[#22C55E] text-[#22C55E]" : "text-[#E5E5E5]"}`}
-                            // biome-ignore lint/suspicious/noArrayIndexKey: static render list
-                            key={i}
-                          />
-                        ))}
+                        <p className="text-sm font-semibold text-[var(--foreground)]">
+                          {review.author}
+                        </p>
+                        <p className="text-xs text-[var(--muted)]">{review.date}</p>
                       </div>
                     </div>
-                    <p className="text-sm text-[#6B7280]">
+                    <p className="mt-4 text-sm leading-7 text-[var(--muted)]">
                       {getLocalizedText(locale, review.comment)}
                     </p>
-                  </div>
+                  </article>
                 ))}
               </div>
-            </div>
+            </section>
           </div>
 
-          {/* RIGHT COLUMN: Sticky Booking Card */}
-          <div className="h-fit lg:sticky lg:top-24">
-            <div className="rounded-2xl border border-[#E5E5E5] bg-white p-6 shadow-md">
-              {/* Price */}
-              <div className="mb-4 flex items-baseline gap-2">
-                <span className="text-2xl font-bold text-[#231F20]">
-                  {formatCurrency(pricePerDay, locale)}
-                </span>
-                <span className="text-[#6B7280]">/día</span>
-                <div className="ml-auto flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-[#22C55E] text-[#22C55E]" />
-                  <span className="text-sm font-semibold">
-                    {vehicle.rating}
-                  </span>
+          <aside className="h-fit lg:sticky lg:top-24">
+            <div className="surface-panel rounded-[2rem] p-6">
+              <div className="flex items-end justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
+                    {dictionary.vehicle.bookCard}
+                  </p>
+                  <p className="mt-2 text-4xl font-black tracking-[-0.06em] text-[var(--foreground)]">
+                    {formatCurrency(vehicle.pricePerDay, locale)}
+                  </p>
+                  <p className="text-sm text-[var(--muted)]">{dictionary.vehicle.perDay}</p>
+                </div>
+                <div className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-sm font-semibold text-[var(--foreground)]">
+                  {vehicle.rating} ★
                 </div>
               </div>
 
-              {/* Date inputs */}
-              <div className="mb-3 overflow-hidden rounded-xl border border-[#E5E5E5]">
-                <div className="flex divide-x divide-[#E5E5E5]">
-                  <div className="flex-1 p-3">
-                    <label className="mb-1 block text-xs font-semibold text-[#231F20]">
-                      DESDE
-                    </label>
+              <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-[rgba(198,184,163,0.55)]">
+                <div className="grid divide-x divide-[rgba(198,184,163,0.55)] md:grid-cols-2">
+                  <label className="p-4">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                      {locale === 'es' ? 'Desde' : 'From'}
+                    </span>
                     <input
-                      className="w-full cursor-pointer text-sm outline-none"
+                      className="mt-2 w-full cursor-pointer bg-transparent text-sm font-semibold outline-none"
                       defaultValue={searchState.start}
                       type="date"
                     />
-                  </div>
-                  <div className="flex-1 p-3">
-                    <label className="mb-1 block text-xs font-semibold text-[#231F20]">
-                      HASTA
-                    </label>
+                  </label>
+                  <label className="p-4">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
+                      {locale === 'es' ? 'Hasta' : 'Until'}
+                    </span>
                     <input
-                      className="w-full cursor-pointer text-sm outline-none"
+                      className="mt-2 w-full cursor-pointer bg-transparent text-sm font-semibold outline-none"
                       defaultValue={searchState.end}
                       type="date"
                     />
-                  </div>
+                  </label>
                 </div>
               </div>
 
-              {/* Book CTA */}
               <Link
-                className="block w-full cursor-pointer rounded-xl bg-[#7C3AED] py-3.5 text-center font-semibold text-white transition-colors hover:bg-[#6D28D9]"
+                className="btn-primary mt-5 w-full"
                 data-testid="booking-cta"
                 href={`/checkout?${checkoutQuery}`}
               >
-                Reservar
+                {locale === 'es' ? 'Reservar este auto' : 'Reserve this car'}
               </Link>
-              <p className="mt-2 text-center text-xs text-[#6B7280]">
-                No se cobra nada todavía
+              <p className="mt-3 text-center text-xs leading-6 text-[var(--muted)]">
+                {locale === 'es'
+                  ? 'No se cobra nada todavía. Primero confirmas contexto, entrega y host.'
+                  : 'Nothing is charged yet. You confirm context, handoff and host first.'}
               </p>
 
-              {/* Price breakdown */}
-              <div className="mt-4 space-y-2 border-t border-[#E5E5E5] pt-4 text-sm">
-                <div className="flex justify-between text-[#6B7280]">
+              <div className="mt-6 space-y-3 border-t border-[rgba(198,184,163,0.46)] pt-5 text-sm">
+                <div className="flex justify-between text-[var(--text-soft)]">
                   <span>
-                    {formatCurrency(pricePerDay, locale)} × {estimatedDays} días
+                    {formatCurrency(vehicle.pricePerDay, locale)} × {estimatedDays}{' '}
+                    {locale === 'es' ? 'días' : 'days'}
                   </span>
-                  <span>
-                    {formatCurrency(pricePerDay * estimatedDays, locale)}
-                  </span>
+                  <span>{formatCurrency(vehicle.pricePerDay * estimatedDays, locale)}</span>
                 </div>
-                <div className="flex justify-between text-[#6B7280]">
-                  <span>Entrega</span>
+                <div className="flex justify-between text-[var(--text-soft)]">
+                  <span>{locale === 'es' ? 'Entrega estimada' : 'Estimated handoff fee'}</span>
                   <span>+{formatCurrency(deliveryFee, locale)}</span>
                 </div>
-                <div className="flex justify-between border-t border-[#E5E5E5] pt-2 font-semibold text-[#231F20]">
-                  <span>Total estimado</span>
-                  <span>
-                    {formatCurrency(
-                      pricePerDay * estimatedDays + deliveryFee,
-                      locale,
-                    )}
-                  </span>
+                <div className="flex justify-between border-t border-[rgba(198,184,163,0.46)] pt-3 font-semibold text-[var(--foreground)]">
+                  <span>{locale === 'es' ? 'Total estimado' : 'Estimated total'}</span>
+                  <span>{formatCurrency(totalEstimate, locale)}</span>
                 </div>
               </div>
 
-              {/* Host mini-card */}
-              <div className="mt-4 flex items-center gap-3 border-t border-[#E5E5E5] pt-4">
-                <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full">
-                  <Image
-                    alt={vehicle.host.name}
-                    className="object-cover"
-                    fill
-                    src={vehicle.host.avatar}
-                  />
-                </div>
-                <div>
-                  <p className="text-xs text-[#6B7280]">Host</p>
-                  <p className="text-sm font-semibold text-[#231F20]">
-                    {vehicle.host.name}
-                  </p>
-                  <p className="text-xs text-[#22C55E]">
-                    {vehicle.host.responseRate} respuesta ·{" "}
-                    {getLocalizedText(locale, vehicle.host.responseTime)}
-                  </p>
+              <div className="mt-6 rounded-[1.4rem] bg-[var(--surface-alt)] p-4">
+                <div className="flex items-center gap-3">
+                  <div className="relative h-11 w-11 overflow-hidden rounded-full">
+                    <Image
+                      alt={vehicle.host.name}
+                      className="object-cover"
+                      fill
+                      sizes="44px"
+                      src={vehicle.host.avatar}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
+                      {dictionary.vehicle.host}
+                    </p>
+                    <p className="text-sm font-semibold text-[var(--foreground)]">
+                      {vehicle.host.name}
+                    </p>
+                    <p className="text-xs text-[var(--text-soft)]">
+                      {getLocalizedText(locale, vehicle.host.responseTime)}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
 
-        {/* Related Vehicles */}
-        <section className="mt-12">
-          <h2 className="mb-6 text-xl font-bold text-[#231F20]">
+        <section className="mt-14">
+          <h2 className="text-fluid-h3 font-black text-[var(--foreground)]">
             {dictionary.vehicle.related}
           </h2>
-          <div className="grid gap-5 xl:grid-cols-3">
+          <div className="mt-6 grid gap-5 xl:grid-cols-3">
             {related.map((item) => (
               <VehicleCard
-                ctaLabel={locale === "es" ? "Ver detalle" : "See details"}
                 href={`/vehicle/${item.slug}?${createQueryString(searchState)}`}
                 key={item.slug}
                 locale={locale}
-                metaLabel={dictionary.common.instantBook}
                 vehicle={item}
               />
             ))}
@@ -487,20 +444,20 @@ export default async function VehicleDetailPage({
         </section>
       </div>
 
-      {/* Mobile Sticky CTA */}
-      <div className="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-between border-t border-[#E5E5E5] bg-white p-4 lg:hidden">
-        <div>
-          <span className="font-bold text-[#231F20]">
-            {formatCurrency(pricePerDay, locale)}
-          </span>
-          <span className="text-sm text-[#6B7280]">/día</span>
+      <div className="surface-panel fixed bottom-4 left-4 right-4 z-20 rounded-[1.6rem] p-4 lg:hidden">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xl font-black text-[var(--foreground)]">
+              {formatCurrency(vehicle.pricePerDay, locale)}
+            </p>
+            <p className="text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
+              {dictionary.vehicle.perDay}
+            </p>
+          </div>
+          <Link className="btn-primary" href={`/checkout?${checkoutQuery}`}>
+            {locale === 'es' ? 'Reservar' : 'Book now'}
+          </Link>
         </div>
-        <Link
-          className="cursor-pointer rounded-xl bg-[#7C3AED] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#6D28D9]"
-          href={`/checkout?${checkoutQuery}`}
-        >
-          Reservar
-        </Link>
       </div>
     </>
   );

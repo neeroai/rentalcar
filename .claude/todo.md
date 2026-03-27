@@ -1,46 +1,54 @@
 ---
 title: "Task List - miami-car"
 date: "2026-03-10"
-updated: "2026-03-10"
+updated: "2026-03-26"
 ---
 
 # Task List
 
-## In Progress
+## Completado
 
-- [ ] Inicializacion del repo (estructura, tracking files, specs) (Priority: High)
+- [x] Propuesta comercial Fredy Lopez (8 docs) (2026-03-07)
+- [x] Setup repo: CLAUDE.md, AGENTS.md, config, tooling (2026-03-10)
+- [x] Research Miami completo (12 specs en docs/) (2026-03-22)
+- [x] Research Orlando completo (14 specs en docs/orlando/) (2026-03-22)
+- [x] Website MVP: todas las rutas con mock data (2026-03-25)
+- [x] Fix prerender crash: `/_global-error`, `/_not-found` (2026-03-25)
+- [x] Remover framer-motion → CSS @keyframes animations (2026-03-25)
+- [x] UI enrichment: hero Unsplash, experience cards con foto (2026-03-26)
+- [x] UI enrichment: how-it-works step images + CTA background (2026-03-26)
+- [x] Fluid typography: clamp() tokens + .text-fluid-h1/h2/h3/h4 (2026-03-26)
+- [x] Trust signals: gradient + icons; browse-by-make monogram (2026-03-26)
+- [x] Booking confirmed: vehicle thumbnail + host avatar (2026-03-26)
+- [x] Reemplazar fotos desierto por fotos Florida/Orlando (2026-03-26)
+- [x] Mover media/ → docs/ (2026-03-26)
 
-## Completed
+## Próximo — Backend Real
 
-- [x] Crear proposals/ con 8 documentos comerciales para Fredy Lopez (Completed: 2026-03-07)
-- [x] Setup estructura repo: CLAUDE.md, AGENTS.md, tracking files, specs/ (Completed: 2026-03-10)
+- [ ] Diseñar schema Supabase: `vehicles`, `hosts`, `bookings`, `users`
+- [ ] Auth: Supabase Auth (email + magic link)
+- [ ] Search: queries reales con filtros (ciudad, fechas, categoría, precio)
+- [ ] Vehicle detail: datos reales desde DB
+- [ ] Checkout + Stripe payment intent
+- [ ] Host dashboard: mis vehículos, reservas, earnings
+- [ ] WhatsApp notifications para hosts (Twilio/Meta API)
 
-## Blocked (requieren decision del cliente)
+## Próximo — Contenido Real
 
-- [ ] specs/01-mercado-miami.md — Research de mercado (Blocked by: confirmacion propuesta Fredy Lopez)
-- [ ] specs/02-modelo-negocio.md — Revenue streams y costos (Blocked by: confirmacion propuesta)
-- [ ] specs/03-competencia.md — Analisis competidores Miami (Blocked by: confirmacion propuesta)
-- [ ] specs/04-segmentos-clientes.md — Segmentos y LTV (Blocked by: confirmacion propuesta)
-- [ ] specs/05-estrategia-precios.md — Precios por categoria (Blocked by: confirmacion propuesta)
-- [ ] specs/06-canales-marketing.md — Google Ads, SEO, Instagram, OTAs (Blocked by: confirmacion propuesta)
-- [ ] specs/07-proyecciones-financieras.md — Ocupacion, ingresos mes 1-12 (Blocked by: confirmacion propuesta)
-- [ ] specs/08-go-to-market.md — Lanzamiento y KPIs (Blocked by: confirmacion propuesta)
+- [ ] Reemplazar mock vehicles con flota real de Fredy Lopez
+- [ ] Fotos reales de la flota (no Unsplash)
+- [ ] Precios reales basados en research Orlando (ver docs/orlando/03-inteligencia-precios.md)
+- [ ] Hosts reales: Fredy + equipo
 
-## Pending (post-cliente)
+## Próximo — Deploy Producción
 
-- [ ] Revisar y ajustar proposals/ segun feedback del cliente (Priority: High)
-- [ ] Iniciar research specs en orden prioridad: 01, 02, 07, 03, 04, 05, 08, 06 (Priority: High)
-- [ ] Actualizar 00-inventario-general.md con hallazgos de research (Priority: Medium)
+- [ ] Dominio rentatelo.com
+- [ ] Variables de entorno en Vercel (Supabase keys, Stripe keys)
+- [ ] Analytics (Vercel Analytics o Plausible)
+- [ ] SEO: metadata real, sitemap dinámico, OG images
 
-## Notes
+## Deuda Técnica
 
-Orden de prioridad research (cuando desbloquee):
-
-1. specs/01 — mercado Miami (contexto base)
-2. specs/02 — modelo negocio (revenue/costos)
-3. specs/07 — proyecciones financieras (decision critica para cliente)
-4. specs/03 — competencia
-5. specs/04 — segmentos
-6. specs/05 — precios
-7. specs/08 — go-to-market
-8. specs/06 — canales marketing
+- [ ] `site-chrome.tsx` mezcla server y client — separar en server/client boundaries
+- [ ] Imágenes Unsplash en producción → reemplazar con CDN propio o Cloudinary
+- [ ] Agregar dominio de producción a `allowedDevOrigins` en next.config.ts

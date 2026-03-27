@@ -1,51 +1,75 @@
 ---
 title: "Project Status - miami-car"
 date: "2026-03-10"
-updated: "2026-03-10"
+updated: "2026-03-27"
 ---
 
-# Project Status - 2026-03-10
+# Project Status — 2026-03-27
 
 ## Overview
 
-| Area                   | Estado  | Detalle                                  |
-| ---------------------- | ------- | ---------------------------------------- |
-| Propuestas comerciales | DONE    | 8 documentos en proposals/ listos        |
-| Estructura del repo    | DONE    | CLAUDE.md, tracking files, specs/        |
-| Research specs         | TODO    | Bloqueado hasta confirmacion del cliente |
-| Respuesta cliente      | PENDING | Fredy Lopez aun no ha respondido         |
+| Area                    | Estado | Detalle                                              |
+| ----------------------- | ------ | ---------------------------------------------------- |
+| Propuesta comercial     | DONE   | Aprobada por Fredy Lopez                             |
+| Research Miami          | DONE   | 12 specs completados en docs/                        |
+| Research Orlando        | DONE   | 14 specs completados en docs/orlando/                |
+| Website MVP (demo)      | DONE   | Next.js 16, mock data, deploy Vercel                 |
+| UI enrichment           | DONE   | Orlando-first image system, warm palette, asset catalog |
+| Backend / DB real       | TODO   | Supabase, auth, reservas reales                      |
+| Pagos                   | TODO   | Stripe integration                                   |
+| WhatsApp host messaging | TODO   | Twilio/Meta API                                      |
 
 ## Current Phase
 
-Pre-sales. Propuesta enviada a Fredy Lopez (Fredy compara Neero $8,500 vs TENET $10,000).
+**Website demo implementado.** Stack completo con mock data alineado a Orlando/LATAM. El default local para dev es `http://127.0.0.1:3010`; evitar `3005` para no cruzar sesiones.
 
-## Recent Milestones
+## Last Commit
 
-- Proposals/ completas con 8 documentos comerciales (2026-03-07)
-- Repo inicializado con estructura Neero (2026-03-10)
+`59e74d5` — feat(ui): enrich homepage with Unsplash images and fluid typography (2026-03-26)
+
+Nota: el working tree ya contiene cambios locales posteriores para alinear imágenes, categorías y mock data Orlando-first; esos cambios todavía no están committeados.
+
+## Milestones Completados
+
+| Milestone                                       | Fecha      |
+| ----------------------------------------------- | ---------- |
+| Propuesta comercial (8 docs proposals/)         | 2026-03-07 |
+| Setup repo base: CLAUDE.md, config, tooling     | 2026-03-10 |
+| Research Miami completo (12 specs)              | 2026-03-22 |
+| Research Orlando completo (14 specs)            | 2026-03-22 |
+| Website MVP: todas las páginas con mock data    | 2026-03-25 |
+| Fix build: framer-motion out, CSS animations in | 2026-03-25 |
+| UI enrichment: Unsplash, fluid type, gradients  | 2026-03-26 |
+| Orlando-first assets + mock fleet alignment     | 2026-03-27 |
 
 ## Upcoming Milestones
 
-- Confirmacion del cliente (target: TBD)
-- Inicio research mercado Miami (post-confirmacion)
-- Proyecciones financieras completas (post-confirmacion)
+- Supabase schema + auth (vehicles, hosts, bookings, users)
+- Search con filtros reales (DB queries)
+- Checkout + Stripe
+- Host dashboard funcional
+- WhatsApp notifications para hosts
+- Deploy producción con dominio rentatelo.com
 
 ## Risks
 
-| Riesgo                           | Severidad | Mitigacion                                      |
-| -------------------------------- | --------- | ----------------------------------------------- |
-| Cliente elige TENET              | High      | Propuesta clara con $1,500 ahorro + 1 sem menos |
-| Cambios en propuesta post-cierre | Medium    | Specs modulares, facil de ajustar scope         |
-| Scope creep en research          | Low       | Specs definidos y bloqueados hasta aprobacion   |
+| Riesgo                          | Severidad | Mitigación                                    |
+| ------------------------------- | --------- | --------------------------------------------- |
+| Mock data no refleja data real  | Medium    | Schema diseñado para migrar sin friction      |
+| SEO sin SSG (todo dinámico)     | Medium    | Evaluar ISR/SSG para páginas de vehículos     |
+| Stock placeholders aún no definitivos | Medium    | Curar assets locales o reemplazar con fotos reales de flota |
 
-## Dependencies
+## Stack
 
-| Dependencia                  | Estado  | Bloqueante |
-| ---------------------------- | ------- | ---------- |
-| Decision Fredy Lopez         | Pending | YES        |
-| Datos reales de mercado      | Pending | YES        |
-| Acceso a precios competencia | Pending | No         |
-
-## Notes
-
-Fase actual: esperar respuesta del cliente. No iniciar research hasta confirmacion para evitar trabajo sin valor comercial.
+| Layer      | Tech                                                         |
+| ---------- | ------------------------------------------------------------ |
+| Framework  | Next.js 16.2.1 (Turbopack, App Router)                       |
+| UI         | React 19, Tailwind CSS v4, lucide-react                      |
+| Language   | TypeScript strict                                            |
+| Runtime    | Bun                                                          |
+| Deploy     | Vercel (neeroai/rentalcar)                                   |
+| Animations | CSS @keyframes (framer-motion removed)                       |
+| Images     | next/image + asset metadata curado (`src/data/assets.ts`)    |
+| i18n       | ES/EN via `src/i18n/dictionaries.ts`                         |
+| Data       | Mock (`src/data/mock.ts`) + catálogo visual (`src/data/assets.ts`) |
+| Local dev  | `http://127.0.0.1:3010` por defecto; evitar `3005`           |

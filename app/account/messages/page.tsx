@@ -5,14 +5,15 @@
  * @exports MessagesPage
  */
 
-import Image from "next/image";
-import Link from "next/link";
-import type { ReactNode } from "react";
+import { SendHorizontal } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
-import { AccountShell } from "@/components/site-chrome";
-import { messageThreads, vehicles } from "@/data/mock";
-import { getDictionary, getLocale } from "@/lib/i18n";
-import { getLocalizedText, getVehicleBySlug } from "@/lib/utils";
+import { AccountShell } from '@/components/site-chrome';
+import { messageThreads, vehicles } from '@/data/mock';
+import { getDictionary, getLocale } from '@/lib/i18n';
+import { getLocalizedText, getVehicleBySlug } from '@/lib/utils';
 
 /**
  * Messages account page with thread list, active thread header, bubbles, and input area.
@@ -30,13 +31,11 @@ export default async function MessagesPage() {
 
   return (
     <AccountShell current="messages" dictionary={dictionary} locale={locale}>
-      <h1 className="mb-6 text-2xl font-bold text-[#231F20]">
-        {dictionary.account.messagesTitle}
-      </h1>
+      <h1 className="mb-6 text-2xl font-bold text-[#231F20]">{dictionary.account.messagesTitle}</h1>
 
       <div className="grid gap-4 xl:grid-cols-[0.75fr_1.25fr]">
         {/* Thread list */}
-        <div className="rounded-xl border border-[#E5E5E5] bg-white p-2">
+        <div className="surface-panel rounded-[1.8rem] p-2">
           {messageThreads.map((thread) => {
             const isActive = thread.id === activeThread.id;
 
@@ -44,8 +43,8 @@ export default async function MessagesPage() {
               <article
                 className={`cursor-pointer rounded-lg p-3 transition-colors ${
                   isActive
-                    ? "bg-[#FAF5FF] border border-[#7C3AED]"
-                    : "hover:bg-[#F5F5F5] border border-transparent"
+                    ? 'border border-[var(--primary)] bg-[var(--primary-soft)]'
+                    : 'border border-transparent hover:bg-[var(--surface-alt)]'
                 }`}
                 key={thread.id}
               >
@@ -59,11 +58,9 @@ export default async function MessagesPage() {
                   />
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-semibold text-[#231F20]">
-                        {thread.hostName}
-                      </p>
+                      <p className="text-sm font-semibold text-[#231F20]">{thread.hostName}</p>
                       {thread.unread > 0 ? (
-                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#7C3AED] text-[10px] font-bold text-white">
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--primary)] text-[10px] font-bold text-white">
                           {thread.unread}
                         </span>
                       ) : null}
@@ -82,26 +79,23 @@ export default async function MessagesPage() {
         </div>
 
         {/* Active thread */}
-        <div className="flex flex-col rounded-xl border border-[#E5E5E5] bg-white">
+        <div className="surface-panel flex flex-col rounded-[1.8rem]">
           {/* Thread header */}
           <div className="flex items-start justify-between gap-4 border-b border-[#E5E5E5] px-6 py-4">
             <div>
-              <h2 className="text-lg font-bold text-[#231F20]">
-                {activeThread.hostName}
-              </h2>
+              <h2 className="text-lg font-bold text-[#231F20]">{activeThread.hostName}</h2>
               {activeVehicle ? (
                 <p className="mt-0.5 text-sm text-[#6B7280]">
-                  {activeVehicle.year} {activeVehicle.make}{" "}
-                  {activeVehicle.model}
+                  {activeVehicle.year} {activeVehicle.make} {activeVehicle.model}
                 </p>
               ) : null}
             </div>
             {activeVehicle ? (
               <Link
-                className="cursor-pointer text-sm font-semibold text-[#7C3AED] transition-colors hover:text-[#6D28D9]"
+                className="cursor-pointer text-sm font-semibold text-[var(--primary)] transition-colors hover:text-[var(--primary-hover)]"
                 href={`/vehicle/${activeVehicle.slug}`}
               >
-                {locale === "es" ? "Ver auto" : "View car"}
+                {locale === 'es' ? 'Ver auto' : 'View car'}
               </Link>
             ) : null}
           </div>
@@ -111,65 +105,45 @@ export default async function MessagesPage() {
             <MessageBubble
               align="start"
               text={
-                locale === "es"
-                  ? "Hola Valentina, quedamos para entrega en garage C. Te envío foto exacta 20 minutos antes."
-                  : "Hi Valentina, we are set for garage C. I will send the exact handoff photo 20 minutes before arrival."
+                locale === 'es'
+                  ? 'Hola Valentina, quedamos para entrega en garage C. Te envío foto exacta 20 minutos antes.'
+                  : 'Hi Valentina, we are set for garage C. I will send the exact handoff photo 20 minutes before arrival.'
               }
             />
             <MessageBubble
               align="end"
               text={
-                locale === "es"
-                  ? "Perfecto, viajo con dos niños y una maleta grande. Gracias."
-                  : "Perfect, I am traveling with two children and one large suitcase. Thank you."
+                locale === 'es'
+                  ? 'Perfecto, viajo con dos niños y una maleta grande. Gracias.'
+                  : 'Perfect, I am traveling with two children and one large suitcase. Thank you.'
               }
             />
             <MessageBubble
               align="start"
               text={
-                locale === "es"
-                  ? "Todo cabe bien en esta SUV. Si quieres, dejo una silla infantil lista."
-                  : "Everything fits comfortably in this SUV. If needed, I can leave a child seat installed."
+                locale === 'es'
+                  ? 'Todo cabe bien en esta SUV. Si quieres, dejo una silla infantil lista.'
+                  : 'Everything fits comfortably in this SUV. If needed, I can leave a child seat installed.'
               }
             />
           </div>
 
           {/* Input area */}
           <div className="border-t border-[#E5E5E5] px-4 py-3">
-            <div className="flex items-center gap-2 rounded-lg border border-[#E5E5E5] bg-white px-4 py-2">
+            <div className="flex items-center gap-2 rounded-[1rem] border border-[rgba(198,184,163,0.58)] bg-white px-4 py-2">
               <input
                 className="flex-1 bg-transparent text-sm text-[#231F20] outline-none placeholder:text-[#6B7280]"
                 disabled
-                placeholder={
-                  locale === "es"
-                    ? "Escribe un mensaje..."
-                    : "Type a message..."
-                }
+                placeholder={locale === 'es' ? 'Escribe un mensaje…' : 'Type a message…'}
                 type="text"
               />
               <button
-                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg bg-[#7C3AED] text-white transition-colors hover:bg-[#6D28D9]"
+                aria-label={locale === 'es' ? 'Enviar mensaje' : 'Send message'}
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[var(--primary)] text-white transition-colors hover:bg-[var(--primary-hover)]"
                 disabled
                 type="button"
               >
-                <svg
-                  className="h-4 w-4"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M22 2L11 13"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M22 2L15 22L11 13L2 9L22 2Z"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <SendHorizontal className="h-4 w-4" />
               </button>
             </div>
           </div>
@@ -193,18 +167,16 @@ function MessageBubble({
   align,
   text,
 }: {
-  align: "start" | "end";
+  align: 'start' | 'end';
   text: string;
 }): ReactNode {
   return (
-    <div
-      className={`flex ${align === "end" ? "justify-end" : "justify-start"}`}
-    >
+    <div className={`flex ${align === 'end' ? 'justify-end' : 'justify-start'}`}>
       <div
         className={`max-w-[24rem] rounded-xl px-4 py-2.5 text-sm leading-6 ${
-          align === "end"
-            ? "bg-[#7C3AED] text-white"
-            : "bg-[#F5F5F5] text-[#231F20]"
+          align === 'end'
+            ? 'bg-[var(--primary)] text-white'
+            : 'bg-[var(--surface-alt)] text-[#231F20]'
         }`}
       >
         {text}

@@ -1,62 +1,34 @@
 /**
  * @file page.tsx
- * @description Search results page — Turo-inspired split layout with filter bar, vehicle grid, and map panel.
+ * @description Search results page with Orlando service context instead of a fake map rail.
  * @module app/search/page
  * @exports SearchPage
  */
 
-import { Car } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Car, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { MobileFilterDrawer } from "@/components/mobile-filter-drawer";
-import { VehicleCard } from "@/components/motion-ui";
-import { pickupOptions, vehicles } from "@/data/mock";
-import { getDictionary, getLocale } from "@/lib/i18n";
-import {
-  createQueryString,
-  filterVehicles,
-  getLocalizedText,
-  getSearchFilters,
-} from "@/lib/utils";
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
+import { MobileFilterDrawer } from '@/components/mobile-filter-drawer';
+import { VehicleCard } from '@/components/motion-ui';
+import { editorialImages } from '@/data/assets';
+import { pickupOptions, vehicles } from '@/data/mock';
+import { getDictionary, getLocale } from '@/lib/i18n';
+import { createQueryString, filterVehicles, getLocalizedText, getSearchFilters } from '@/lib/utils';
 
 interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
-// ---------------------------------------------------------------------------
-// Category filter pills config
-// ---------------------------------------------------------------------------
-
 const categoryPills = [
-  { value: "", labelEs: "Todos", labelEn: "All" },
-  { value: "suv", labelEs: "SUV", labelEn: "SUV" },
-  { value: "convertible", labelEs: "Convertible", labelEn: "Convertible" },
-  { value: "luxury", labelEs: "Lujo", labelEn: "Luxury" },
-  { value: "economy", labelEs: "Económico", labelEn: "Economy" },
-  { value: "van", labelEs: "Minivan", labelEn: "Van" },
-  { value: "business", labelEs: "Ejecutivo", labelEn: "Business" },
+  { value: '', labelEs: 'Todo Orlando', labelEn: 'All Orlando' },
+  { value: 'compact-suv', labelEs: 'SUV compacta', labelEn: 'Compact SUV' },
+  { value: 'minivan', labelEs: 'Minivan', labelEn: 'Minivan' },
+  { value: 'economy', labelEs: 'Eficiente', labelEn: 'Efficient' },
+  { value: 'three-row-suv', labelEs: 'SUV 3 filas', labelEn: '3-row SUV' },
+  { value: 'premium', labelEs: 'Premium', labelEn: 'Premium' },
 ] as const;
 
-// ---------------------------------------------------------------------------
-// SearchPage
-// ---------------------------------------------------------------------------
-
-/**
- * Search results page with Turo-style layout: sticky summary bar, horizontal
- * filter pills, vehicle grid (left), and map panel (right, desktop only).
- *
- * @param searchParams - Next.js 15 async search params from URL.
- * @returns Search results layout as a server component.
- *
- * @example
- * // Rendered at /search?pickup=mco&start=2026-04-18&end=2026-04-22&category=suv
- * <SearchPage searchParams={Promise.resolve({ pickup: "mco" })} />
- */
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
@@ -75,114 +47,139 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     time: filters.time,
   };
 
-  // Build the base query string without category for pills
   const baseQuery = createQueryString({
     pickup: filters.pickup,
     start: filters.start,
     end: filters.end,
     time: filters.time,
-    sort: filters.sort !== "recommended" ? filters.sort : undefined,
+    sort: filters.sort !== 'recommended' ? filters.sort : undefined,
   });
+
+  const serviceZones =
+    locale === 'es'
+      ? [
+          'MCO y llegadas sin counter.',
+          'Hoteles en International Drive.',
+          'Disney / Lake Buena Vista.',
+          'Epic, Universal y semanas de parques.',
+        ]
+      : [
+          'MCO arrivals without counters.',
+          'Hotels across International Drive.',
+          'Disney / Lake Buena Vista stays.',
+          'Epic, Universal, and park-week stays.',
+        ];
 
   return (
     <>
-      {/* ------------------------------------------------------------------ */}
-      {/* SEARCH SUMMARY BAR — sticky below header                             */}
-      {/* ------------------------------------------------------------------ */}
-      <div className="bg-white border-b border-[#E5E5E5] sticky top-16 z-10 py-3">
-        <div className="page-grid flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2 text-sm text-[#6B7280]">
-            <span className="font-semibold text-[#231F20]">
-              {getLocalizedText(locale, pickupLabel)}
-            </span>
-            <span className="text-[#E5E5E5]">·</span>
-            <span>{filters.start}</span>
-            <span className="text-[#E5E5E5]">→</span>
-            <span>{filters.end}</span>
-            <span className="text-[#E5E5E5]">·</span>
-            <span className="font-medium text-[#7C3AED]">
-              {filteredVehicles.length} {dictionary.search.resultsLabel}
-            </span>
+      <section className="page-grid pt-8 md:pt-10">
+        <div className="surface-panel overflow-hidden rounded-[2rem]">
+          <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="p-6 md:p-8">
+              <p className="eyebrow">{dictionary.search.title}</p>
+              <h1 className="heading-balance mt-4 text-fluid-h2 font-black text-[var(--foreground)]">
+                {locale === 'es'
+                  ? 'Resultados pensados para moverte por Orlando con menos fricción.'
+                  : 'Results built to move around Orlando with less friction.'}
+              </h1>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-[var(--muted)]">
+                {dictionary.search.subtitle}
+              </p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-sm font-medium text-[var(--text-soft)]">
+                  {getLocalizedText(locale, pickupLabel)}
+                </span>
+                <span className="rounded-full bg-[var(--surface-alt)] px-3 py-1 text-sm font-medium text-[var(--text-soft)]">
+                  {filters.start} → {filters.end}
+                </span>
+                <span className="rounded-full bg-[var(--primary-soft)] px-3 py-1 text-sm font-semibold text-[var(--primary)]">
+                  {filteredVehicles.length} {dictionary.search.resultsLabel}
+                </span>
+              </div>
+            </div>
+            <div className="relative min-h-[18rem]">
+              <Image
+                alt={editorialImages.searchHero.alt[locale]}
+                className="object-cover"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                src={editorialImages.searchHero.src}
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,25,23,0.12)_0%,rgba(20,25,23,0.78)_100%)]" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <p className="text-xs uppercase tracking-[0.18em] text-white/65">
+                  {locale === 'es' ? 'Cobertura principal' : 'Primary coverage'}
+                </p>
+                <p className="mt-2 text-2xl font-black">
+                  {locale === 'es'
+                    ? 'MCO, resorts y hotel pickup'
+                    : 'MCO, resorts and hotel pickup'}
+                </p>
+              </div>
+            </div>
           </div>
-          <Link
-            href="/"
-            className="text-sm font-semibold text-[#7C3AED] hover:text-[#6D28D9] transition-colors cursor-pointer"
-          >
-            {locale === "es" ? "Modificar búsqueda" : "Modify search"}
-          </Link>
         </div>
-      </div>
+      </section>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* FILTER BAR — horizontal pills                                        */}
-      {/* ------------------------------------------------------------------ */}
-      <div className="bg-white border-b border-[#E5E5E5] py-3">
-        <div className="page-grid">
-          {/* Mobile: scrollable pills + drawer button */}
-          <div className="flex items-center gap-2">
-            <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1 pb-1">
-              {categoryPills.map((pill) => {
-                const isActive = filters.category === pill.value;
-                const href =
-                  pill.value === ""
-                    ? `/search?${baseQuery}`
-                    : `/search?${createQueryString({
-                        pickup: filters.pickup,
-                        start: filters.start,
-                        end: filters.end,
-                        time: filters.time,
-                        category: pill.value,
-                        sort:
-                          filters.sort !== "recommended"
-                            ? filters.sort
-                            : undefined,
-                      })}`;
-                return (
-                  <Link
-                    key={pill.value || "all"}
-                    href={href}
-                    className={`shrink-0 rounded-full px-4 py-2 text-sm cursor-pointer transition-colors border ${
-                      isActive
-                        ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium"
-                        : "bg-white border-[#E5E5E5] text-[#231F20] hover:border-[#7C3AED]"
-                    }`}
-                  >
-                    {locale === "es" ? pill.labelEs : pill.labelEn}
-                  </Link>
-                );
-              })}
+      <div className="page-grid mt-6">
+        <div className="overflow-x-auto no-scrollbar pb-2">
+          <div className="flex min-w-max items-center gap-2">
+            {categoryPills.map((pill) => {
+              const isActive = filters.category === pill.value;
+              const href =
+                pill.value === ''
+                  ? `/search?${baseQuery}`
+                  : `/search?${createQueryString({
+                      pickup: filters.pickup,
+                      start: filters.start,
+                      end: filters.end,
+                      time: filters.time,
+                      category: pill.value,
+                      sort: filters.sort !== 'recommended' ? filters.sort : undefined,
+                    })}`;
 
-              {/* Sort pills */}
-              {Object.entries(dictionary.search.sorts).map(
-                ([sortValue, sortLabel]) => {
-                  const isSortActive = filters.sort === sortValue;
-                  const sortHref = `/search?${createQueryString({
+              return (
+                <Link
+                  className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'border-[var(--primary)] bg-[var(--primary-soft)] text-[var(--primary)]'
+                      : 'border-[rgba(198,184,163,0.64)] bg-white text-[var(--text-soft)] hover:border-[var(--primary)] hover:text-[var(--foreground)]'
+                  }`}
+                  href={href}
+                  key={pill.value || 'all'}
+                >
+                  {locale === 'es' ? pill.labelEs : pill.labelEn}
+                </Link>
+              );
+            })}
+
+            {Object.entries(dictionary.search.sorts).map(([sortValue, sortLabel]) => {
+              const isActive = filters.sort === sortValue;
+
+              return (
+                <Link
+                  className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'border-[var(--accent-deep)] bg-[var(--surface-alt)] text-[var(--accent-deep)]'
+                      : 'border-[rgba(198,184,163,0.64)] bg-white text-[var(--text-soft)] hover:border-[var(--primary)]'
+                  }`}
+                  href={`/search?${createQueryString({
                     pickup: filters.pickup,
                     start: filters.start,
                     end: filters.end,
                     time: filters.time,
                     category: filters.category || undefined,
                     sort: sortValue,
-                  })}`;
-                  return (
-                    <Link
-                      key={sortValue}
-                      href={sortHref}
-                      className={`shrink-0 rounded-full px-4 py-2 text-sm cursor-pointer transition-colors border ${
-                        isSortActive
-                          ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium"
-                          : "bg-white border-[#E5E5E5] text-[#6B7280] hover:border-[#7C3AED]"
-                      }`}
-                    >
-                      {sortLabel}
-                    </Link>
-                  );
-                },
-              )}
-            </div>
+                  })}`}
+                  key={sortValue}
+                >
+                  {sortLabel}
+                </Link>
+              );
+            })}
 
-            {/* Mobile filter drawer button */}
-            <div className="lg:hidden shrink-0">
+            <div className="lg:hidden">
               <MobileFilterDrawer
                 action="/search"
                 fields={filters}
@@ -202,144 +199,115 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               />
             </div>
           </div>
-
-          {/* Desktop advanced filters (inline form) */}
-          <form
-            action="/search"
-            method="get"
-            className="hidden lg:flex items-center gap-3 mt-3 flex-wrap"
-          >
-            {Object.entries(hiddenFields).map(([key, value]) => (
-              <input key={key} name={key} type="hidden" value={value} />
-            ))}
-            {filters.category && (
-              <input name="category" type="hidden" value={filters.category} />
-            )}
-
-            {/* Max price */}
-            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
-              <span className="text-[#6B7280]">
-                {locale === "es" ? "Precio máx:" : "Max price:"}
-              </span>
-              <input
-                name="maxPrice"
-                type="number"
-                defaultValue={String(filters.maxPrice)}
-                min="50"
-                className="w-16 bg-transparent outline-none font-medium text-[#231F20]"
-              />
-            </label>
-
-            {/* Min seats */}
-            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
-              <span className="text-[#6B7280]">
-                {locale === "es" ? "Asientos:" : "Seats:"}
-              </span>
-              <select
-                name="seats"
-                defaultValue={String(filters.seats)}
-                className="bg-transparent outline-none font-medium text-[#231F20]"
-              >
-                <option value="0">
-                  {locale === "es" ? "Cualquiera" : "Any"}
-                </option>
-                <option value="4">4+</option>
-                <option value="5">5+</option>
-                <option value="7">7+</option>
-              </select>
-            </label>
-
-            {/* Instant Book toggle */}
-            <label
-              className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors ${filters.instantBook ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium" : "border-[#E5E5E5] text-[#231F20] hover:border-[#7C3AED]"}`}
-            >
-              <input
-                name="instantBook"
-                type="checkbox"
-                defaultChecked={filters.instantBook}
-                value="true"
-                className="sr-only"
-              />
-              {dictionary.search.filters.instantBook}
-            </label>
-
-            {/* Rating */}
-            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
-              <span className="text-[#6B7280]">
-                {locale === "es" ? "Rating:" : "Rating:"}
-              </span>
-              <select
-                name="rating"
-                defaultValue={String(filters.rating)}
-                className="bg-transparent outline-none font-medium text-[#231F20]"
-              >
-                <option value="0">
-                  {locale === "es" ? "Cualquiera" : "Any"}
-                </option>
-                <option value="4.7">4.7+</option>
-                <option value="4.9">4.9+</option>
-              </select>
-            </label>
-
-            <button
-              type="submit"
-              className="rounded-full bg-[#7C3AED] text-white px-5 py-2 text-sm font-semibold hover:bg-[#6D28D9] transition-colors cursor-pointer min-h-[44px]"
-            >
-              {dictionary.search.filters.apply}
-            </button>
-
-            {(filters.category ||
-              filters.instantBook ||
-              filters.rating > 0 ||
-              filters.seats > 0) && (
-              <Link
-                href={`/search?${createQueryString({ pickup: filters.pickup, start: filters.start, end: filters.end, time: filters.time })}`}
-                className="text-sm text-[#6B7280] hover:text-[#7C3AED] transition-colors cursor-pointer"
-              >
-                {dictionary.search.filters.clear}
-              </Link>
-            )}
-          </form>
         </div>
+
+        <form
+          action="/search"
+          className="mt-4 hidden flex-wrap items-center gap-3 lg:flex"
+          method="get"
+        >
+          {Object.entries(hiddenFields).map(([key, value]) => (
+            <input key={key} name={key} type="hidden" value={value} />
+          ))}
+          {filters.category ? (
+            <input name="category" type="hidden" value={filters.category} />
+          ) : null}
+
+          <label className="rounded-full border border-[rgba(198,184,163,0.64)] bg-white px-4 py-2 text-sm text-[var(--text-soft)]">
+            <span className="mr-2">{dictionary.search.filters.maxPrice}</span>
+            <input
+              className="w-16 bg-transparent font-semibold text-[var(--foreground)] outline-none"
+              defaultValue={String(filters.maxPrice)}
+              min="50"
+              name="maxPrice"
+              type="number"
+            />
+          </label>
+
+          <label className="rounded-full border border-[rgba(198,184,163,0.64)] bg-white px-4 py-2 text-sm text-[var(--text-soft)]">
+            <span className="mr-2">{dictionary.search.filters.seats}</span>
+            <select
+              className="bg-transparent font-semibold text-[var(--foreground)] outline-none"
+              defaultValue={String(filters.seats)}
+              name="seats"
+            >
+              <option value="0">{locale === 'es' ? 'Cualquiera' : 'Any'}</option>
+              <option value="4">4+</option>
+              <option value="5">5+</option>
+              <option value="7">7+</option>
+            </select>
+          </label>
+
+          <label
+            className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+              filters.instantBook
+                ? 'border-[var(--primary)] bg-[var(--primary-soft)] text-[var(--primary)]'
+                : 'border-[rgba(198,184,163,0.64)] bg-white text-[var(--text-soft)]'
+            }`}
+          >
+            <input
+              className="sr-only"
+              defaultChecked={filters.instantBook}
+              name="instantBook"
+              type="checkbox"
+              value="true"
+            />
+            {dictionary.search.filters.instantBook}
+          </label>
+
+          <label className="rounded-full border border-[rgba(198,184,163,0.64)] bg-white px-4 py-2 text-sm text-[var(--text-soft)]">
+            <span className="mr-2">{dictionary.search.filters.rating}</span>
+            <select
+              className="bg-transparent font-semibold text-[var(--foreground)] outline-none"
+              defaultValue={String(filters.rating)}
+              name="rating"
+            >
+              <option value="0">{locale === 'es' ? 'Cualquiera' : 'Any'}</option>
+              <option value="4.7">4.7+</option>
+              <option value="4.9">4.9+</option>
+            </select>
+          </label>
+
+          <button className="btn-primary text-sm" type="submit">
+            {dictionary.search.filters.apply}
+          </button>
+
+          {filters.category || filters.instantBook || filters.rating > 0 || filters.seats > 0 ? (
+            <Link
+              className="text-sm font-medium text-[var(--text-soft)] transition-colors hover:text-[var(--primary)]"
+              href={`/search?${createQueryString({ pickup: filters.pickup, start: filters.start, end: filters.end, time: filters.time })}`}
+            >
+              {dictionary.search.filters.clear}
+            </Link>
+          ) : null}
+        </form>
       </div>
 
-      {/* ------------------------------------------------------------------ */}
-      {/* MAIN LAYOUT — vehicle grid + map                                     */}
-      {/* ------------------------------------------------------------------ */}
-      <div className="flex gap-0">
-        {/* LEFT: Vehicle grid */}
-        <div className="flex-1 min-w-0">
-          <div className="page-grid py-6">
-            <p className="text-sm text-[#6B7280] mb-4">
-              <span className="font-semibold text-[#231F20]">
-                {filteredVehicles.length}
-              </span>{" "}
-              {dictionary.search.resultsLabel}
-            </p>
-
+      <div className="page-grid page-section">
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_22rem]">
+          <div>
             {filteredVehicles.length === 0 ? (
-              <div className="col-span-full text-center py-16">
-                <Car className="w-12 h-12 text-[#E5E5E5] mx-auto mb-4" />
-                <h3 className="font-semibold text-[#231F20] mb-2">
-                  {locale === "es" ? "No encontramos autos" : "No cars found"}
-                </h3>
-                <p className="text-[#6B7280] text-sm">
+              <div className="surface-panel rounded-[2rem] py-20 text-center">
+                <Car className="mx-auto h-12 w-12 text-[var(--border-strong)]" />
+                <h2 className="mt-5 text-2xl font-black text-[var(--foreground)]">
+                  {locale === 'es'
+                    ? 'No encontramos autos con este contexto.'
+                    : 'No cars matched this context.'}
+                </h2>
+                <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[var(--muted)]">
                   {dictionary.search.noResultsSuggestion}
                 </p>
                 <Link
+                  className="btn-primary mt-6"
                   href={`/search?${createQueryString({ pickup: filters.pickup, start: filters.start, end: filters.end, time: filters.time })}`}
-                  className="mt-6 inline-flex min-h-[44px] cursor-pointer items-center rounded-lg bg-[#7C3AED] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
                 >
-                  {locale === "es" ? "Ver todos los autos" : "See all cars"}
+                  {locale === 'es' ? 'Ver todos los autos' : 'See all cars'}
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid gap-5 sm:grid-cols-2">
                 {filteredVehicles.map((vehicle) => (
                   <VehicleCard
-                    key={vehicle.slug}
-                    locale={locale}
-                    vehicle={vehicle}
                     href={`/vehicle/${vehicle.slug}?${createQueryString({
                       pickup: filters.pickup,
                       start: filters.start,
@@ -347,29 +315,58 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       time: filters.time,
                       category: filters.category,
                     })}`}
+                    key={vehicle.slug}
+                    locale={locale}
+                    vehicle={vehicle}
                   />
                 ))}
               </div>
             )}
           </div>
-        </div>
 
-        {/* RIGHT: Map panel (desktop only) */}
-        <div className="hidden lg:block w-[40%] sticky top-16 h-[calc(100vh-4rem)] overflow-hidden shrink-0">
-          <Image
-            src="https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=600&q=80"
-            alt={locale === "es" ? "Mapa del área" : "Area map"}
-            fill
-            className="object-cover"
-            sizes="40vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-          <div className="absolute bottom-4 left-4 bg-white rounded-xl px-4 py-3 shadow-lg">
-            <p className="text-sm font-semibold text-[#231F20]">
-              {filteredVehicles.length}{" "}
-              {locale === "es" ? "autos en esta área" : "cars in this area"}
-            </p>
-          </div>
+          <aside className="space-y-4 xl:sticky xl:top-24 xl:self-start">
+            <div className="surface-panel overflow-hidden rounded-[2rem]">
+              <div className="relative aspect-[4/5]">
+                <Image
+                  alt={editorialImages.searchZone.alt[locale]}
+                  className="object-cover"
+                  fill
+                  sizes="(max-width: 1279px) 100vw, 22rem"
+                  src={editorialImages.searchZone.src}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/64">
+                    {locale === 'es' ? 'Soporte visual' : 'Service context'}
+                  </p>
+                  <p className="mt-2 text-xl font-black">
+                    {locale === 'es'
+                      ? 'Entrega alineada con tu itinerario'
+                      : 'Handoff aligned with your itinerary'}
+                  </p>
+                </div>
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2 text-sm font-semibold text-[var(--primary)]">
+                  <MapPin className="h-4 w-4" />
+                  {locale === 'es' ? 'Dónde funciona mejor este MVP' : 'Where this MVP works best'}
+                </div>
+                <ul className="mt-4 space-y-3">
+                  {serviceZones.map((zone) => (
+                    <li
+                      className="rounded-[1.1rem] bg-[var(--surface-alt)] px-4 py-3 text-sm leading-6 text-[var(--text-soft)]"
+                      key={zone}
+                    >
+                      {zone}
+                    </li>
+                  ))}
+                </ul>
+                <Link className="btn-outline mt-5 w-full" href="/how-it-works">
+                  {dictionary.nav.howItWorks}
+                </Link>
+              </div>
+            </div>
+          </aside>
         </div>
       </div>
     </>

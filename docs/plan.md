@@ -1,21 +1,22 @@
 # Milestones de implementación
 
-## 1. Base técnica
+## 1. Base visual compartida
 
-- Actualizar dependencias del stack.
-- Configurar App Router, imágenes remotas, CSS global y estructura `src/`.
-- Añadir i18n ES/EN sin prefijos de ruta.
+- Actualizar tokens, superficies, botones, shells compartidos y jerarquía tipográfica.
+- Mantener App Router e i18n ES/EN existentes.
+- Reforzar selección de imágenes y coherencia Orlando-first.
 
-## 2. Contenido y datos
+## 2. Narrativa y contenido
 
-- Crear datasets mock tipados.
-- Escribir documentación del prototipo.
-- Definir navegación, CTAs y query params del flujo guest.
+- Reorientar copy y layouts para Orlando como mercado principal.
+- Mantener Miami como soporte secundario.
+- Actualizar documentación del MVP en `docs/`.
+- Alinear buyer LATAM, semanas Epic/Universal y mix real de flota Orlando.
 
-## 3. Funnel principal
+## 3. Funnel principal guest
 
 - Homepage
-- Search + filters
+- Search + contexto de entrega
 - Vehicle detail
 - Checkout
 - Confirmation
@@ -25,11 +26,13 @@
 - How it works
 - Host landing
 - Host onboarding wizard
-- Account trips/messages/wishlist
+- Account trips/messages/wishlist alineados al sistema
 
 ## 5. Polish y validación
 
 - Responsive pass
 - Motion pass
-- Lint, typecheck y build
-- Playwright smoke tests
+- Typecheck y build
+- Lint focalizado en archivos tocados
+- Verificación visual en browser
+- Trazabilidad de assets e imagen mock alineada con categorías reales

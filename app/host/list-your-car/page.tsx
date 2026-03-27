@@ -1,12 +1,12 @@
 /**
  * @file host/list-your-car/page.tsx
- * @description Host onboarding wizard page — clean white wrapper over the HostOnboardingWizard.
+ * @description Host onboarding wizard page with updated Orlando-first wrapper.
  * @module app/host/list-your-car
  * @exports HostListYourCarPage
  */
 
-import { HostOnboardingWizard } from "@/components/host-tools";
-import { getDictionary, getLocale } from "@/lib/i18n";
+import { HostOnboardingWizard } from '@/components/host-tools';
+import { getDictionary, getLocale } from '@/lib/i18n';
 
 /**
  * Host listing onboarding page. Renders the multi-step wizard in a clean white layout.
@@ -21,19 +21,19 @@ export default async function HostListYourCarPage() {
   const dictionary = getDictionary(locale);
 
   return (
-    <div className="page-grid py-10">
-      <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
-          {dictionary.nav.host}
-        </p>
-        <h1 className="mt-3 text-3xl font-bold text-[#231F20]">
-          {dictionary.host.wizardTitle}
-        </h1>
-        <p className="mt-2 text-base leading-relaxed text-[#6B7280]">
-          {locale === "es"
-            ? "Completa los pasos para publicar tu auto en la plataforma."
-            : "Complete the steps to list your car on the platform."}
-        </p>
+    <div className="page-grid page-section">
+      <div className="surface-panel rounded-[2rem] p-6 md:p-8">
+        <div className="max-w-3xl">
+          <p className="eyebrow">{dictionary.nav.host}</p>
+          <h1 className="heading-balance mt-4 text-fluid-h2 font-black text-[var(--foreground)]">
+            {dictionary.host.wizardTitle}
+          </h1>
+          <p className="mt-4 text-base leading-8 text-[var(--muted)]">
+            {locale === 'es'
+              ? 'Completa los pasos para publicar tu auto con contexto de entrega, disponibilidad y señal visual coherente con Orlando.'
+              : 'Complete the steps to publish your car with delivery context, availability and imagery aligned with Orlando.'}
+          </p>
+        </div>
       </div>
 
       <div className="mt-8">

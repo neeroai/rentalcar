@@ -3,12 +3,21 @@ export type Locale = "es" | "en";
 export type LocalizedText = Record<Locale, string>;
 
 export type VehicleCategory =
-  | "suv"
-  | "convertible"
-  | "luxury"
   | "economy"
-  | "van"
-  | "business";
+  | "compact-suv"
+  | "minivan"
+  | "three-row-suv"
+  | "premium";
+
+export type AssetSourceType = "stock" | "ai" | "official";
+
+export interface AssetImage {
+  src: string;
+  alt: LocalizedText;
+  sourceType: AssetSourceType;
+  sourceName: string;
+  sourceUrl: string;
+}
 
 export type Transmission = "Automática" | "Automatic" | "Manual";
 
@@ -56,7 +65,7 @@ export interface Vehicle {
   deliveryOptions: DeliveryOption[];
   airportPickup: boolean;
   instantBook: boolean;
-  images: string[];
+  images: AssetImage[];
   host: Host;
   badges: LocalizedText[];
   features: string[];

@@ -1,82 +1,160 @@
-"use client";
+'use client';
 
 /**
  * @file motion-ui.tsx
- * @description Animated UI components — hero section and Turo-style vehicle listing card.
+ * @description Hero and vehicle card UI with restrained motion for the Orlando-first MVP.
  * @module components/motion-ui
  * @exports HomeHeroIntro, VehicleCard
  */
 
-import { ChevronLeft, ChevronRight, Heart, Star, Zap } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  MapPinned,
+  PlaneLanding,
+  Sparkles,
+  Star,
+  Ticket,
+  Zap,
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
-import type { Locale, Vehicle } from "@/lib/types";
-
-// ---------------------------------------------------------------------------
-// HomeHeroIntro
-// ---------------------------------------------------------------------------
+import { editorialImages } from '@/data/assets';
+import type { Locale, Vehicle } from '@/lib/types';
+import { getLocalizedText } from '@/lib/utils';
 
 interface HomeHeroIntroProps {
   locale?: Locale;
 }
 
-/**
- * Full-width hero section with animated headline, subtitle, and popular search pills.
- * The search form is rendered externally by the homepage page.tsx via children slot.
- *
- * @param locale - Active locale (reserved for future i18n use).
- * @returns Hero section element with entrance animations.
- *
- * @example
- * <HomeHeroIntro locale="es" />
- */
-export function HomeHeroIntro({ locale: _locale }: HomeHeroIntroProps) {
-  const pills = [
-    { label: "Orlando · MCO", href: "/search?pickup=mco" },
-    { label: "Miami · MIA", href: "/search?pickup=mia" },
-    { label: "Disney Resorts", href: "/search?pickup=mco&category=suv" },
-    { label: "SUVs familiares", href: "/search?category=suv" },
-  ];
+export function HomeHeroIntro({ locale = 'es' }: HomeHeroIntroProps) {
+  const pills =
+    locale === 'es'
+      ? [
+          {
+            label: 'Llegadas MCO',
+            detail: 'Pickup claro al aterrizar, sin counter.',
+            kicker: 'Arribo',
+            href: '/search?pickup=mco',
+            icon: PlaneLanding,
+          },
+          {
+            label: 'Hoteles y resorts',
+            detail: 'Entrega pensada para lobby, maletas y check-in.',
+            kicker: 'Estadía',
+            href: '/search?pickup=disney&category=minivan',
+            icon: MapPinned,
+          },
+          {
+            label: 'Epic + Universal',
+            detail: 'Semanas de parques con flota y contexto real.',
+            kicker: 'Park days',
+            href: '/search?pickup=universal&category=compact-suv',
+            icon: Ticket,
+          },
+          {
+            label: 'Miami extensión',
+            detail: 'Solo si el viaje combina ambos destinos.',
+            kicker: 'Split trip',
+            href: '/search?pickup=mia',
+            icon: Sparkles,
+          },
+        ]
+      : [
+          {
+            label: 'MCO arrivals',
+            detail: 'A clean pickup flow the minute you land.',
+            kicker: 'Arrival',
+            href: '/search?pickup=mco',
+            icon: PlaneLanding,
+          },
+          {
+            label: 'Hotels and resorts',
+            detail: 'Delivery shaped around lobby, luggage, and check-in.',
+            kicker: 'Stay',
+            href: '/search?pickup=disney&category=minivan',
+            icon: MapPinned,
+          },
+          {
+            label: 'Epic + Universal',
+            detail: 'Park-week demand with the right fleet and context.',
+            kicker: 'Park days',
+            href: '/search?pickup=universal&category=compact-suv',
+            icon: Ticket,
+          },
+          {
+            label: 'Miami extension',
+            detail: 'Only when the itinerary truly combines both markets.',
+            kicker: 'Split trip',
+            href: '/search?pickup=mia',
+            icon: Sparkles,
+          },
+        ];
+
+  const metrics =
+    locale === 'es'
+      ? ['MCO, hoteles y resorts', 'Epic, Disney y Universal', 'Familias LATAM primero']
+      : ['MCO, hotels, and resorts', 'Epic, Disney, and Universal', 'LATAM families first'];
 
   return (
-    <section
-      className="relative flex min-h-[560px] items-center overflow-hidden"
-      data-testid="home-hero"
-    >
-      {/* Background image */}
-      <Image
-        alt="SUV en carretera abierta, Florida"
-        className="object-cover"
-        fill
-        priority
-        sizes="100vw"
-        src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1600&q=80"
-      />
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-black/60" />
+    <section className="relative isolate overflow-hidden" data-testid="home-hero">
+      <div className="absolute inset-0">
+        <Image
+          alt={getLocalizedText(locale, editorialImages.homeHero.alt)}
+          className="object-cover"
+          fill
+          priority
+          sizes="100vw"
+          src={editorialImages.homeHero.src}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(16,19,20,0.82)_0%,rgba(16,19,20,0.58)_38%,rgba(16,19,20,0.28)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(240,181,118,0.28),transparent_30%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,19,20,0.16)_0%,rgba(16,19,20,0.3)_58%,rgba(16,19,20,0.54)_100%)]" />
+      </div>
 
-      <div className="page-grid relative z-10 w-full py-16">
-        <div className="mx-auto max-w-2xl text-center">
-          <h1 className="animate-fade-up text-fluid-h1 font-bold text-white">
-            Encuentra tu auto ideal
-          </h1>
-
-          <p className="animate-fade-up-d1 mt-4 text-lg text-white/80">
-            Vehículos curados con entrega en tu hotel o aeropuerto. Orlando y
-            Miami.
+      <div className="page-grid relative z-10 flex min-h-[calc(86svh-4rem)] items-end py-12 md:min-h-[calc(88svh-4.6rem)] md:items-center md:py-14">
+        <div className="max-w-4xl">
+          <p className="eyebrow animate-fade-in text-[var(--secondary)]">
+            {locale === 'es'
+              ? 'Orlando first · familias LATAM, hoteles y días de parques'
+              : 'Orlando first · LATAM families, hotel stays, and park days'}
           </p>
-
-          {/* Pills */}
-          <div className="animate-fade-up-d2 mt-6 flex flex-wrap justify-center gap-2">
+          <h1 className="heading-balance animate-fade-up mt-4 max-w-3xl text-fluid-h1 font-black text-white">
+            {locale === 'es'
+              ? 'El viaje a Orlando empieza antes del primer parque.'
+              : 'Your Orlando trip starts before the first park day.'}
+          </h1>
+          <p className="animate-fade-up-d1 mt-4 max-w-2xl text-lg leading-8 text-white/80 md:text-[1.1rem]">
+            {locale === 'es'
+              ? 'Piensa en llegada a MCO, maletas, hotel, Disney, Universal o Epic. Nosotros ordenamos la movilidad alrededor de ese plan real, sin counters ni categorías genéricas.'
+              : 'Think MCO arrival, luggage, hotel check-in, Disney, Universal, or Epic. We organize mobility around that real plan, without counters or generic categories.'}
+          </p>
+          <div className="hero-metrics animate-fade-up-d1 mt-6">
+            {metrics.map((metric) => (
+              <span className="hero-metric" key={metric}>
+                <span className="h-1.5 w-1.5 rounded-full bg-[var(--secondary)]" />
+                {metric}
+              </span>
+            ))}
+          </div>
+          <div className="hero-pill-grid animate-fade-up-d2 mt-6">
             {pills.map((pill) => (
               <Link
-                className="cursor-pointer rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/20"
+                className="hero-pill"
                 href={pill.href}
                 key={pill.href}
               >
-                {pill.label}
+                <span className="hero-pill-icon">
+                  <pill.icon className="h-[1.125rem] w-[1.125rem]" />
+                </span>
+                <span className="hero-pill-copy">
+                  <span className="hero-pill-kicker">{pill.kicker}</span>
+                  <span className="hero-pill-title">{pill.label}</span>
+                  <span className="hero-pill-detail">{pill.detail}</span>
+                </span>
               </Link>
             ))}
           </div>
@@ -86,193 +164,168 @@ export function HomeHeroIntro({ locale: _locale }: HomeHeroIntroProps) {
   );
 }
 
-// ---------------------------------------------------------------------------
-// VehicleCard
-// ---------------------------------------------------------------------------
-
 interface VehicleCardProps {
   locale: Locale;
   vehicle: Vehicle;
-  /** @deprecated Use vehicle.slug directly — kept for backwards compat */
   ctaLabel?: string;
-  /** @deprecated Not used in new design */
   metaLabel?: string;
   href?: string;
 }
 
-/**
- * Turo-style listing card with image carousel, rating, price, and save button.
- * Images cycle via arrow buttons (visible on group-hover) and dot indicators.
- *
- * @param locale - Active locale for i18n text.
- * @param vehicle - Vehicle data object from @/lib/types.
- * @param href - Optional override for the card link destination.
- * @returns Clickable vehicle listing card.
- *
- * @example
- * <VehicleCard locale="es" vehicle={vehicle} />
- */
 export function VehicleCard({ locale, vehicle, href }: VehicleCardProps) {
   const [currentImg, setCurrentImg] = useState(0);
   const [saved, setSaved] = useState(false);
 
-  const images =
-    vehicle.images.length > 0 ? vehicle.images : ["/placeholder-car.jpg"];
+  const images = vehicle.images;
   const cardHref = href ?? `/vehicle/${vehicle.slug}`;
 
-  /**
-   * Navigate to the previous image in the carousel.
-   *
-   * @param e - Mouse event (prevents default link navigation).
-   */
-  const prev = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentImg((i) => (i === 0 ? images.length - 1 : i - 1));
+  const prev = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setCurrentImg((index) => (index === 0 ? images.length - 1 : index - 1));
   };
 
-  /**
-   * Navigate to the next image in the carousel.
-   *
-   * @param e - Mouse event (prevents default link navigation).
-   */
-  const next = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setCurrentImg((i) => (i === images.length - 1 ? 0 : i + 1));
+  const next = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setCurrentImg((index) => (index === images.length - 1 ? 0 : index + 1));
   };
 
-  /**
-   * Toggle the saved/wishlist state for this vehicle.
-   *
-   * @param e - Mouse event (prevents default link navigation).
-   */
-  const toggleSaved = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setSaved((s) => !s);
+  const toggleSaved = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setSaved((value) => !value);
   };
 
   const categoryLabel =
     {
-      suv: "SUV",
-      convertible: "Convertible",
-      luxury: locale === "es" ? "Lujo" : "Luxury",
-      economy: locale === "es" ? "Económico" : "Economy",
-      van: "Van",
-      business: locale === "es" ? "Ejecutivo" : "Business",
+      economy: locale === 'es' ? 'Eficiente' : 'Efficient',
+      'compact-suv': locale === 'es' ? 'SUV compacta' : 'Compact SUV',
+      minivan: locale === 'es' ? 'Minivan' : 'Minivan',
+      'three-row-suv': locale === 'es' ? 'SUV 3 filas' : '3-row SUV',
+      premium: locale === 'es' ? 'Premium' : 'Premium',
     }[vehicle.category] ?? vehicle.category;
 
   return (
-    <Link className="block cursor-pointer" href={cardHref}>
-      <div className="animate-fade-up group overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-sm transition-shadow duration-200 hover:shadow-md">
-        {/* ---------------------------------------------------------------- */}
-        {/* IMAGE CAROUSEL                                                     */}
-        {/* ---------------------------------------------------------------- */}
-        <div className="relative aspect-[4/3] overflow-hidden bg-[#F5F5F5]">
+    <Link className="group block" href={cardHref}>
+      <article className="surface-elevated overflow-hidden rounded-[1.7rem] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-[var(--primary)] hover:shadow-[var(--shadow-md)]">
+        <div className="relative aspect-[4/3] overflow-hidden bg-[var(--surface-alt)]">
           <Image
-            alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            alt={
+              images[currentImg]
+                ? getLocalizedText(locale, images[currentImg].alt)
+                : `${vehicle.year} ${vehicle.make} ${vehicle.model}`
+            }
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.035]"
             fill
-            sizes="(max-width: 640px) 100vw, 400px"
-            src={images[currentImg]}
+            sizes="(max-width: 640px) 100vw, 420px"
+            src={images[currentImg]?.src ?? editorialImages.homeHero.src}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/48 via-transparent to-transparent" />
 
-          {/* InstantBook badge */}
-          {vehicle.instantBook && (
-            <div className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-[#231F20] px-2 py-0.5 text-[10px] font-semibold text-white">
-              <Zap className="h-3 w-3 fill-white" />
-              {locale === "es" ? "Reserva ya" : "Book now"}
-            </div>
-          )}
+          <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+            {vehicle.instantBook ? (
+              <span className="inline-flex items-center gap-1 rounded-full bg-[rgba(20,25,23,0.82)] px-2.5 py-1 text-[11px] font-semibold text-white">
+                <Zap className="h-3.5 w-3.5 fill-current" />
+                {locale === 'es' ? 'Reserva inmediata' : 'Instant book'}
+              </span>
+            ) : null}
+            {vehicle.airportPickup ? (
+              <span className="inline-flex rounded-full bg-white/88 px-2.5 py-1 text-[11px] font-semibold text-[var(--accent-deep)]">
+                MCO
+              </span>
+            ) : null}
+          </div>
 
-          {/* Heart / save button */}
           <button
-            aria-label={saved ? "Quitar de guardados" : "Guardar"}
-            className="absolute right-2 top-2 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white shadow transition-transform hover:scale-110"
+            aria-label={
+              saved
+                ? locale === 'es'
+                  ? 'Quitar de guardados'
+                  : 'Remove from saved'
+                : locale === 'es'
+                  ? 'Guardar vehículo'
+                  : 'Save vehicle'
+            }
+            className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/88 text-[var(--foreground)] shadow-sm transition-transform hover:scale-110"
             onClick={toggleSaved}
             type="button"
           >
             <Heart
-              className={`h-4 w-4 transition-colors ${saved ? "fill-[#7C3AED] text-[#7C3AED]" : "text-[#231F20]"}`}
+              className={`h-4 w-4 transition-colors ${saved ? 'fill-[var(--primary)] text-[var(--primary)]' : ''}`}
             />
           </button>
 
-          {/* Prev arrow */}
-          {images.length > 1 && (
-            <button
-              aria-label="Imagen anterior"
-              className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 shadow transition-opacity group-hover:opacity-100"
-              onClick={prev}
-              type="button"
-            >
-              <ChevronLeft className="h-4 w-4 text-[#231F20]" />
-            </button>
-          )}
+          {images.length > 1 ? (
+            <>
+              <button
+                aria-label={locale === 'es' ? 'Imagen anterior' : 'Previous image'}
+                className="absolute left-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/88 text-[var(--foreground)] opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
+                onClick={prev}
+                type="button"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                aria-label={locale === 'es' ? 'Siguiente imagen' : 'Next image'}
+                className="absolute right-3 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/88 text-[var(--foreground)] opacity-0 shadow-sm transition-opacity group-hover:opacity-100"
+                onClick={next}
+                type="button"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </>
+          ) : null}
 
-          {/* Next arrow */}
-          {images.length > 1 && (
-            <button
-              aria-label="Siguiente imagen"
-              className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 shadow transition-opacity group-hover:opacity-100"
-              onClick={next}
-              type="button"
-            >
-              <ChevronRight className="h-4 w-4 text-[#231F20]" />
-            </button>
-          )}
-
-          {/* Dot indicators */}
-          {images.length > 1 && (
-            <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1">
-              {images.map((_, i) => (
-                <div
-                  className={`h-1.5 w-1.5 rounded-full transition-colors ${i === currentImg ? "bg-white" : "bg-white/50"}`}
-                  key={i}
-                />
-              ))}
+          <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 text-white">
+            <div className="min-w-0">
+              <p className="text-xs uppercase tracking-[0.18em] text-white/68">
+                {vehicle.city === 'miami' ? 'Miami extension' : 'Orlando trip ready'}
+              </p>
+              <p className="truncate text-sm font-semibold">
+                {vehicle.year} {vehicle.make} {vehicle.model}
+              </p>
             </div>
-          )}
-        </div>
-
-        {/* ---------------------------------------------------------------- */}
-        {/* CARD INFO                                                          */}
-        {/* ---------------------------------------------------------------- */}
-        <div className="p-3">
-          {/* Line 1: Make + Model + Year */}
-          <h3 className="text-sm font-semibold leading-snug text-[#231F20]">
-            {vehicle.year} {vehicle.make} {vehicle.model}
-          </h3>
-
-          {/* Line 2: Rating + trips + superhost */}
-          <div className="mt-1 flex items-center gap-1">
-            <Star className="h-3.5 w-3.5 fill-[#22C55E] text-[#22C55E]" />
-            <span className="text-xs font-semibold text-[#231F20]">
+            <div className="flex items-center gap-1 rounded-full bg-[rgba(20,25,23,0.7)] px-2.5 py-1 text-xs font-semibold">
+              <Star className="h-3.5 w-3.5 fill-[var(--secondary)] text-[var(--secondary)]" />
               {vehicle.rating}
-            </span>
-            <span className="text-xs text-[#6B7280]">
-              ({vehicle.tripsCount} {locale === "es" ? "viajes" : "trips"})
-            </span>
-            {vehicle.host.isSuperhost && (
-              <span className="ml-1 rounded-full bg-[#EDE9FE] px-1.5 py-0.5 text-[10px] font-semibold text-[#7C3AED]">
-                All-Star
-              </span>
-            )}
-          </div>
-
-          {/* Line 3: Category + transmission */}
-          <p className="mt-0.5 text-xs text-[#6B7280]">
-            {categoryLabel} · {vehicle.transmission}
-          </p>
-
-          {/* Line 4: Price */}
-          <div className="mt-2 flex items-baseline gap-1">
-            <span className="text-base font-bold text-[#231F20]">
-              ${vehicle.pricePerDay}
-            </span>
-            <span className="text-xs text-[#6B7280]">
-              {locale === "es" ? "/día" : "/day"}
-            </span>
+            </div>
           </div>
         </div>
-      </div>
+
+        <div className="space-y-4 p-4">
+          <div className="flex flex-wrap gap-2 text-xs font-medium text-[var(--text-soft)]">
+            <span className="rounded-full bg-[var(--surface-alt)] px-2.5 py-1">
+              {categoryLabel}
+            </span>
+            <span className="rounded-full bg-[var(--surface-alt)] px-2.5 py-1">
+              {vehicle.seats} {locale === 'es' ? 'asientos' : 'seats'}
+            </span>
+            <span className="rounded-full bg-[var(--surface-alt)] px-2.5 py-1">
+              {vehicle.transmission}
+            </span>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+            <div>
+              <p className="text-sm leading-6 text-[var(--muted)]">
+                {locale === 'es'
+                  ? vehicle.airportPickup
+                    ? 'Entrega en MCO, hoteles y resorts cercanos.'
+                    : 'Ideal para moverse por Orlando con más flexibilidad.'
+                  : vehicle.airportPickup
+                    ? 'Delivery to MCO, hotels and nearby resorts.'
+                    : 'Ideal for moving around Orlando with more flexibility.'}
+              </p>
+            </div>
+            <div className="text-left sm:text-right">
+              <p className="text-2xl font-black tracking-[-0.04em] text-[var(--foreground)]">
+                ${vehicle.pricePerDay}
+              </p>
+              <p className="text-xs uppercase tracking-[0.18em] text-[var(--muted)]">
+                {locale === 'es' ? 'por día' : 'per day'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
     </Link>
   );
 }

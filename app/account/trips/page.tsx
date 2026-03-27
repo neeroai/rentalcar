@@ -5,18 +5,13 @@
  * @exports TripsPage
  */
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import { AccountShell } from "@/components/site-chrome";
-import { trips, vehicles } from "@/data/mock";
-import { getDictionary, getLocale } from "@/lib/i18n";
-import {
-  formatCurrency,
-  formatDateRange,
-  getLocalizedText,
-  getVehicleBySlug,
-} from "@/lib/utils";
+import { AccountShell } from '@/components/site-chrome';
+import { trips, vehicles } from '@/data/mock';
+import { getDictionary, getLocale } from '@/lib/i18n';
+import { formatCurrency, formatDateRange, getLocalizedText, getVehicleBySlug } from '@/lib/utils';
 
 /**
  * Trips account page with restyled cards showing status badge, thumbnail, dates, and CTA.
@@ -32,9 +27,7 @@ export default async function TripsPage() {
 
   return (
     <AccountShell current="trips" dictionary={dictionary} locale={locale}>
-      <h1 className="mb-6 text-2xl font-bold text-[#231F20]">
-        {dictionary.account.tripsTitle}
-      </h1>
+      <h1 className="mb-6 text-2xl font-bold text-[#231F20]">{dictionary.account.tripsTitle}</h1>
 
       <div className="grid gap-4">
         {trips.map((trip) => {
@@ -44,21 +37,18 @@ export default async function TripsPage() {
             return null;
           }
 
-          const isUpcoming = trip.status === "upcoming";
+          const isUpcoming = trip.status === 'upcoming';
 
           return (
-            <article
-              className="flex gap-4 rounded-xl border border-[#E5E5E5] bg-white p-4"
-              key={trip.id}
-            >
+            <article className="surface-panel flex gap-4 rounded-[1.6rem] p-4" key={trip.id}>
               {/* Thumbnail */}
               <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-lg">
                 <Image
-                  alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                  alt={vehicle.images[0].alt[locale]}
                   className="object-cover"
                   fill
                   sizes="80px"
-                  src={vehicle.images[0]}
+                  src={vehicle.images[0].src}
                 />
               </div>
 
@@ -69,17 +59,17 @@ export default async function TripsPage() {
                     <span
                       className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${
                         isUpcoming
-                          ? "bg-[#EDE9FE] text-[#7C3AED]"
-                          : "bg-[#F5F5F5] text-[#6B7280]"
+                          ? 'bg-[var(--primary-soft)] text-[var(--primary)]'
+                          : 'bg-[var(--surface-alt)] text-[var(--muted)]'
                       }`}
                     >
                       {isUpcoming
-                        ? locale === "es"
-                          ? "Próximo"
-                          : "Upcoming"
-                        : locale === "es"
-                          ? "Completado"
-                          : "Completed"}
+                        ? locale === 'es'
+                          ? 'Próximo'
+                          : 'Upcoming'
+                        : locale === 'es'
+                          ? 'Completado'
+                          : 'Completed'}
                     </span>
                     <h2 className="mt-1.5 text-base font-semibold text-[#231F20]">
                       {vehicle.year} {vehicle.make} {vehicle.model}
@@ -91,12 +81,12 @@ export default async function TripsPage() {
                 </div>
 
                 <p className="mt-1 text-sm text-[#6B7280]">
-                  {formatDateRange(trip.startDate, trip.endDate, locale)} ·{" "}
+                  {formatDateRange(trip.startDate, trip.endDate, locale)} ·{' '}
                   {getLocalizedText(locale, trip.pickupLabel)}
                 </p>
 
                 <Link
-                  className="mt-3 inline-flex min-h-[36px] cursor-pointer items-center rounded-lg border border-[#E5E5E5] px-4 py-1.5 text-sm font-semibold text-[#231F20] transition-colors hover:border-[#7C3AED] hover:text-[#7C3AED]"
+                  className="mt-3 inline-flex min-h-[36px] cursor-pointer items-center rounded-full border border-[rgba(198,184,163,0.64)] px-4 py-1.5 text-sm font-semibold text-[var(--foreground)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)]"
                   href={`/vehicle/${vehicle.slug}`}
                 >
                   {dictionary.actions.viewTrip}
