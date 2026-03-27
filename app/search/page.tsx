@@ -1,22 +1,69 @@
-import Link from 'next/link';
+/**
+ * @file page.tsx
+ * @description Search results page — Turo-inspired split layout with filter bar, vehicle grid, and map panel.
+ * @module app/search/page
+ * @exports SearchPage
+ */
 
-import { MobileFilterDrawer } from '@/components/mobile-filter-drawer';
-import { VehicleCard } from '@/components/motion-ui';
-import { BookingSummaryStrip, PageIntro } from '@/components/site-chrome';
-import { pickupOptions, vehicles } from '@/data/mock';
-import { getDictionary, getLocale } from '@/lib/i18n';
-import { createQueryString, filterVehicles, getLocalizedText, getSearchFilters } from '@/lib/utils';
+import { Car } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import { MobileFilterDrawer } from "@/components/mobile-filter-drawer";
+import { VehicleCard } from "@/components/motion-ui";
+import { pickupOptions, vehicles } from "@/data/mock";
+import { getDictionary, getLocale } from "@/lib/i18n";
+import {
+  createQueryString,
+  filterVehicles,
+  getLocalizedText,
+  getSearchFilters,
+} from "@/lib/utils";
+
+// ---------------------------------------------------------------------------
+// Types
+// ---------------------------------------------------------------------------
 
 interface SearchPageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }
 
+// ---------------------------------------------------------------------------
+// Category filter pills config
+// ---------------------------------------------------------------------------
+
+const categoryPills = [
+  { value: "", labelEs: "Todos", labelEn: "All" },
+  { value: "suv", labelEs: "SUV", labelEn: "SUV" },
+  { value: "convertible", labelEs: "Convertible", labelEn: "Convertible" },
+  { value: "luxury", labelEs: "Lujo", labelEn: "Luxury" },
+  { value: "economy", labelEs: "Económico", labelEn: "Economy" },
+  { value: "van", labelEs: "Minivan", labelEn: "Van" },
+  { value: "business", labelEs: "Ejecutivo", labelEn: "Business" },
+] as const;
+
+// ---------------------------------------------------------------------------
+// SearchPage
+// ---------------------------------------------------------------------------
+
+/**
+ * Search results page with Turo-style layout: sticky summary bar, horizontal
+ * filter pills, vehicle grid (left), and map panel (right, desktop only).
+ *
+ * @param searchParams - Next.js 15 async search params from URL.
+ * @returns Search results layout as a server component.
+ *
+ * @example
+ * // Rendered at /search?pickup=mco&start=2026-04-18&end=2026-04-22&category=suv
+ * <SearchPage searchParams={Promise.resolve({ pickup: "mco" })} />
+ */
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
   const params = await searchParams;
   const filters = getSearchFilters(params);
-  const results = filterVehicles([...vehicles], filters);
+  const filteredVehicles = filterVehicles([...vehicles], filters);
+
   const pickupLabel =
     pickupOptions.find((option) => option.value === filters.pickup)?.label ??
     pickupOptions[0].label;
@@ -28,162 +75,271 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     time: filters.time,
   };
 
+  // Build the base query string without category for pills
+  const baseQuery = createQueryString({
+    pickup: filters.pickup,
+    start: filters.start,
+    end: filters.end,
+    time: filters.time,
+    sort: filters.sort !== "recommended" ? filters.sort : undefined,
+  });
+
   return (
     <>
-      <PageIntro
-        eyebrow="Search"
-        subtitle={dictionary.search.subtitle}
-        title={dictionary.search.title}
-      />
-
-      <section className="page-grid pb-14 md:pb-20">
-        <BookingSummaryStrip
-          locale={locale}
-          pickup={getLocalizedText(locale, pickupLabel)}
-          start={filters.start}
-          end={filters.end}
-        />
-
-        <div className="mt-6 flex items-center justify-between gap-4 lg:hidden">
-          <p className="text-sm font-medium text-[color:var(--muted)]">
-            {results.length} {dictionary.search.resultsLabel}
-          </p>
-          <MobileFilterDrawer
-            action="/search"
-            fields={filters}
-            hiddenFields={hiddenFields}
-            labels={{
-              button: dictionary.actions.filters,
-              category: dictionary.search.filters.category,
-              maxPrice: dictionary.search.filters.maxPrice,
-              seats: dictionary.search.filters.seats,
-              transmission: dictionary.search.filters.transmission,
-              delivery: dictionary.search.filters.delivery,
-              airportPickup: dictionary.search.filters.airportPickup,
-              instantBook: dictionary.search.filters.instantBook,
-              rating: dictionary.search.filters.rating,
-              apply: dictionary.search.filters.apply,
-            }}
-          />
+      {/* ------------------------------------------------------------------ */}
+      {/* SEARCH SUMMARY BAR — sticky below header                             */}
+      {/* ------------------------------------------------------------------ */}
+      <div className="bg-white border-b border-[#E5E5E5] sticky top-16 z-10 py-3">
+        <div className="page-grid flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2 text-sm text-[#6B7280]">
+            <span className="font-semibold text-[#231F20]">
+              {getLocalizedText(locale, pickupLabel)}
+            </span>
+            <span className="text-[#E5E5E5]">·</span>
+            <span>{filters.start}</span>
+            <span className="text-[#E5E5E5]">→</span>
+            <span>{filters.end}</span>
+            <span className="text-[#E5E5E5]">·</span>
+            <span className="font-medium text-[#7C3AED]">
+              {filteredVehicles.length} {dictionary.search.resultsLabel}
+            </span>
+          </div>
+          <Link
+            href="/"
+            className="text-sm font-semibold text-[#7C3AED] hover:text-[#6D28D9] transition-colors cursor-pointer"
+          >
+            {locale === "es" ? "Modificar búsqueda" : "Modify search"}
+          </Link>
         </div>
+      </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[18rem_1fr]">
-          <aside className="hidden lg:block">
-            <form
-              action="/search"
-              className="surface-strong sticky top-28 space-y-5 rounded-[1.75rem] p-5"
-              method="get"
-            >
-              {Object.entries(hiddenFields).map(([key, value]) => (
-                <input key={key} name={key} type="hidden" value={value} />
-              ))}
-              <h2 className="font-display text-3xl">{dictionary.actions.filters}</h2>
-              <FilterSelect
-                defaultValue={filters.category}
-                label={dictionary.search.filters.category}
-                name="category"
-                options={[
-                  { value: '', label: locale === 'es' ? 'Todas' : 'All' },
-                  { value: 'suv', label: 'SUV' },
-                  { value: 'convertible', label: 'Convertible' },
-                  { value: 'luxury', label: 'Luxury' },
-                  { value: 'economy', label: 'Economy' },
-                  { value: 'van', label: 'Van' },
-                  { value: 'business', label: 'Business' },
-                ]}
-              />
-              <FilterInput
-                defaultValue={String(filters.maxPrice)}
-                label={dictionary.search.filters.maxPrice}
-                min="50"
-                name="maxPrice"
-                type="number"
-              />
-              <FilterInput
-                defaultValue={String(filters.seats)}
-                label={dictionary.search.filters.seats}
-                min="0"
-                name="seats"
-                type="number"
-              />
-              <FilterSelect
-                defaultValue={filters.transmission}
-                label={dictionary.search.filters.transmission}
-                name="transmission"
-                options={[
-                  { value: '', label: locale === 'es' ? 'Cualquiera' : 'Any' },
-                  { value: 'Automatic', label: 'Automatic' },
-                  { value: 'Manual', label: 'Manual' },
-                ]}
-              />
-              <FilterSelect
-                defaultValue={filters.sort}
-                label={dictionary.search.sortLabel}
-                name="sort"
-                options={Object.entries(dictionary.search.sorts).map(([value, label]) => ({
-                  value,
-                  label,
-                }))}
-              />
-              <FilterSelect
-                defaultValue={String(filters.rating)}
-                label={dictionary.search.filters.rating}
-                name="rating"
-                options={[
-                  { value: '0', label: locale === 'es' ? 'Cualquiera' : 'Any' },
-                  { value: '4.7', label: '4.7+' },
-                  { value: '4.9', label: '4.9+' },
-                ]}
-              />
-              <FilterToggle
-                defaultChecked={filters.delivery}
-                label={dictionary.search.filters.delivery}
-                name="delivery"
-              />
-              <FilterToggle
-                defaultChecked={filters.airportPickup}
-                label={dictionary.search.filters.airportPickup}
-                name="airportPickup"
-              />
-              <FilterToggle
-                defaultChecked={filters.instantBook}
-                label={dictionary.search.filters.instantBook}
-                name="instantBook"
-              />
-              <button
-                className="w-full rounded-full bg-[#18130f] px-4 py-3 text-sm font-semibold text-white"
-                type="submit"
-              >
-                {dictionary.search.filters.apply}
-              </button>
-            </form>
-          </aside>
+      {/* ------------------------------------------------------------------ */}
+      {/* FILTER BAR — horizontal pills                                        */}
+      {/* ------------------------------------------------------------------ */}
+      <div className="bg-white border-b border-[#E5E5E5] py-3">
+        <div className="page-grid">
+          {/* Mobile: scrollable pills + drawer button */}
+          <div className="flex items-center gap-2">
+            <div className="flex gap-2 overflow-x-auto no-scrollbar flex-1 pb-1">
+              {categoryPills.map((pill) => {
+                const isActive = filters.category === pill.value;
+                const href =
+                  pill.value === ""
+                    ? `/search?${baseQuery}`
+                    : `/search?${createQueryString({
+                        pickup: filters.pickup,
+                        start: filters.start,
+                        end: filters.end,
+                        time: filters.time,
+                        category: pill.value,
+                        sort:
+                          filters.sort !== "recommended"
+                            ? filters.sort
+                            : undefined,
+                      })}`;
+                return (
+                  <Link
+                    key={pill.value || "all"}
+                    href={href}
+                    className={`shrink-0 rounded-full px-4 py-2 text-sm cursor-pointer transition-colors border ${
+                      isActive
+                        ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium"
+                        : "bg-white border-[#E5E5E5] text-[#231F20] hover:border-[#7C3AED]"
+                    }`}
+                  >
+                    {locale === "es" ? pill.labelEs : pill.labelEn}
+                  </Link>
+                );
+              })}
 
-          <div>
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <p className="text-sm font-medium text-[color:var(--muted)]">
-                {results.length} {dictionary.search.resultsLabel}
-              </p>
-              <p className="hidden text-sm text-[color:var(--muted)] lg:block">
-                {getLocalizedText(locale, pickupLabel)} · {filters.start} - {filters.end}
-              </p>
+              {/* Sort pills */}
+              {Object.entries(dictionary.search.sorts).map(
+                ([sortValue, sortLabel]) => {
+                  const isSortActive = filters.sort === sortValue;
+                  const sortHref = `/search?${createQueryString({
+                    pickup: filters.pickup,
+                    start: filters.start,
+                    end: filters.end,
+                    time: filters.time,
+                    category: filters.category || undefined,
+                    sort: sortValue,
+                  })}`;
+                  return (
+                    <Link
+                      key={sortValue}
+                      href={sortHref}
+                      className={`shrink-0 rounded-full px-4 py-2 text-sm cursor-pointer transition-colors border ${
+                        isSortActive
+                          ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium"
+                          : "bg-white border-[#E5E5E5] text-[#6B7280] hover:border-[#7C3AED]"
+                      }`}
+                    >
+                      {sortLabel}
+                    </Link>
+                  );
+                },
+              )}
             </div>
 
-            {results.length === 0 ? (
-              <div className="surface-strong rounded-[2rem] p-8">
-                <p className="font-display text-4xl">{dictionary.search.noResults}</p>
+            {/* Mobile filter drawer button */}
+            <div className="lg:hidden shrink-0">
+              <MobileFilterDrawer
+                action="/search"
+                fields={filters}
+                hiddenFields={hiddenFields}
+                labels={{
+                  button: dictionary.actions.filters,
+                  category: dictionary.search.filters.category,
+                  maxPrice: dictionary.search.filters.maxPrice,
+                  seats: dictionary.search.filters.seats,
+                  transmission: dictionary.search.filters.transmission,
+                  delivery: dictionary.search.filters.delivery,
+                  airportPickup: dictionary.search.filters.airportPickup,
+                  instantBook: dictionary.search.filters.instantBook,
+                  rating: dictionary.search.filters.rating,
+                  apply: dictionary.search.filters.apply,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Desktop advanced filters (inline form) */}
+          <form
+            action="/search"
+            method="get"
+            className="hidden lg:flex items-center gap-3 mt-3 flex-wrap"
+          >
+            {Object.entries(hiddenFields).map(([key, value]) => (
+              <input key={key} name={key} type="hidden" value={value} />
+            ))}
+            {filters.category && (
+              <input name="category" type="hidden" value={filters.category} />
+            )}
+
+            {/* Max price */}
+            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
+              <span className="text-[#6B7280]">
+                {locale === "es" ? "Precio máx:" : "Max price:"}
+              </span>
+              <input
+                name="maxPrice"
+                type="number"
+                defaultValue={String(filters.maxPrice)}
+                min="50"
+                className="w-16 bg-transparent outline-none font-medium text-[#231F20]"
+              />
+            </label>
+
+            {/* Min seats */}
+            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
+              <span className="text-[#6B7280]">
+                {locale === "es" ? "Asientos:" : "Seats:"}
+              </span>
+              <select
+                name="seats"
+                defaultValue={String(filters.seats)}
+                className="bg-transparent outline-none font-medium text-[#231F20]"
+              >
+                <option value="0">
+                  {locale === "es" ? "Cualquiera" : "Any"}
+                </option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+                <option value="7">7+</option>
+              </select>
+            </label>
+
+            {/* Instant Book toggle */}
+            <label
+              className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer transition-colors ${filters.instantBook ? "bg-[#EDE9FE] border-[#7C3AED] text-[#7C3AED] font-medium" : "border-[#E5E5E5] text-[#231F20] hover:border-[#7C3AED]"}`}
+            >
+              <input
+                name="instantBook"
+                type="checkbox"
+                defaultChecked={filters.instantBook}
+                value="true"
+                className="sr-only"
+              />
+              {dictionary.search.filters.instantBook}
+            </label>
+
+            {/* Rating */}
+            <label className="flex items-center gap-2 rounded-full border border-[#E5E5E5] px-4 py-2 text-sm cursor-pointer hover:border-[#7C3AED] transition-colors">
+              <span className="text-[#6B7280]">
+                {locale === "es" ? "Rating:" : "Rating:"}
+              </span>
+              <select
+                name="rating"
+                defaultValue={String(filters.rating)}
+                className="bg-transparent outline-none font-medium text-[#231F20]"
+              >
+                <option value="0">
+                  {locale === "es" ? "Cualquiera" : "Any"}
+                </option>
+                <option value="4.7">4.7+</option>
+                <option value="4.9">4.9+</option>
+              </select>
+            </label>
+
+            <button
+              type="submit"
+              className="rounded-full bg-[#7C3AED] text-white px-5 py-2 text-sm font-semibold hover:bg-[#6D28D9] transition-colors cursor-pointer min-h-[44px]"
+            >
+              {dictionary.search.filters.apply}
+            </button>
+
+            {(filters.category ||
+              filters.instantBook ||
+              filters.rating > 0 ||
+              filters.seats > 0) && (
+              <Link
+                href={`/search?${createQueryString({ pickup: filters.pickup, start: filters.start, end: filters.end, time: filters.time })}`}
+                className="text-sm text-[#6B7280] hover:text-[#7C3AED] transition-colors cursor-pointer"
+              >
+                {dictionary.search.filters.clear}
+              </Link>
+            )}
+          </form>
+        </div>
+      </div>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* MAIN LAYOUT — vehicle grid + map                                     */}
+      {/* ------------------------------------------------------------------ */}
+      <div className="flex gap-0">
+        {/* LEFT: Vehicle grid */}
+        <div className="flex-1 min-w-0">
+          <div className="page-grid py-6">
+            <p className="text-sm text-[#6B7280] mb-4">
+              <span className="font-semibold text-[#231F20]">
+                {filteredVehicles.length}
+              </span>{" "}
+              {dictionary.search.resultsLabel}
+            </p>
+
+            {filteredVehicles.length === 0 ? (
+              <div className="col-span-full text-center py-16">
+                <Car className="w-12 h-12 text-[#E5E5E5] mx-auto mb-4" />
+                <h3 className="font-semibold text-[#231F20] mb-2">
+                  {locale === "es" ? "No encontramos autos" : "No cars found"}
+                </h3>
+                <p className="text-[#6B7280] text-sm">
+                  {dictionary.search.noResultsSuggestion}
+                </p>
                 <Link
-                  className="mt-5 inline-flex text-sm font-semibold text-[var(--accent)]"
-                  href="/search"
+                  href={`/search?${createQueryString({ pickup: filters.pickup, start: filters.start, end: filters.end, time: filters.time })}`}
+                  className="mt-6 inline-flex min-h-[44px] cursor-pointer items-center rounded-lg bg-[#7C3AED] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
                 >
-                  {dictionary.search.filters.clear}
+                  {locale === "es" ? "Ver todos los autos" : "See all cars"}
                 </Link>
               </div>
             ) : (
-              <div className="grid gap-5 xl:grid-cols-2">
-                {results.map((vehicle) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {filteredVehicles.map((vehicle) => (
                   <VehicleCard
-                    ctaLabel={locale === 'es' ? 'Ver detalle' : 'See details'}
+                    key={vehicle.slug}
+                    locale={locale}
+                    vehicle={vehicle}
                     href={`/vehicle/${vehicle.slug}?${createQueryString({
                       pickup: filters.pickup,
                       start: filters.start,
@@ -191,84 +347,31 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                       time: filters.time,
                       category: filters.category,
                     })}`}
-                    key={vehicle.slug}
-                    locale={locale}
-                    metaLabel={dictionary.common.instantBook}
-                    vehicle={vehicle}
                   />
                 ))}
               </div>
             )}
           </div>
         </div>
-      </section>
+
+        {/* RIGHT: Map panel (desktop only) */}
+        <div className="hidden lg:block w-[40%] sticky top-16 h-[calc(100vh-4rem)] overflow-hidden shrink-0">
+          <Image
+            src="https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=600&q=80"
+            alt={locale === "es" ? "Mapa del área" : "Area map"}
+            fill
+            className="object-cover"
+            sizes="40vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+          <div className="absolute bottom-4 left-4 bg-white rounded-xl px-4 py-3 shadow-lg">
+            <p className="text-sm font-semibold text-[#231F20]">
+              {filteredVehicles.length}{" "}
+              {locale === "es" ? "autos en esta área" : "cars in this area"}
+            </p>
+          </div>
+        </div>
+      </div>
     </>
-  );
-}
-
-function FilterInput(props: {
-  label: string;
-  name: string;
-  type: 'number';
-  min: string;
-  defaultValue: string;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-2 block text-sm font-medium">{props.label}</span>
-      <input
-        className="w-full rounded-[1.2rem] border border-black/10 bg-[#fcf8f2] px-4 py-3"
-        defaultValue={props.defaultValue}
-        min={props.min}
-        name={props.name}
-        type={props.type}
-      />
-    </label>
-  );
-}
-
-function FilterSelect({
-  label,
-  name,
-  options,
-  defaultValue,
-}: {
-  label: string;
-  name: string;
-  options: { value: string; label: string }[];
-  defaultValue: string;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-2 block text-sm font-medium">{label}</span>
-      <select
-        className="w-full rounded-[1.2rem] border border-black/10 bg-[#fcf8f2] px-4 py-3"
-        defaultValue={defaultValue}
-        name={name}
-      >
-        {options.map((option) => (
-          <option key={option.value || 'all'} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </label>
-  );
-}
-
-function FilterToggle({
-  label,
-  name,
-  defaultChecked,
-}: {
-  label: string;
-  name: string;
-  defaultChecked: boolean;
-}) {
-  return (
-    <label className="flex items-center justify-between rounded-[1.2rem] border border-black/10 bg-[#fcf8f2] px-4 py-3">
-      <span className="text-sm font-medium">{label}</span>
-      <input defaultChecked={defaultChecked} name={name} type="checkbox" />
-    </label>
   );
 }

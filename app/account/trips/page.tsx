@@ -1,69 +1,111 @@
-import Link from 'next/link';
+/**
+ * @file account/trips/page.tsx
+ * @description Account trips page — mock list of upcoming and completed trips.
+ * @module app/account/trips
+ * @exports TripsPage
+ */
 
-import { AccountShell, PageIntro } from '@/components/site-chrome';
-import { trips, vehicles } from '@/data/mock';
-import { getDictionary, getLocale } from '@/lib/i18n';
-import { formatCurrency, formatDateRange, getLocalizedText, getVehicleBySlug } from '@/lib/utils';
+import Image from "next/image";
+import Link from "next/link";
 
+import { AccountShell } from "@/components/site-chrome";
+import { trips, vehicles } from "@/data/mock";
+import { getDictionary, getLocale } from "@/lib/i18n";
+import {
+  formatCurrency,
+  formatDateRange,
+  getLocalizedText,
+  getVehicleBySlug,
+} from "@/lib/utils";
+
+/**
+ * Trips account page with restyled cards showing status badge, thumbnail, dates, and CTA.
+ *
+ * @returns Full-page server component.
+ *
+ * @example
+ * // Rendered automatically at /account/trips
+ */
 export default async function TripsPage() {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
 
   return (
-    <>
-      <PageIntro
-        eyebrow="Account"
-        subtitle={
-          locale === 'es'
-            ? 'Vista mock del historial y próximos viajes.'
-            : 'Mock view of upcoming and past trips.'
-        }
-        title={dictionary.account.tripsTitle}
-      />
+    <AccountShell current="trips" dictionary={dictionary} locale={locale}>
+      <h1 className="mb-6 text-2xl font-bold text-[#231F20]">
+        {dictionary.account.tripsTitle}
+      </h1>
 
-      <AccountShell current="trips" dictionary={dictionary} locale={locale}>
-        <div className="grid gap-4">
-          {trips.map((trip) => {
-            const vehicle = getVehicleBySlug(vehicles, trip.vehicleSlug);
+      <div className="grid gap-4">
+        {trips.map((trip) => {
+          const vehicle = getVehicleBySlug(vehicles, trip.vehicleSlug);
 
-            if (!vehicle) {
-              return null;
-            }
+          if (!vehicle) {
+            return null;
+          }
 
-            return (
-              <article className="surface-strong rounded-[1.8rem] p-6 md:p-8" key={trip.id}>
-                <div className="flex flex-wrap items-start justify-between gap-4">
+          const isUpcoming = trip.status === "upcoming";
+
+          return (
+            <article
+              className="flex gap-4 rounded-xl border border-[#E5E5E5] bg-white p-4"
+              key={trip.id}
+            >
+              {/* Thumbnail */}
+              <div className="relative h-14 w-20 shrink-0 overflow-hidden rounded-lg">
+                <Image
+                  alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                  className="object-cover"
+                  fill
+                  sizes="80px"
+                  src={vehicle.images[0]}
+                />
+              </div>
+
+              {/* Info */}
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.18em] text-[var(--accent)]">
-                      {trip.status === 'upcoming'
-                        ? locale === 'es'
-                          ? 'Próximo viaje'
-                          : 'Upcoming trip'
-                        : locale === 'es'
-                          ? 'Completado'
-                          : 'Completed'}
-                    </p>
-                    <h2 className="mt-3 font-display text-4xl">
+                    <span
+                      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                        isUpcoming
+                          ? "bg-[#EDE9FE] text-[#7C3AED]"
+                          : "bg-[#F5F5F5] text-[#6B7280]"
+                      }`}
+                    >
+                      {isUpcoming
+                        ? locale === "es"
+                          ? "Próximo"
+                          : "Upcoming"
+                        : locale === "es"
+                          ? "Completado"
+                          : "Completed"}
+                    </span>
+                    <h2 className="mt-1.5 text-base font-semibold text-[#231F20]">
                       {vehicle.year} {vehicle.make} {vehicle.model}
                     </h2>
                   </div>
-                  <p className="text-lg font-semibold">{formatCurrency(trip.total, locale)}</p>
+                  <p className="text-sm font-semibold text-[#231F20]">
+                    {formatCurrency(trip.total, locale)}
+                  </p>
                 </div>
-                <p className="mt-4 text-base text-[color:var(--muted)]">
-                  {formatDateRange(trip.startDate, trip.endDate, locale)} ·{' '}
+
+                <p className="mt-1 text-sm text-[#6B7280]">
+                  {formatDateRange(trip.startDate, trip.endDate, locale)} ·{" "}
                   {getLocalizedText(locale, trip.pickupLabel)}
                 </p>
+
                 <Link
-                  className="mt-6 inline-flex text-sm font-semibold text-[var(--accent)]"
+                  className="mt-3 inline-flex min-h-[36px] cursor-pointer items-center rounded-lg border border-[#E5E5E5] px-4 py-1.5 text-sm font-semibold text-[#231F20] transition-colors hover:border-[#7C3AED] hover:text-[#7C3AED]"
                   href={`/vehicle/${vehicle.slug}`}
                 >
                   {dictionary.actions.viewTrip}
                 </Link>
-              </article>
-            );
-          })}
-        </div>
-      </AccountShell>
-    </>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </AccountShell>
   );
 }

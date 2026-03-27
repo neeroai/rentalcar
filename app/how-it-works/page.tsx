@@ -1,75 +1,215 @@
-import { Clock3, MapPinned, Shield, Smartphone } from 'lucide-react';
+/**
+ * @file how-it-works/page.tsx
+ * @description How It Works page — 3-step flow, trust cards, and final CTA.
+ * @module app/how-it-works
+ * @exports HowItWorksPage
+ */
 
-import { PageIntro } from '@/components/site-chrome';
-import { getDictionary, getLocale } from '@/lib/i18n';
+import { Car, MessageCircle, Search, Shield, X, Clock } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
+import { getDictionary, getLocale } from "@/lib/i18n";
+
+/**
+ * How It Works marketing page with hero, 3-step flow, trust section, and CTA.
+ *
+ * @returns Full-page server component.
+ *
+ * @example
+ * // Rendered automatically at /how-it-works
+ */
 export default async function HowItWorksPage() {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
-  const icons = [MapPinned, Smartphone, Clock3];
+
+  const steps = [
+    {
+      number: "1",
+      icon: Search,
+      title: locale === "es" ? "Elige tu auto" : "Choose your car",
+      detail:
+        locale === "es"
+          ? "Filtra por fechas, pickup y tipo de vehículo. Ves el auto exacto, no una categoría genérica."
+          : "Filter by dates, pickup point and vehicle type. You see the exact car, not a generic class.",
+      image:
+        "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      number: "2",
+      icon: MessageCircle,
+      title: locale === "es" ? "Conecta" : "Connect",
+      detail:
+        locale === "es"
+          ? "Confirma la reserva y coordina directamente con tu host. Todo en un inbox integrado."
+          : "Confirm the booking and coordinate directly with your host. All in one integrated inbox.",
+      image:
+        "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&q=80",
+    },
+    {
+      number: "3",
+      icon: Car,
+      title: locale === "es" ? "Disfruta" : "Enjoy",
+      detail:
+        locale === "es"
+          ? "Recibe el auto en MCO, tu hotel o donde más te convenga. Listo y sin filas."
+          : "Pick up the car at MCO, your hotel or wherever works best. Ready to go, no lines.",
+      image:
+        "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80",
+    },
+  ];
+
+  const trustCards = [
+    {
+      icon: Shield,
+      title: locale === "es" ? "Protección incluida" : "Protection included",
+      text:
+        locale === "es"
+          ? "Cobertura básica y políticas claras disponibles antes de confirmar."
+          : "Basic coverage and clear policies visible before you confirm.",
+    },
+    {
+      icon: X,
+      title: locale === "es" ? "Cancelación flexible" : "Flexible cancellation",
+      text:
+        locale === "es"
+          ? "Revisa la política de cada host antes de pagar. Sin sorpresas."
+          : "Check each host's policy before paying. No surprises.",
+    },
+    {
+      icon: Clock,
+      title: locale === "es" ? "Soporte directo" : "Direct support",
+      text:
+        locale === "es"
+          ? "Habla con el host en tiempo real. Respuesta rápida garantizada."
+          : "Talk to the host in real time. Fast response guaranteed.",
+    },
+  ];
 
   return (
     <>
-      <PageIntro
-        eyebrow="Flow"
-        subtitle={dictionary.howItWorks.subtitle}
-        title={dictionary.howItWorks.title}
-      />
+      {/* Hero */}
+      <section className="relative flex min-h-[400px] items-center overflow-hidden">
+        <Image
+          alt="Auto cinematic en carretera"
+          className="object-cover"
+          fill
+          priority
+          sizes="100vw"
+          src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1600&q=80"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="page-grid relative z-10 w-full py-16 text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-white/70">
+            {dictionary.nav.howItWorks}
+          </p>
+          <h1 className="mt-4 text-fluid-h1 font-bold leading-tight text-white">
+            {dictionary.howItWorks.title}
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/75">
+            {locale === "es"
+              ? "Alquilar un auto nunca fue tan fácil"
+              : "Renting a car has never been this easy"}
+          </p>
+        </div>
+      </section>
 
-      <section className="page-grid pb-16 md:pb-20">
-        <div className="grid gap-4 md:grid-cols-3">
-          {dictionary.howItWorks.steps.map((step, index) => {
-            const Icon = icons[index] ?? Shield;
+      {/* 3-Step section */}
+      <section className="page-grid py-16 md:py-20">
+        <div className="relative grid gap-10 md:grid-cols-3 md:gap-6">
+          {/* Connecting line desktop */}
+          <div className="hidden md:block absolute top-[28px] left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-px bg-[#E5E5E5]" />
+
+          {steps.map((step) => {
+            const Icon = step.icon;
 
             return (
-              <article className="surface-strong rounded-[1.9rem] p-6 md:p-8" key={step.title}>
-                <Icon className="h-5 w-5 text-[var(--accent)]" />
-                <h2 className="mt-5 font-display text-3xl leading-tight">{step.title}</h2>
-                <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">{step.detail}</p>
-              </article>
+              <div
+                key={step.number}
+                className="relative flex flex-col items-center text-center md:items-center gap-4"
+              >
+                {/* Step image */}
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden">
+                  <Image
+                    src={step.image}
+                    alt={step.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                {/* Number circle */}
+                <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-full bg-[#7C3AED] text-white font-bold text-lg shadow-sm">
+                  <Icon className="h-6 w-6" />
+                </div>
+                <h2 className="text-xl font-bold text-[#231F20]">
+                  {step.title}
+                </h2>
+                <p className="text-base leading-7 text-[#6B7280]">
+                  {step.detail}
+                </p>
+              </div>
             );
           })}
         </div>
+      </section>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-[1fr_1fr]">
-          <article className="surface-strong rounded-[2rem] p-6 md:p-8">
-            <p className="eyebrow">{dictionary.howItWorks.trustTitle}</p>
-            <h2 className="mt-4 font-display text-4xl">
-              {locale === 'es'
-                ? 'La confianza se construye antes del checkout.'
-                : 'Trust gets built before checkout.'}
-            </h2>
-            <ul className="mt-6 space-y-4 text-sm leading-6 text-[color:var(--muted)]">
-              <li>
-                {locale === 'es'
-                  ? 'Precio por día visible y sin categorías ambiguas.'
-                  : 'Daily pricing stays visible with no ambiguous categories.'}
-              </li>
-              <li>
-                {locale === 'es'
-                  ? 'Host, tiempo de respuesta y políticas disponibles en la ficha.'
-                  : 'Host profile, response time and policies are visible on the listing.'}
-              </li>
-              <li>
-                {locale === 'es'
-                  ? 'Entrega a aeropuerto, hotel y parques integrada al flujo.'
-                  : 'Airport, hotel and theme-park handoffs are built into the flow.'}
-              </li>
-            </ul>
-          </article>
-          <article className="surface-strong rounded-[2rem] bg-[#18130f] p-6 text-white md:p-8">
-            <p className="eyebrow text-[color:var(--accent-soft)]">Why it converts</p>
-            <h2 className="mt-4 font-display text-4xl">
-              {locale === 'es'
-                ? 'Menos pasos irrelevantes, más contexto útil.'
-                : 'Fewer irrelevant steps, more useful context.'}
-            </h2>
-            <p className="mt-5 text-base leading-7 text-white/72">
-              {locale === 'es'
-                ? 'El prototipo está pensado para que el usuario llegue rápido a una decisión sin perder señales de premium y confianza.'
-                : 'The prototype is designed to move users quickly toward a decision without losing premium cues and trust.'}
-            </p>
-          </article>
+      {/* Trust cards */}
+      <section className="bg-[#F5F5F5] py-16">
+        <div className="page-grid">
+          <h2 className="mb-8 text-2xl font-bold text-[#231F20] md:text-3xl">
+            {dictionary.howItWorks.trustTitle}
+          </h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {trustCards.map((card) => {
+              const Icon = card.icon;
+
+              return (
+                <div
+                  key={card.title}
+                  className="rounded-xl border border-[#E5E5E5] bg-white p-6"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EDE9FE]">
+                    <Icon className="h-5 w-5 text-[#7C3AED]" />
+                  </div>
+                  <h3 className="mt-4 text-base font-semibold text-[#231F20]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+                    {card.text}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative overflow-hidden py-20">
+        <Image
+          alt="Miami skyline al atardecer"
+          className="object-cover"
+          fill
+          sizes="100vw"
+          src="https://images.unsplash.com/photo-1533106497176-45ae19e68ba2?auto=format&fit=crop&w=1600&q=80"
+        />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="page-grid relative z-10 text-center">
+          <h2 className="text-fluid-h2 font-bold text-white">
+            {locale === "es" ? "¿Listo para reservar?" : "Ready to book?"}
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-white/60">
+            {dictionary.howItWorks.subtitle}
+          </p>
+          <div className="mt-8">
+            <Link
+              className="inline-flex min-h-[44px] cursor-pointer items-center rounded-lg bg-[#7C3AED] px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
+              href="/search"
+            >
+              {dictionary.nav.search}
+            </Link>
+          </div>
         </div>
       </section>
     </>

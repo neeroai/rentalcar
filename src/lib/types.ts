@@ -1,10 +1,16 @@
-export type Locale = 'es' | 'en';
+export type Locale = "es" | "en";
 
 export type LocalizedText = Record<Locale, string>;
 
-export type VehicleCategory = 'suv' | 'convertible' | 'luxury' | 'economy' | 'van' | 'business';
+export type VehicleCategory =
+  | "suv"
+  | "convertible"
+  | "luxury"
+  | "economy"
+  | "van"
+  | "business";
 
-export type Transmission = 'Automática' | 'Automatic' | 'Manual';
+export type Transmission = "Automática" | "Automatic" | "Manual";
 
 export interface DeliveryOption {
   label: LocalizedText;
@@ -58,12 +64,13 @@ export interface Vehicle {
   intro: LocalizedText;
   policies: Policy[];
   reviews: Review[];
+  city?: "orlando" | "miami";
 }
 
 export interface Trip {
   id: string;
   vehicleSlug: string;
-  status: 'upcoming' | 'completed';
+  status: "upcoming" | "completed";
   pickupLabel: LocalizedText;
   startDate: string;
   endDate: string;
@@ -102,4 +109,5 @@ export interface SearchFilters {
   instantBook: boolean;
   rating: number;
   sort: string;
+  city?: "orlando" | "miami";
 }

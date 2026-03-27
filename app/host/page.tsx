@@ -1,119 +1,237 @@
-import { ArrowRight, CarFront, PlaneTakeoff, Wallet } from 'lucide-react';
-import Link from 'next/link';
+/**
+ * @file host/page.tsx
+ * @description Host marketing page — hero, benefits grid, earnings calculator, listing steps, and CTA.
+ * @module app/host
+ * @exports HostPage
+ */
 
-import { EarningsCalculator } from '@/components/host-tools';
-import { PageIntro } from '@/components/site-chrome';
-import { getDictionary, getLocale } from '@/lib/i18n';
+import {
+  Clock,
+  DollarSign,
+  Shield,
+  Camera,
+  CalendarDays,
+  Bell,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
+import { EarningsCalculator } from "@/components/host-tools";
+import { SectionHeading } from "@/components/site-chrome";
+import { getDictionary, getLocale } from "@/lib/i18n";
+
+/**
+ * Host marketing page with hero, benefits, earnings calculator, listing steps, and dark CTA.
+ *
+ * @returns Full-page server component.
+ *
+ * @example
+ * // Rendered automatically at /host
+ */
 export default async function HostPage() {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
 
   const benefits = [
     {
-      icon: PlaneTakeoff,
-      title:
-        locale === 'es'
-          ? 'Demanda anclada a viajes reales'
-          : 'Demand anchored to real travel plans',
+      icon: DollarSign,
+      title: locale === "es" ? "Ingresos predecibles" : "Predictable income",
       detail:
-        locale === 'es'
-          ? 'MCO, resorts y hoteles premium crean puntos naturales de demanda.'
-          : 'MCO, resorts and premium hotels create natural demand anchors.',
+        locale === "es"
+          ? "Demanda anclada a viajes reales en MCO, resorts y hoteles premium."
+          : "Demand anchored to real travel plans at MCO, resorts and premium hotels.",
     },
     {
-      icon: Wallet,
-      title:
-        locale === 'es'
-          ? 'Pricing claro para flotas y hosts'
-          : 'Clear pricing for fleets and hosts',
+      icon: Shield,
+      title: locale === "es" ? "Tú fijas las reglas" : "You set the rules",
       detail:
-        locale === 'es'
-          ? 'El producto favorece autos bien posicionados, no guerras de precio.'
-          : 'The product favors well-positioned cars, not price wars.',
+        locale === "es"
+          ? "Define disponibilidad, puntos de entrega y políticas desde tu perfil."
+          : "Define availability, handoff points and policies directly from your profile.",
     },
     {
-      icon: CarFront,
-      title:
-        locale === 'es' ? 'Experiencia de entrega como ventaja' : 'Delivery as a product advantage',
+      icon: Clock,
+      title: locale === "es" ? "Gestión sencilla" : "Simple management",
       detail:
-        locale === 'es'
-          ? 'Hotel, aeropuerto y parques entran como parte del listing.'
-          : 'Hotel, airport and theme-park handoffs are built into the listing itself.',
+        locale === "es"
+          ? "Inbox integrado, confirmaciones automáticas y calendario en un solo lugar."
+          : "Integrated inbox, automatic confirmations and calendar all in one place.",
+    },
+  ];
+
+  const listingSteps = [
+    {
+      icon: Camera,
+      number: "1",
+      title: locale === "es" ? "Sube tus fotos" : "Upload photos",
+      detail:
+        locale === "es"
+          ? "Muestra el interior, exterior y los accesorios más relevantes."
+          : "Showcase the interior, exterior and your most relevant accessories.",
+    },
+    {
+      icon: CalendarDays,
+      number: "2",
+      title:
+        locale === "es"
+          ? "Fija precio y disponibilidad"
+          : "Set price and availability",
+      detail:
+        locale === "es"
+          ? "Elige tu tarifa diaria y bloquea las fechas que no quieres."
+          : "Choose your daily rate and block out dates you do not want.",
+    },
+    {
+      icon: Bell,
+      number: "3",
+      title:
+        locale === "es"
+          ? "Empieza a recibir reservas"
+          : "Start receiving reservations",
+      detail:
+        locale === "es"
+          ? "Recibe notificaciones, acepta solicitudes y coordina con tus huéspedes."
+          : "Get notifications, accept requests and coordinate with your guests.",
     },
   ];
 
   return (
     <>
-      <PageIntro
-        eyebrow="Host side"
-        subtitle={dictionary.host.subtitle}
-        title={dictionary.host.title}
-      />
-
-      <section className="page-grid space-y-10 pb-16 md:space-y-14 md:pb-20">
-        <div className="overflow-hidden rounded-[2.2rem] bg-[#18130f] p-6 text-white md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-            <div>
-              <p className="eyebrow text-[color:var(--accent-soft)]">{dictionary.host.benefits}</p>
-              <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.03em] md:text-6xl">
-                {locale === 'es'
-                  ? 'La propuesta no es “poner un auto online”, sino construir una experiencia de llegada.'
-                  : 'The pitch is not just “list a car online”, but to build a full arrival experience.'}
-              </h2>
-            </div>
-            <div className="flex flex-wrap gap-3 lg:justify-end">
+      {/* Hero */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="page-grid grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#7C3AED]">
+              {dictionary.nav.host}
+            </p>
+            <h1 className="mt-4 text-4xl font-bold leading-tight text-[#231F20] md:text-5xl">
+              {locale === "es" ? "Gana con tu auto" : "Earn with your car"}
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-[#6B7280]">
+              {dictionary.host.subtitle}
+            </p>
+            <div className="mt-8">
               <Link
-                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#18130f]"
+                className="inline-flex min-h-[44px] cursor-pointer items-center rounded-lg bg-[#7C3AED] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
                 href="/host/list-your-car"
               >
-                {dictionary.host.listYourCar}
-              </Link>
-              <Link
-                className="rounded-full border border-white/16 px-6 py-3 text-sm font-semibold"
-                href="/search"
-              >
-                Browse guest side
+                {dictionary.actions.becomeHost}
               </Link>
             </div>
           </div>
+
+          <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+            <Image
+              alt={locale === "es" ? "Llaves de auto" : "Car keys"}
+              className="object-cover"
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
+            />
+          </div>
         </div>
+      </section>
 
-        <EarningsCalculator locale={locale} title={dictionary.host.calculator} />
+      {/* Benefits grid */}
+      <section className="bg-[#F5F5F5] py-16">
+        <div className="page-grid">
+          <SectionHeading
+            eyebrow={dictionary.host.benefits}
+            title={locale === "es" ? "Por qué publicar aquí" : "Why list here"}
+          />
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon;
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {benefits.map((benefit) => {
-            const Icon = benefit.icon;
-
-            return (
-              <article className="surface-strong rounded-[1.8rem] p-6 md:p-8" key={benefit.title}>
-                <Icon className="h-5 w-5 text-[var(--accent)]" />
-                <h2 className="mt-5 font-display text-3xl leading-tight">{benefit.title}</h2>
-                <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-                  {benefit.detail}
-                </p>
-              </article>
-            );
-          })}
+              return (
+                <div
+                  key={benefit.title}
+                  className="rounded-xl border border-[#E5E5E5] bg-white p-6"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EDE9FE]">
+                    <Icon className="h-5 w-5 text-[#7C3AED]" />
+                  </div>
+                  <h3 className="mt-4 text-base font-semibold text-[#231F20]">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+                    {benefit.detail}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
+      </section>
 
-        <div className="surface-strong rounded-[2rem] p-6 md:p-8">
-          <p className="eyebrow">Onboarding preview</p>
-          <div className="mt-4 flex flex-wrap items-end justify-between gap-5">
-            <div className="max-w-2xl">
-              <h2 className="font-display text-4xl">{dictionary.host.wizardTitle}</h2>
-              <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">
-                {locale === 'es'
-                  ? 'Fotos, pricing, disponibilidad y revisión final en un wizard demo listo para presentaciones.'
-                  : 'Photos, pricing, availability and final review sit inside a demo wizard ready for presentations.'}
-              </p>
-            </div>
+      {/* Earnings calculator */}
+      <section className="page-grid py-16">
+        <SectionHeading
+          title={dictionary.host.calculator}
+          subtitle={
+            locale === "es"
+              ? "Estima cuánto puedes generar con tu flota."
+              : "Estimate how much your fleet can generate."
+          }
+        />
+        <div className="mt-8">
+          <EarningsCalculator
+            locale={locale}
+            title={dictionary.host.calculator}
+          />
+        </div>
+      </section>
+
+      {/* Listing steps */}
+      <section className="bg-[#FAF5FF] py-16">
+        <div className="page-grid">
+          <SectionHeading
+            eyebrow={locale === "es" ? "Proceso simple" : "Simple process"}
+            title={dictionary.host.wizardTitle}
+          />
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {listingSteps.map((step) => {
+              const Icon = step.icon;
+
+              return (
+                <div key={step.number} className="flex gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#7C3AED] text-white font-bold text-sm">
+                    {step.number}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <Icon className="h-4 w-4 text-[#7C3AED]" />
+                      <h3 className="text-base font-semibold text-[#231F20]">
+                        {step.title}
+                      </h3>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+                      {step.detail}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-[#231F20] py-16">
+        <div className="page-grid text-center">
+          <h2 className="text-3xl font-bold text-white md:text-4xl">
+            {locale === "es" ? "Lista tu auto hoy" : "List your car today"}
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-white/60">
+            {dictionary.host.title}
+          </p>
+          <div className="mt-8">
             <Link
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]"
+              className="inline-flex min-h-[44px] cursor-pointer items-center rounded-lg bg-[#7C3AED] px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#6D28D9]"
               href="/host/list-your-car"
             >
               {dictionary.host.listYourCar}
-              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

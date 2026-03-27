@@ -1,281 +1,278 @@
-'use client';
+"use client";
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Heart, Star } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import type { ReactNode } from 'react';
-import { useRef } from 'react';
+/**
+ * @file motion-ui.tsx
+ * @description Animated UI components — hero section and Turo-style vehicle listing card.
+ * @module components/motion-ui
+ * @exports HomeHeroIntro, VehicleCard
+ */
 
-import type { Locale, Vehicle } from '@/lib/types';
-import { formatCurrency, getLocalizedText } from '@/lib/utils';
+import { ChevronLeft, ChevronRight, Heart, Star, Zap } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
+import type { Locale, Vehicle } from "@/lib/types";
+
+// ---------------------------------------------------------------------------
+// HomeHeroIntro
+// ---------------------------------------------------------------------------
 
 interface HomeHeroIntroProps {
-  eyebrow: string;
-  title: string;
-  subtitle: string;
-  primaryLabel: string;
-  secondaryLabel: string;
-  children: ReactNode;
+  locale?: Locale;
 }
 
-export function HomeHeroIntro({
-  eyebrow,
-  title,
-  subtitle,
-  primaryLabel,
-  secondaryLabel,
-  children,
-}: HomeHeroIntroProps) {
+/**
+ * Full-width hero section with animated headline, subtitle, and popular search pills.
+ * The search form is rendered externally by the homepage page.tsx via children slot.
+ *
+ * @param locale - Active locale (reserved for future i18n use).
+ * @returns Hero section element with entrance animations.
+ *
+ * @example
+ * <HomeHeroIntro locale="es" />
+ */
+export function HomeHeroIntro({ locale: _locale }: HomeHeroIntroProps) {
+  const pills = [
+    { label: "Orlando · MCO", href: "/search?pickup=mco" },
+    { label: "Miami · MIA", href: "/search?pickup=mia" },
+    { label: "Disney Resorts", href: "/search?pickup=mco&category=suv" },
+    { label: "SUVs familiares", href: "/search?category=suv" },
+  ];
+
   return (
     <section
-      className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden text-white"
+      className="relative flex min-h-[560px] items-center overflow-hidden"
       data-testid="home-hero"
     >
-      <div className="absolute inset-0">
-        <Image
-          alt="Premium car rental lifestyle in Orlando"
-          className="h-full w-full object-cover"
-          fill
-          priority
-          sizes="100vw"
-          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80"
-        />
-        <div className="hero-overlay absolute inset-0" />
-      </div>
+      {/* Background image */}
+      <Image
+        alt="SUV en carretera abierta, Florida"
+        className="object-cover"
+        fill
+        priority
+        sizes="100vw"
+        src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1600&q=80"
+      />
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/60" />
 
-      <div className="grain absolute inset-0" />
+      <div className="page-grid relative z-10 w-full py-16">
+        <div className="mx-auto max-w-2xl text-center">
+          <h1 className="animate-fade-up text-fluid-h1 font-bold text-white">
+            Encuentra tu auto ideal
+          </h1>
 
-      <div className="page-grid relative flex min-h-[calc(100svh-4rem)] flex-col justify-end py-12 md:py-20">
-        <motion.div
-          animate="visible"
-          className="max-w-3xl"
-          initial="hidden"
-          transition={{ staggerChildren: 0.12, delayChildren: 0.15 }}
-          variants={{
-            hidden: {},
-            visible: {},
-          }}
-        >
-          <motion.p
-            className="eyebrow mb-5 text-[color:var(--accent-soft)]"
-            variants={{
-              hidden: { opacity: 0, y: 24 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            {eyebrow}
-          </motion.p>
-          <motion.h1
-            className="font-display max-w-5xl text-[clamp(3rem,7vw,6.4rem)] leading-[0.95] tracking-[-0.03em]"
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            {title}
-          </motion.h1>
-          <motion.p
-            className="mt-6 max-w-2xl text-base leading-7 text-white/78 md:text-xl md:leading-8"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            {subtitle}
-          </motion.p>
-          <motion.div
-            className="mt-8 flex flex-wrap gap-3"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-          >
-            <Link
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#18130f] transition hover:bg-[#f4e8dc] md:text-base"
-              href="/search"
-            >
-              {primaryLabel}
-            </Link>
-            <Link
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10 md:text-base"
-              href="/how-it-works"
-            >
-              {secondaryLabel}
-            </Link>
-          </motion.div>
-        </motion.div>
+          <p className="animate-fade-up-d1 mt-4 text-lg text-white/80">
+            Vehículos curados con entrega en tu hotel o aeropuerto. Orlando y
+            Miami.
+          </p>
 
-        <motion.div
-          className="mt-10"
-          initial={{ opacity: 0, y: 28 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          {children}
-        </motion.div>
+          {/* Pills */}
+          <div className="animate-fade-up-d2 mt-6 flex flex-wrap justify-center gap-2">
+            {pills.map((pill) => (
+              <Link
+                className="cursor-pointer rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-sm text-white/90 transition-colors hover:bg-white/20"
+                href={pill.href}
+                key={pill.href}
+              >
+                {pill.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
-interface StickyJourneyStoryProps {
-  steps: {
-    title: string;
-    detail: string;
-    image: string;
-  }[];
-}
-
-export function StickyJourneyStory({ steps }: StickyJourneyStoryProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  });
-
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
-  const imageOpacity = useTransform(scrollYProgress, [0, 1], [0.62, 1]);
-
-  return (
-    <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr]" ref={containerRef}>
-      <div className="lg:sticky lg:top-24 lg:h-[32rem]">
-        <motion.div
-          className="relative h-[26rem] overflow-hidden rounded-[2rem] lg:h-full"
-          style={{ scale: imageScale }}
-        >
-          <Image
-            alt={steps[0]?.title ?? 'Orlando travel delivery story'}
-            className="h-full w-full object-cover"
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            src={steps[0]?.image ?? ''}
-          />
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-[#120e0b] via-[#120e0b]/35 to-transparent"
-            style={{ opacity: imageOpacity }}
-          />
-          <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-            <p className="eyebrow text-[color:var(--accent-soft)]">Journey design</p>
-            <p className="mt-3 max-w-md font-display text-3xl leading-tight">
-              Airport, hotel and theme-park delivery become a narrative, not a footnote.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-      <div className="space-y-6 lg:space-y-12">
-        {steps.map((step, index) => (
-          <motion.article
-            className="surface-strong rounded-[1.75rem] p-7 md:p-9"
-            initial={{ opacity: 0, y: 24 }}
-            key={step.title}
-            transition={{ duration: 0.45, delay: index * 0.08 }}
-            viewport={{ once: true, margin: '-15%' }}
-            whileInView={{ opacity: 1, y: 0 }}
-          >
-            <span className="eyebrow">0{index + 1}</span>
-            <h3 className="mt-4 font-display text-3xl leading-tight md:text-[2.2rem]">
-              {step.title}
-            </h3>
-            <p className="mt-4 max-w-xl text-base leading-7 text-[color:var(--muted)] md:text-lg">
-              {step.detail}
-            </p>
-          </motion.article>
-        ))}
-      </div>
-    </div>
-  );
-}
+// ---------------------------------------------------------------------------
+// VehicleCard
+// ---------------------------------------------------------------------------
 
 interface VehicleCardProps {
   locale: Locale;
   vehicle: Vehicle;
-  ctaLabel: string;
-  metaLabel: string;
-  href: string;
+  /** @deprecated Use vehicle.slug directly — kept for backwards compat */
+  ctaLabel?: string;
+  /** @deprecated Not used in new design */
+  metaLabel?: string;
+  href?: string;
 }
 
-export function VehicleCard({ locale, vehicle, ctaLabel, metaLabel, href }: VehicleCardProps) {
-  const title = `${vehicle.year} ${vehicle.make} ${vehicle.model}`;
+/**
+ * Turo-style listing card with image carousel, rating, price, and save button.
+ * Images cycle via arrow buttons (visible on group-hover) and dot indicators.
+ *
+ * @param locale - Active locale for i18n text.
+ * @param vehicle - Vehicle data object from @/lib/types.
+ * @param href - Optional override for the card link destination.
+ * @returns Clickable vehicle listing card.
+ *
+ * @example
+ * <VehicleCard locale="es" vehicle={vehicle} />
+ */
+export function VehicleCard({ locale, vehicle, href }: VehicleCardProps) {
+  const [currentImg, setCurrentImg] = useState(0);
+  const [saved, setSaved] = useState(false);
+
+  const images =
+    vehicle.images.length > 0 ? vehicle.images : ["/placeholder-car.jpg"];
+  const cardHref = href ?? `/vehicle/${vehicle.slug}`;
+
+  /**
+   * Navigate to the previous image in the carousel.
+   *
+   * @param e - Mouse event (prevents default link navigation).
+   */
+  const prev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setCurrentImg((i) => (i === 0 ? images.length - 1 : i - 1));
+  };
+
+  /**
+   * Navigate to the next image in the carousel.
+   *
+   * @param e - Mouse event (prevents default link navigation).
+   */
+  const next = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setCurrentImg((i) => (i === images.length - 1 ? 0 : i + 1));
+  };
+
+  /**
+   * Toggle the saved/wishlist state for this vehicle.
+   *
+   * @param e - Mouse event (prevents default link navigation).
+   */
+  const toggleSaved = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setSaved((s) => !s);
+  };
+
+  const categoryLabel =
+    {
+      suv: "SUV",
+      convertible: "Convertible",
+      luxury: locale === "es" ? "Lujo" : "Luxury",
+      economy: locale === "es" ? "Económico" : "Economy",
+      van: "Van",
+      business: locale === "es" ? "Ejecutivo" : "Business",
+    }[vehicle.category] ?? vehicle.category;
 
   return (
-    <motion.article
-      className="group overflow-hidden rounded-[1.75rem] border border-black/10 bg-[#fffaf4] shadow-[0_24px_60px_rgba(24,19,15,0.08)]"
-      initial={{ opacity: 0, y: 14 }}
-      transition={{ duration: 0.35 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-    >
-      <div className="relative overflow-hidden">
-        <div className="absolute left-4 top-4 z-10 flex gap-2">
-          {vehicle.instantBook ? (
-            <span className="rounded-full bg-[#18130f]/82 px-3 py-1 text-xs font-semibold text-white">
-              {metaLabel}
-            </span>
-          ) : null}
-        </div>
-        <button
-          className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-md transition hover:bg-white/24"
-          type="button"
-        >
-          <Heart className="h-4 w-4" />
-        </button>
-        <motion.div transition={{ duration: 0.35 }} whileHover={{ scale: 1.04 }}>
+    <Link className="block cursor-pointer" href={cardHref}>
+      <div className="animate-fade-up group overflow-hidden rounded-xl border border-[#E5E5E5] bg-white shadow-sm transition-shadow duration-200 hover:shadow-md">
+        {/* ---------------------------------------------------------------- */}
+        {/* IMAGE CAROUSEL                                                     */}
+        {/* ---------------------------------------------------------------- */}
+        <div className="relative aspect-[4/3] overflow-hidden bg-[#F5F5F5]">
           <Image
-            alt={title}
-            className="aspect-[4/3] w-full object-cover"
-            height={680}
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            src={vehicle.images[0]}
-            width={920}
+            alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            fill
+            sizes="(max-width: 640px) 100vw, 400px"
+            src={images[currentImg]}
           />
-        </motion.div>
-      </div>
-      <div className="space-y-4 p-5">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3 className="font-display text-2xl leading-tight">{title}</h3>
-            <p className="mt-2 text-sm text-[color:var(--muted)]">
-              {getLocalizedText(locale, vehicle.intro)}
-            </p>
-          </div>
-          <div className="flex items-center gap-1 text-sm font-semibold">
-            <Star className="h-4 w-4 fill-current text-[color:var(--accent)]" />
-            {vehicle.rating}
-          </div>
-        </div>
 
-        <div className="flex flex-wrap gap-2 text-xs text-[color:var(--muted)]">
-          <span className="rounded-full border border-black/10 px-3 py-1">
-            {vehicle.seats} {locale === 'es' ? 'asientos' : 'seats'}
-          </span>
-          <span className="rounded-full border border-black/10 px-3 py-1">
-            {vehicle.transmission}
-          </span>
-          <span className="rounded-full border border-black/10 px-3 py-1">{vehicle.fuelType}</span>
-        </div>
+          {/* InstantBook badge */}
+          {vehicle.instantBook && (
+            <div className="absolute left-2 top-2 z-10 flex items-center gap-1 rounded-full bg-[#231F20] px-2 py-0.5 text-[10px] font-semibold text-white">
+              <Zap className="h-3 w-3 fill-white" />
+              {locale === "es" ? "Reserva ya" : "Book now"}
+            </div>
+          )}
 
-        <div className="flex items-end justify-between gap-4 border-t border-black/8 pt-4">
-          <div>
-            <p className="text-sm text-[color:var(--muted)]">{vehicle.host.name}</p>
-            <p className="text-xl font-semibold">
-              {formatCurrency(vehicle.pricePerDay, locale)}
-              <span className="text-sm font-medium text-[color:var(--muted)]">
-                {' '}
-                {locale === 'es' ? '/día' : '/day'}
-              </span>
-            </p>
-          </div>
-          <Link
-            className="rounded-full bg-[#18130f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#2b241e]"
-            href={href}
+          {/* Heart / save button */}
+          <button
+            aria-label={saved ? "Quitar de guardados" : "Guardar"}
+            className="absolute right-2 top-2 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white shadow transition-transform hover:scale-110"
+            onClick={toggleSaved}
+            type="button"
           >
-            {ctaLabel}
-          </Link>
+            <Heart
+              className={`h-4 w-4 transition-colors ${saved ? "fill-[#7C3AED] text-[#7C3AED]" : "text-[#231F20]"}`}
+            />
+          </button>
+
+          {/* Prev arrow */}
+          {images.length > 1 && (
+            <button
+              aria-label="Imagen anterior"
+              className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 shadow transition-opacity group-hover:opacity-100"
+              onClick={prev}
+              type="button"
+            >
+              <ChevronLeft className="h-4 w-4 text-[#231F20]" />
+            </button>
+          )}
+
+          {/* Next arrow */}
+          {images.length > 1 && (
+            <button
+              aria-label="Siguiente imagen"
+              className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 shadow transition-opacity group-hover:opacity-100"
+              onClick={next}
+              type="button"
+            >
+              <ChevronRight className="h-4 w-4 text-[#231F20]" />
+            </button>
+          )}
+
+          {/* Dot indicators */}
+          {images.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-1">
+              {images.map((_, i) => (
+                <div
+                  className={`h-1.5 w-1.5 rounded-full transition-colors ${i === currentImg ? "bg-white" : "bg-white/50"}`}
+                  key={i}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* ---------------------------------------------------------------- */}
+        {/* CARD INFO                                                          */}
+        {/* ---------------------------------------------------------------- */}
+        <div className="p-3">
+          {/* Line 1: Make + Model + Year */}
+          <h3 className="text-sm font-semibold leading-snug text-[#231F20]">
+            {vehicle.year} {vehicle.make} {vehicle.model}
+          </h3>
+
+          {/* Line 2: Rating + trips + superhost */}
+          <div className="mt-1 flex items-center gap-1">
+            <Star className="h-3.5 w-3.5 fill-[#22C55E] text-[#22C55E]" />
+            <span className="text-xs font-semibold text-[#231F20]">
+              {vehicle.rating}
+            </span>
+            <span className="text-xs text-[#6B7280]">
+              ({vehicle.tripsCount} {locale === "es" ? "viajes" : "trips"})
+            </span>
+            {vehicle.host.isSuperhost && (
+              <span className="ml-1 rounded-full bg-[#EDE9FE] px-1.5 py-0.5 text-[10px] font-semibold text-[#7C3AED]">
+                All-Star
+              </span>
+            )}
+          </div>
+
+          {/* Line 3: Category + transmission */}
+          <p className="mt-0.5 text-xs text-[#6B7280]">
+            {categoryLabel} · {vehicle.transmission}
+          </p>
+
+          {/* Line 4: Price */}
+          <div className="mt-2 flex items-baseline gap-1">
+            <span className="text-base font-bold text-[#231F20]">
+              ${vehicle.pricePerDay}
+            </span>
+            <span className="text-xs text-[#6B7280]">
+              {locale === "es" ? "/día" : "/day"}
+            </span>
+          </div>
         </div>
       </div>
-    </motion.article>
+    </Link>
   );
 }

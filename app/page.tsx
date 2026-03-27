@@ -1,258 +1,366 @@
-import { ArrowRight, CircleCheckBig, Plane, ShieldCheck, Sparkles } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+/**
+ * @file page.tsx
+ * @description Homepage for rentatelo.com — Turo-inspired layout with hero, browse sections, featured listings, and host CTA.
+ * @module app/page
+ * @exports HomePage
+ */
 
-import { HomeHeroIntro, StickyJourneyStory, VehicleCard } from '@/components/motion-ui';
-import { ReviewHighlight, SearchHeroForm, SectionHeading } from '@/components/site-chrome';
-import { vehicleCategories, vehicles } from '@/data/mock';
-import { getDictionary, getLocale } from '@/lib/i18n';
-import type { VehicleCategory } from '@/lib/types';
-import { createQueryString, getLocalizedText } from '@/lib/utils';
+import { Car, MessageCircle, Search, Star, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
-const categoryVisuals: Record<VehicleCategory, string> = {
-  suv: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=80',
-  convertible:
-    'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80',
-  luxury:
-    'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80',
-  economy:
-    'https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=1200&q=80',
-  van: 'https://images.unsplash.com/photo-1532581140115-3e355d1ed1de?auto=format&fit=crop&w=1200&q=80',
-  business:
-    'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80',
-};
+import { HomeHeroIntro, VehicleCard } from "@/components/motion-ui";
+import { SearchHeroForm, SectionHeading } from "@/components/site-chrome";
+import { vehicles } from "@/data/mock";
+import { getDictionary, getLocale } from "@/lib/i18n";
+import { createQueryString } from "@/lib/utils";
 
+// ---------------------------------------------------------------------------
+// Unique makes derived from vehicle data
+// ---------------------------------------------------------------------------
+
+const uniqueMakes = [...new Set(vehicles.map((v) => v.make))];
+
+// ---------------------------------------------------------------------------
+// Trust stats derived from vehicle data
+// ---------------------------------------------------------------------------
+
+const totalTrips = vehicles.reduce((sum, v) => sum + v.tripsCount, 0);
+const avgRating = (
+  vehicles.reduce((sum, v) => sum + v.rating, 0) / vehicles.length
+).toFixed(2);
+const totalHosts = new Set(vehicles.map((v) => v.host.name)).size;
+
+// ---------------------------------------------------------------------------
+// Experience categories
+// ---------------------------------------------------------------------------
+
+const experiences = [
+  {
+    label: "Familias",
+    labelEn: "Families",
+    href: "/search?category=suv",
+    image:
+      "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    label: "Ejecutivo",
+    labelEn: "Business",
+    href: "/search?category=business",
+    image:
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    label: "Convertibles",
+    labelEn: "Convertibles",
+    href: "/search?category=convertible",
+    image:
+      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=800&q=80",
+  },
+  {
+    label: "Económico",
+    labelEn: "Economy",
+    href: "/search?category=economy",
+    image:
+      "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=800&q=80",
+  },
+] as const;
+
+// ---------------------------------------------------------------------------
+// How it works steps
+// ---------------------------------------------------------------------------
+
+const howItWorksSteps = [
+  {
+    icon: Search,
+    titleEs: "Elige tu auto",
+    titleEn: "Choose your car",
+    detailEs: "Busca por ciudad, fecha y tipo de vehículo",
+    detailEn: "Search by city, date and vehicle type",
+    image:
+      "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    icon: MessageCircle,
+    titleEs: "Conecta con el host",
+    titleEn: "Connect with host",
+    detailEs: "Confirma pickup y detalles directamente",
+    detailEn: "Confirm pickup and details directly",
+    image:
+      "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    icon: Car,
+    titleEs: "Disfruta el viaje",
+    titleEn: "Enjoy the ride",
+    detailEs: "Recibe el auto en tu hotel o aeropuerto",
+    detailEn: "Receive the car at your hotel or airport",
+    image:
+      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=600&q=80",
+  },
+] as const;
+
+// ---------------------------------------------------------------------------
+// HomePage
+// ---------------------------------------------------------------------------
+
+/**
+ * Homepage server component — renders all sections from hero to host CTA.
+ *
+ * @returns Full homepage layout with hero, browse by make/destination/experience,
+ *          featured listings, how it works, trust signals, and host CTA.
+ *
+ * @example
+ * // Rendered automatically by Next.js at /
+ * <HomePage />
+ */
 export default async function HomePage() {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
 
-  const featuredVehicles = vehicles.slice(0, 3);
+  const featuredVehicles = vehicles.slice(0, 6);
   const searchDefaults = {
-    pickup: 'mco',
-    start: '2026-04-18',
-    end: '2026-04-22',
-    time: '10:00',
+    pickup: "mco",
+    start: "2026-04-18",
+    end: "2026-04-22",
+    time: "10:00",
   };
-
-  const stickySteps = [
-    {
-      title:
-        locale === 'es'
-          ? 'Aterrizas en MCO y ya sabes exactamente dónde recibirás el auto.'
-          : 'Land at MCO and know exactly where the car handoff will happen.',
-      detail:
-        locale === 'es'
-          ? 'La experiencia prioriza claridad logística desde la búsqueda. No dependes de un counter genérico ni de llamadas improvisadas.'
-          : 'The flow prioritizes logistical clarity from the search step. No generic counter and no improvised calls.',
-      image:
-        'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1600&q=80',
-    },
-    {
-      title:
-        locale === 'es'
-          ? 'Si te hospedas en Disney o International Drive, el auto llega al ritmo de tu itinerario.'
-          : 'If you are staying near Disney or International Drive, delivery follows the rhythm of your itinerary.',
-      detail:
-        locale === 'es'
-          ? 'El producto integra hoteles, resorts y parques como puntos de entrega naturales, no como excepciones.'
-          : 'The product treats hotels, resorts and parks as natural handoff points, not edge cases.',
-      image:
-        'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1600&q=80',
-    },
-    {
-      title:
-        locale === 'es'
-          ? 'Antes de pagar ves políticas, reputación y señales de confianza reales.'
-          : 'Before checkout you see policies, reputation and meaningful trust signals.',
-      detail:
-        locale === 'es'
-          ? 'La interfaz elimina ambigüedad para familias, parejas y viajeros de negocio que necesitan decidir rápido.'
-          : 'The interface removes ambiguity for families, couples and business travelers who need to decide quickly.',
-      image:
-        'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1600&q=80',
-    },
-  ];
 
   return (
     <>
-      <HomeHeroIntro
-        eyebrow={dictionary.hero.eyebrow}
-        primaryLabel={dictionary.hero.primaryCta}
-        secondaryLabel={dictionary.hero.secondaryCta}
-        subtitle={dictionary.hero.subtitle}
-        title={dictionary.hero.title}
-      >
-        <SearchHeroForm dictionary={dictionary} locale={locale} />
-      </HomeHeroIntro>
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 1: HERO                                                      */}
+      {/* ------------------------------------------------------------------ */}
+      <HomeHeroIntro locale={locale} />
+      <div className="page-grid -mt-6 pb-6 relative z-10">
+        <SearchHeroForm
+          defaults={searchDefaults}
+          dictionary={dictionary}
+          locale={locale}
+        />
+      </div>
 
-      <section className="page-grid py-16 md:py-24">
-        <div className="grid gap-4 md:grid-cols-3">
-          {dictionary.home.valueProps.map((item, index) => {
-            const Icon = [Plane, Sparkles, ShieldCheck][index] ?? CircleCheckBig;
-
-            return (
-              <article className="surface-strong rounded-[1.75rem] p-6 md:p-8" key={item.title}>
-                <Icon className="h-5 w-5 text-[var(--accent)]" />
-                <h2 className="mt-5 font-display text-3xl leading-tight">{item.title}</h2>
-                <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">{item.detail}</p>
-              </article>
-            );
-          })}
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 2: BROWSE BY MAKE                                            */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="page-grid py-14">
+        <SectionHeading
+          eyebrow={dictionary.home.browseByMake}
+          title={locale === "es" ? "Explora por marca" : "Browse by make"}
+        />
+        <div className="mt-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+          {uniqueMakes.map((make) => (
+            <Link
+              key={make}
+              href={`/search?${createQueryString({ ...searchDefaults, make })}`}
+              className="bg-white border border-[#E5E5E5] rounded-xl p-4 flex flex-col items-center gap-2 hover:border-[#7C3AED] transition-colors cursor-pointer text-sm font-medium text-[#231F20] min-h-[44px] justify-center"
+            >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#EDE9FE] text-base font-bold text-[#7C3AED]">
+                {make[0]}
+              </span>
+              <span className="text-center leading-tight">{make}</span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      <section className="page-grid pb-20 md:pb-28">
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 3: BROWSE BY DESTINATION                                    */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="page-grid py-14">
         <SectionHeading
-          eyebrow="Curated categories"
-          subtitle={dictionary.home.categoriesSubtitle}
-          title={dictionary.home.categoriesTitle}
+          eyebrow={dictionary.home.browseByDestination}
+          title={
+            locale === "es" ? "Explora por destino" : "Browse by destination"
+          }
         />
-        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {vehicleCategories.map((category) => (
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Orlando */}
+          <Link
+            href={`/search?${createQueryString({ ...searchDefaults, pickup: "mco" })}`}
+            className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[4/3] cursor-pointer block"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1514214246283-d427a95c5d2f?auto=format&fit=crop&w=800&q=80"
+              alt="Orlando"
+              fill
+              className="object-cover transition-transform duration-300 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <h3 className="text-2xl font-bold">Orlando</h3>
+              <p className="text-white/80 text-sm mt-1">
+                {locale === "es"
+                  ? "75M visitantes · Disney, Universal"
+                  : "75M visitors · Disney, Universal"}
+              </p>
+            </div>
+          </Link>
+
+          {/* Miami */}
+          <Link
+            href={`/search?${createQueryString({ ...searchDefaults, pickup: "mco" })}`}
+            className="relative rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[4/3] cursor-pointer block"
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80"
+              alt="Miami"
+              fill
+              className="object-cover transition-transform duration-300 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <h3 className="text-2xl font-bold">Miami</h3>
+              <p className="text-white/80 text-sm mt-1">
+                {locale === "es"
+                  ? "28M visitantes · South Beach, Brickell"
+                  : "28M visitors · South Beach, Brickell"}
+              </p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 4: FEATURED LISTINGS                                         */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="page-grid py-14">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <SectionHeading
+            eyebrow={locale === "es" ? "Destacados" : "Featured"}
+            title={
+              locale === "es" ? "Vehículos destacados" : "Featured vehicles"
+            }
+          />
+          <Link
+            href="/search"
+            className="text-sm font-semibold text-[#7C3AED] hover:text-[#6D28D9] transition-colors"
+          >
+            {dictionary.actions.exploreCars}
+          </Link>
+        </div>
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {featuredVehicles.map((vehicle) => (
+            <VehicleCard
+              key={vehicle.slug}
+              locale={locale}
+              vehicle={vehicle}
+              href={`/vehicle/${vehicle.slug}?${createQueryString({ ...searchDefaults, slug: vehicle.slug })}`}
+            />
+          ))}
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 5: BROWSE BY EXPERIENCE                                      */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="page-grid py-14">
+        <SectionHeading
+          eyebrow={dictionary.home.browseByExperience}
+          title={
+            locale === "es" ? "Explora por experiencia" : "Browse by experience"
+          }
+        />
+        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {experiences.map((exp) => (
             <Link
-              className="group relative isolate overflow-hidden rounded-[2rem] border border-black/8"
-              href={`/search?${createQueryString({ ...searchDefaults, category: category.value })}`}
-              key={category.value}
+              key={exp.href}
+              href={exp.href}
+              className="relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer block"
             >
               <Image
-                alt={getLocalizedText(locale, category.label)}
-                className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
-                height={900}
-                sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                src={categoryVisuals[category.value as VehicleCategory]}
-                width={1200}
+                src={exp.image}
+                alt={locale === "es" ? exp.label : exp.labelEn}
+                fill
+                className="object-cover transition-transform duration-300 hover:scale-105"
+                sizes="(max-width: 768px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#100c09] via-[#100c09]/12 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <p className="font-display text-3xl leading-tight">
-                  {getLocalizedText(locale, category.label)}
-                </p>
-                <span className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-white/80">
-                  {dictionary.actions.exploreCars}
-                  <ArrowRight className="h-4 w-4" />
-                </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 className="text-sm font-bold">
+                  {locale === "es" ? exp.label : exp.labelEn}
+                </h3>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="section-divider py-20 md:py-28">
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 6: HOW IT WORKS                                              */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="bg-[#F5F5F5] py-16 md:py-20">
         <div className="page-grid">
           <SectionHeading
-            eyebrow="Arrival story"
-            subtitle={dictionary.home.convenienceSubtitle}
-            title={dictionary.home.convenienceTitle}
+            eyebrow={dictionary.nav.howItWorks}
+            title={locale === "es" ? "Cómo funciona" : "How it works"}
           />
-          <div className="mt-12">
-            <StickyJourneyStory steps={stickySteps} />
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+            {howItWorksSteps.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.titleEs} className="flex flex-col gap-4">
+                  {/* Step image */}
+                  <div className="relative aspect-video rounded-xl overflow-hidden">
+                    <Image
+                      src={step.image}
+                      alt={locale === "es" ? step.titleEs : step.titleEn}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 bg-[#7C3AED] text-white rounded-full flex items-center justify-center font-bold shrink-0">
+                      {index + 1}
+                    </div>
+                    <Icon className="w-5 h-5 text-[#7C3AED]" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-[#231F20] text-base">
+                      {locale === "es" ? step.titleEs : step.titleEn}
+                    </h3>
+                    <p className="mt-1 text-sm text-[#6B7280] leading-relaxed">
+                      {locale === "es" ? step.detailEs : step.detailEn}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="page-grid py-20 md:py-28">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading
-            eyebrow="Featured picks"
-            title={
-              locale === 'es'
-                ? 'Vehículos pensados para casos de uso reales.'
-                : 'Vehicles tuned to real trip scenarios.'
-            }
-          />
-          <Link className="text-sm font-semibold text-[var(--accent)]" href="/search">
-            {dictionary.actions.exploreCars}
-          </Link>
-        </div>
-        <div className="mt-10 grid gap-5 xl:grid-cols-3">
-          {featuredVehicles.map((vehicle) => (
-            <VehicleCard
-              ctaLabel={locale === 'es' ? 'Ver detalle' : 'See details'}
-              href={`/vehicle/${vehicle.slug}?${createQueryString({ ...searchDefaults, slug: vehicle.slug })}`}
-              key={vehicle.slug}
-              locale={locale}
-              metaLabel={dictionary.common.instantBook}
-              vehicle={vehicle}
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="section-divider py-20 md:py-28">
-        <div className="page-grid grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <SectionHeading
-            eyebrow="Trust"
-            subtitle={dictionary.home.trustSubtitle}
-            title={dictionary.home.trustTitle}
-          />
-          <ReviewHighlight
-            detail={
-              locale === 'es'
-                ? 'Los detalles operativos aparecen donde realmente reducen ansiedad: pickup, entregas, tiempo de respuesta y políticas visibles.'
-                : 'Operational details appear where they reduce anxiety the most: pickup, delivery, response time and visible policies.'
-            }
-            image="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
-            name={
-              locale === 'es'
-                ? 'Familia Gutiérrez · Bogotá a Orlando'
-                : 'The Gutierrez family · Bogotá to Orlando'
-            }
-            quote={
-              locale === 'es'
-                ? '“Reservar se sintió tan claro como escoger un buen hotel.”'
-                : '"Booking felt as clear as choosing a good hotel."'
-            }
-          />
-        </div>
-      </section>
-
-      <section className="page-grid py-20 md:py-28">
-        <SectionHeading
-          eyebrow="How it works"
-          subtitle={dictionary.home.finalSubtitle}
-          title={dictionary.home.howTitle}
-        />
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {dictionary.home.howSteps.map((step, index) => (
-            <article
-              className="rounded-[1.75rem] border border-black/8 bg-[#f7f1e8] p-6 md:p-8"
-              key={step.title}
-            >
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-                0{index + 1}
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 7: TRUST SIGNALS                                             */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="section-gradient-down py-14">
+        <div className="page-grid">
+          <div className="grid grid-cols-3 gap-4">
+            <div className="text-center p-6 bg-white border border-[#E5E5E5] rounded-xl">
+              <Car className="w-6 h-6 text-[#7C3AED] mx-auto mb-2" />
+              <p className="text-3xl font-bold text-[#7C3AED]">
+                {totalTrips.toLocaleString()}+
               </p>
-              <h3 className="mt-4 font-display text-3xl leading-tight">{step.title}</h3>
-              <p className="mt-4 text-base leading-7 text-[color:var(--muted)]">{step.detail}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="page-grid pb-20 md:pb-28">
-        <div className="overflow-hidden rounded-[2.25rem] bg-[#18130f] px-6 py-10 text-white md:px-10 md:py-14">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div>
-              <p className="eyebrow text-[color:var(--accent-soft)]">rentatelo.com</p>
-              <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.03em] md:text-6xl">
-                {dictionary.home.finalTitle}
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-white/70 md:text-lg">
-                {dictionary.home.finalSubtitle}
+              <p className="text-[#6B7280] text-sm mt-1">
+                {dictionary.home.trustTripsCount}
               </p>
             </div>
-            <div className="flex flex-wrap gap-3 lg:justify-end">
-              <Link
-                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#18130f]"
-                href="/search"
-              >
-                {dictionary.actions.exploreCars}
-              </Link>
-              <Link
-                className="rounded-full border border-white/16 px-6 py-3 text-sm font-semibold"
-                href="/host"
-              >
-                {dictionary.actions.becomeHost}
-              </Link>
+            <div className="text-center p-6 bg-white border border-[#E5E5E5] rounded-xl">
+              <Star className="w-6 h-6 text-[#7C3AED] mx-auto mb-2" />
+              <p className="text-3xl font-bold text-[#7C3AED]">{avgRating}</p>
+              <p className="text-[#6B7280] text-sm mt-1">
+                {dictionary.home.trustRating}
+              </p>
+            </div>
+            <div className="text-center p-6 bg-white border border-[#E5E5E5] rounded-xl">
+              <Users className="w-6 h-6 text-[#7C3AED] mx-auto mb-2" />
+              <p className="text-3xl font-bold text-[#7C3AED]">{totalHosts}</p>
+              <p className="text-[#6B7280] text-sm mt-1">
+                {dictionary.home.trustHostsCount}
+              </p>
             </div>
           </div>
         </div>
